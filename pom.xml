@@ -9,12 +9,12 @@
         <relativePath />
     </parent>
 
-    <groupId>com.shekhargulati.starters.ngboot</groupId>
-    <artifactId>spring-boot-angular-starter</artifactId>
+    <groupId>com.linkdin.webdev</groupId>
+    <artifactId>linkdin</artifactId>
     <version>0.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>spring-boot-angular-starter</name>
-    <description>Spring Boot Angular Starter Project</description>
+    <name>linkdin</name>
+    <description>LinkDIn Project</description>
 
     <modules>
         <module>frontend</module>
@@ -26,18 +26,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
-
-    <scm>
-        <url>https://github.com/shekhargulati/spring-boot-maven-angular-starter/</url>
-        <connection>scm:git:https://github.com/shekhargulati/spring-boot-maven-angular-starter.git</connection>
-        <developerConnection>scm:git:git@github.com:shekhargulati/spring-boot-maven-angular-starter.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/shekhargulati/spring-boot-maven-angular-starter/issues</url>
-    </issueManagement>
 
     <build>
         <pluginManagement>
@@ -96,6 +84,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
