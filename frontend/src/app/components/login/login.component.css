@@ -5,17 +5,16 @@
  * General styles
  */
 body, html {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
   height: 100%;
   background-repeat: no-repeat;
   background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
 }
 
-
 .background-img {
   /*background-image: url("../../../assets/images/welcome_page_image_16_9.jpg");*/
-  /*background-color: #404040;*/
+
   background-size: cover;
   background-repeat: no-repeat;
   height: auto;
@@ -26,6 +25,16 @@ body, html {
   -webkit-filter: blur(3px);
   filter: blur(3px);
 
+}
+
+.layer {
+  background-color: #263238;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 .card-container.card {
@@ -118,8 +127,8 @@ body, html {
 .form-signin .form-control:focus {
   border-color: rgb(104, 145, 162);
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(104, 145, 162);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(104, 145, 162);
 }
 
 .btn.btn-signin {
@@ -152,6 +161,6 @@ body, html {
 
 .forgot-password:hover,
 .forgot-password:active,
-.forgot-password:focus{
+.forgot-password:focus {
   color: rgb(12, 97, 33);
 }
