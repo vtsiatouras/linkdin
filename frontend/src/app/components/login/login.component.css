@@ -152,15 +152,16 @@ body, html {
 .btn.btn-signin:hover,
 .btn.btn-signin:active,
 .btn.btn-signin:focus {
-  background-color: rgb(12, 97, 33);
+  background-color: #006394;
 }
 
-.forgot-password {
+.register {
+  text-align: center;
   color: rgb(104, 145, 162);
 }
 
-.forgot-password:hover,
-.forgot-password:active,
-.forgot-password:focus {
-  color: rgb(12, 97, 33);
+.register:hover,
+.register:active,
+.register:focus {
+  color: #006394;
 }

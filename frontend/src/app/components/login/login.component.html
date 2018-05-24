@@ -4,7 +4,6 @@
   </div>
   <div class="container">
     <div class="card card-container">
-      <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
       <img id="logo-img" class="logo-img-card" src="../../../assets/images/linkDIn.png"/>
       <p id="profile-name" class="profile-name-card"></p>
       <form class="form-signin">
@@ -18,21 +17,10 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
       </form><!-- /form -->
-      <a href="#" class="forgot-password">
-        Forgot the password?
+      <a [routerLink]="['/register']" class="register">
+        New to linkDIn? Register now!
       </a>
     </div><!-- /card-container -->
 </div><!-- /container -->
 
-<!--<form>-->
-<!--<panelGrid columns="1">-->
-<!--<inputText placeholder="Email" value="#{loginBean.email}"></inputText>-->
-<!--<inputSecret placeholder="Password"-->
-<!--value="tipota"></inputSecret>-->
-<!--</panelGrid>-->
-<!--<commandButton id="loginButton" value="Login" action="login"></commandButton>-->
-<!--<div id="signUp">-->
-<!--New to LinkDIn? <a id="regLink" href="register.xhtml">Sign up now!</a>-->
-
-<!--</div>-->
-<!--</form>-->
+<app-footer></app-footer>
