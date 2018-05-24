@@ -5,9 +5,20 @@
  * General styles
  */
 body, html {
+  margin:0;
+  padding:0;
   height: 100%;
   background-repeat: no-repeat;
   background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+}
+
+
+.background-img {
+  background-color: #404040;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 .card-container.card {
@@ -43,7 +54,7 @@ body, html {
 }
 
 .logo-img-card {
-  width: 246px;
+  width: 276px;
   height: 96px;
   margin: 0 auto 10px;
   display: block;
