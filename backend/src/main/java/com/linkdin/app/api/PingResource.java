@@ -1,4 +1,4 @@
-package com.shekhargulati.app.api;
+package com.linkdin.app.api;
 
 import java.util.HashMap;
 import java.util.Map;
