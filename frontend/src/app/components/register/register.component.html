@@ -9,8 +9,13 @@
     <form class="form-signin">
       <span id="reauth-email" class="reauth-email"></span>
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <input type="password" id="reenterPassword" class="form-control" placeholder="Password confirmation" required>
+      <!--<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <input type="password" id="reenterPassword" class="form-control" placeholder="Password confirmation" required>-->
+
+      <input class="form-control" id="password" name="password" type="password" onchange="if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Password" required>
+
+      <input class="form-control" id="password_two" name="password_two" type="password" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required>
+
       <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
 
       <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
