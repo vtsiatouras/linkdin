@@ -1,16 +1,17 @@
-package com.linkdin.app.dbentities;
+package com.linkdin.app.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Objects;
 
-public class UserNetworkEntityPK implements Serializable {
+@Entity
+@Table(name = "UserNetwork", schema = "web_dev_db", catalog = "")
+@IdClass(UserNetworkEntityPK.class)
+public class UserNetworkEntity {
     private int usersUserId;
     private int usersUserId1;
 
-    @Column(name = "Users_user_id")
     @Id
+    @Column(name = "Users_user_id")
     public int getUsersUserId() {
         return usersUserId;
     }
@@ -19,8 +20,8 @@ public class UserNetworkEntityPK implements Serializable {
         this.usersUserId = usersUserId;
     }
 
-    @Column(name = "Users_user_id1")
     @Id
+    @Column(name = "Users_user_id1")
     public int getUsersUserId1() {
         return usersUserId1;
     }
@@ -33,7 +34,7 @@ public class UserNetworkEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserNetworkEntityPK that = (UserNetworkEntityPK) o;
+        UserNetworkEntity that = (UserNetworkEntity) o;
         return usersUserId == that.usersUserId &&
                 usersUserId1 == that.usersUserId1;
     }

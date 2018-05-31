@@ -1,4 +1,4 @@
-package com.linkdin.app.dbentities;
+package com.linkdin.app.model;
 
 import javax.persistence.*;
 import java.util.Arrays;
