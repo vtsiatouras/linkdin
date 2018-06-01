@@ -6,9 +6,8 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Post", schema = "web_dev_db", catalog = "")
-@IdClass(PostEntityPK.class)
-public class PostEntity {
+@IdClass(PostPK.class)
+public class Post {
     private int postId;
     private Serializable postContent;
     private Timestamp postTimestamp;
@@ -69,12 +68,12 @@ public class PostEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PostEntity that = (PostEntity) o;
-        return postId == that.postId &&
-                userUserId == that.userUserId &&
-                Objects.equals(postContent, that.postContent) &&
-                Objects.equals(postTimestamp, that.postTimestamp) &&
-                Objects.equals(isAdvertisment, that.isAdvertisment);
+        Post post = (Post) o;
+        return postId == post.postId &&
+                userUserId == post.userUserId &&
+                Objects.equals(postContent, post.postContent) &&
+                Objects.equals(postTimestamp, post.postTimestamp) &&
+                Objects.equals(isAdvertisment, post.isAdvertisment);
     }
 
     @Override

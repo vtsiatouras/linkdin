@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class UserNetworkEntityPK implements Serializable {
+public class UserNetworkPK implements Serializable {
     private int usersUserId;
     private int usersUserId1;
 
@@ -33,7 +33,7 @@ public class UserNetworkEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserNetworkEntityPK that = (UserNetworkEntityPK) o;
+        UserNetworkPK that = (UserNetworkPK) o;
         return usersUserId == that.usersUserId &&
                 usersUserId1 == that.usersUserId1;
     }

@@ -1,12 +1,14 @@
 package com.linkdin.app.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import java.util.Objects;
 
 @Entity
-@Table(name = "UserNetwork", schema = "web_dev_db", catalog = "")
-@IdClass(UserNetworkEntityPK.class)
-public class UserNetworkEntity {
+@IdClass(UserNetworkPK.class)
+public class UserNetwork {
     private int usersUserId;
     private int usersUserId1;
 
@@ -34,7 +36,7 @@ public class UserNetworkEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserNetworkEntity that = (UserNetworkEntity) o;
+        UserNetwork that = (UserNetwork) o;
         return usersUserId == that.usersUserId &&
                 usersUserId1 == that.usersUserId1;
     }

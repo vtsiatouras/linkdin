@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PostEntityPK implements Serializable {
+public class PostPK implements Serializable {
     private int postId;
     private int userUserId;
 
@@ -33,9 +33,9 @@ public class PostEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PostEntityPK that = (PostEntityPK) o;
-        return postId == that.postId &&
-                userUserId == that.userUserId;
+        PostPK postPK = (PostPK) o;
+        return postId == postPK.postId &&
+                userUserId == postPK.userUserId;
     }
 
     @Override
