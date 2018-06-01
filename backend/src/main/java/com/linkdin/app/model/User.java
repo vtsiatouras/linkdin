@@ -1,12 +1,14 @@
 package com.linkdin.app.model;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
-@Table(name = "User", schema = "web_dev_db", catalog = "")
-public class UserEntity {
+public class User {
     private int userId;
     private String userEmail;
     private String userPassword;
@@ -133,18 +135,18 @@ public class UserEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserEntity that = (UserEntity) o;
-        return userId == that.userId &&
-                Objects.equals(userEmail, that.userEmail) &&
-                Objects.equals(userPassword, that.userPassword) &&
-                Objects.equals(userName, that.userName) &&
-                Objects.equals(userSurname, that.userSurname) &&
-                Objects.equals(userPhoneNumber, that.userPhoneNumber) &&
-                Arrays.equals(userProfilePicture, that.userProfilePicture) &&
-                Objects.equals(userCity, that.userCity) &&
-                Objects.equals(userProfession, that.userProfession) &&
-                Objects.equals(userCompany, that.userCompany) &&
-                Objects.equals(isAdmin, that.isAdmin);
+        User user = (User) o;
+        return userId == user.userId &&
+                Objects.equals(userEmail, user.userEmail) &&
+                Objects.equals(userPassword, user.userPassword) &&
+                Objects.equals(userName, user.userName) &&
+                Objects.equals(userSurname, user.userSurname) &&
+                Objects.equals(userPhoneNumber, user.userPhoneNumber) &&
+                Arrays.equals(userProfilePicture, user.userProfilePicture) &&
+                Objects.equals(userCity, user.userCity) &&
+                Objects.equals(userProfession, user.userProfession) &&
+                Objects.equals(userCompany, user.userCompany) &&
+                Objects.equals(isAdmin, user.isAdmin);
     }
 
     @Override

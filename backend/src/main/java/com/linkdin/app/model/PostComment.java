@@ -6,9 +6,8 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "PostComment", schema = "web_dev_db", catalog = "")
-@IdClass(PostCommentEntityPK.class)
-public class PostCommentEntity {
+@IdClass(PostCommentPK.class)
+public class PostComment {
     private int commentId;
     private Serializable commentContent;
     private Timestamp commentTimestamp;
@@ -69,7 +68,7 @@ public class PostCommentEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PostCommentEntity that = (PostCommentEntity) o;
+        PostComment that = (PostComment) o;
         return commentId == that.commentId &&
                 postPostId == that.postPostId &&
                 postUserUserId == that.postUserUserId &&
