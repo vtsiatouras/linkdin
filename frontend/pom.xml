@@ -3,11 +3,11 @@
   <parent>
     <artifactId>linkdin</artifactId>
     <groupId>com.linkdin.webdev</groupId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>1.0.RELEASE</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>frontend</artifactId>
+  <artifactId>linkdin-frontend</artifactId>
 
   <properties>
     <main.basedir>${project.parent.basedir}</main.basedir>
