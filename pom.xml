@@ -11,7 +11,7 @@
 
     <groupId>com.linkdin.webdev</groupId>
     <artifactId>linkdin</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>1.0.RELEASE</version>
     <packaging>pom</packaging>
     <name>linkdin</name>
     <description>LinkDIn Project</description>
