@@ -1,8 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HttpClientModule} from "@angular/common/http";
-import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
@@ -32,7 +33,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

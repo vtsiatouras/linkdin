@@ -19,6 +19,7 @@
     <resources>
       <resource>
         <directory>ui-src</directory>
+        <filtering>true</filtering>
       </resource>
     </resources>
     <plugins>

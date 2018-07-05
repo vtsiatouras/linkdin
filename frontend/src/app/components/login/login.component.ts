@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HttpClient} from "@angular/common/http";
-import { Response, Headers, RequestOptions,Http} from '@angular/http';
-import {User} from "../../models/user";
+import {HttpClient} from '@angular/common/http';
+import {Response, Headers, RequestOptions, Http} from '@angular/http';
+import {User} from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
           console.log(res);
         },
         err => {
-          console.log("Error occured");
+          console.log('Error occured');
         }
       );
   }
