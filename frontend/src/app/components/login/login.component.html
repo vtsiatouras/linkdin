@@ -6,7 +6,7 @@
     <div class="card card-container">
       <img id="logo-img" class="logo-img-card" src="../../../assets/images/linkDIn.png"/>
       <p id="profile-name" class="profile-name-card"></p>
-      <form class="form-signin" (submit)="loginUser()">
+      <form class="form-signin" (ngSubmit)="loginUser()">
         <span id="reauth-email" class="reauth-email"></span>
         <input [(ngModel)]="user.email" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <input [(ngModel)]="user.password" name="pass" type="password" id="inputPassword" class="form-control" placeholder="Password" required>

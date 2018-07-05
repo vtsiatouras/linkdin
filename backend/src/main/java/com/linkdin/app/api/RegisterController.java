@@ -23,12 +23,8 @@ public class RegisterController {
     public ResponseEntity <String> register(@RequestBody UserDTO userDto) {
 
         System.out.println(userDto.getFirstName());
+        System.out.println(userService.findUserByEmail(userDto.getEmail()));
 
-        if(userService.emailExist(userDto.getEmail())){
-            System.out.println("EXISTS!");
-        } else {
-            System.out.println("AAAAAAAA!");
-        }
         return ResponseEntity.ok(userDto.getFirstName());
     }
 }

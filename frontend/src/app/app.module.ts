@@ -10,13 +10,17 @@ import {LoginComponent} from './components/login/login.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {HeaderComponent} from './components/header/header.component';
 import {RegisterComponent} from './components/register/register.component';
-
-
+import { HomeComponent } from './components/home/home.component';
+import {AuthGuard} from './guards/auth.guard';
+import {UserService} from './services/user.service';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent}
+  {path: 'register', component: RegisterComponent},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  // otherwise redirect to login page
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({
@@ -25,7 +29,8 @@ const appRoutes: Routes = [
     LoginComponent,
     FooterComponent,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     HttpClientModule,
@@ -33,7 +38,8 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [UserService, AuthGuard,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
