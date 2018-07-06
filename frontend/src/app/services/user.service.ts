@@ -24,7 +24,7 @@ export class UserService {
   userAuthentication(userName, password) {
 
     const data = 'username=' + userName + '&password=' + password + '&grant_type=password';
-    const reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded', 'No-Auth': 'True' })
+    const reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-urlencoded', 'No-Auth': 'True' });
     console.log(data);
     return this.http.post(this.rootUrl + '/login', data, { headers: reqHeader });
   }

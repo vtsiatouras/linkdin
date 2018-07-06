@@ -30,14 +30,13 @@ export class LoginComponent implements OnInit {
 
   loginUser() {
     console.log('aaaa');
-    this.userService.userAuthentication(this.user.email, this.user.password);
-      // .subscribe((data: any) => {
-      // localStorage.setItem('userToken', data.access_token);
+    this.userService.userAuthentication(this.user.email, this.user.password).subscribe((data: any) => {
+      localStorage.setItem('userToken', data.access_token);
     this.router.navigate(['/home']);
-      // },
-      // (err: 'AAAA') => {
-      //   this.isLoginError = true;
-      // });
+      },
+      (err: HttpErrorResponse) => {
+        this.isLoginError = true;
+      });
     // THE BELOW IS A TEST!! I AM PASSING FIXED JSON TO SERVER
     // console.log(this.user);
     // const req = this.http.post('http://localhost:8080/api/login', {
