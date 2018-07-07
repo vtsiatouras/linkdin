@@ -6,38 +6,49 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class PostCommentPK implements Serializable {
-    private int commentId;
-    private int postPostId;
-    private int postUserUserId;
+    private int id;
+    private int postId;
+    private int postUserId;
+    private int postUserUserNetworkUserId;
 
-    @Column(name = "comment_id")
+    @Column(name = "id")
     @Id
-    public int getCommentId() {
-        return commentId;
+    public int getId() {
+        return id;
     }
 
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Column(name = "Post_post_id")
+    @Column(name = "post_id")
     @Id
-    public int getPostPostId() {
-        return postPostId;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setPostPostId(int postPostId) {
-        this.postPostId = postPostId;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
-    @Column(name = "Post_User_user_id")
+    @Column(name = "post_user_id")
     @Id
-    public int getPostUserUserId() {
-        return postUserUserId;
+    public int getPostUserId() {
+        return postUserId;
     }
 
-    public void setPostUserUserId(int postUserUserId) {
-        this.postUserUserId = postUserUserId;
+    public void setPostUserId(int postUserId) {
+        this.postUserId = postUserId;
+    }
+
+    @Column(name = "post_user_user_network_user_id")
+    @Id
+    public int getPostUserUserNetworkUserId() {
+        return postUserUserNetworkUserId;
+    }
+
+    public void setPostUserUserNetworkUserId(int postUserUserNetworkUserId) {
+        this.postUserUserNetworkUserId = postUserUserNetworkUserId;
     }
 
     @Override
@@ -45,14 +56,15 @@ public class PostCommentPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PostCommentPK that = (PostCommentPK) o;
-        return commentId == that.commentId &&
-                postPostId == that.postPostId &&
-                postUserUserId == that.postUserUserId;
+        return id == that.id &&
+                postId == that.postId &&
+                postUserId == that.postUserId &&
+                postUserUserNetworkUserId == that.postUserUserNetworkUserId;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(commentId, postPostId, postUserUserId);
+        return Objects.hash(id, postId, postUserId, postUserUserNetworkUserId);
     }
 }

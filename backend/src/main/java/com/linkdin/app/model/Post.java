@@ -8,40 +8,41 @@ import java.util.Objects;
 @Entity
 @IdClass(PostPK.class)
 public class Post {
-    private int postId;
-    private Serializable postContent;
-    private Timestamp postTimestamp;
+    private int id;
+    private Serializable content;
+    private Timestamp timestamp;
     private Byte isAdvertisment;
-    private int userUserId;
+    private int userId;
+    private int userUserNetworkUserId;
 
     @Id
-    @Column(name = "post_id")
-    public int getPostId() {
-        return postId;
+    @Column(name = "id")
+    public int getId() {
+        return id;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
-    @Basic
-    @Column(name = "post_content")
-    public Serializable getPostContent() {
-        return postContent;
-    }
-
-    public void setPostContent(Serializable postContent) {
-        this.postContent = postContent;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "post_timestamp")
-    public Timestamp getPostTimestamp() {
-        return postTimestamp;
+    @Column(name = "content")
+    public Serializable getContent() {
+        return content;
     }
 
-    public void setPostTimestamp(Timestamp postTimestamp) {
-        this.postTimestamp = postTimestamp;
+    public void setContent(Serializable content) {
+        this.content = content;
+    }
+
+    @Basic
+    @Column(name = "timestamp")
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Basic
@@ -55,13 +56,23 @@ public class Post {
     }
 
     @Id
-    @Column(name = "User_user_id")
-    public int getUserUserId() {
-        return userUserId;
+    @Column(name = "user_id")
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserUserId(int userUserId) {
-        this.userUserId = userUserId;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    @Id
+    @Column(name = "user_user_network_user_id")
+    public int getUserUserNetworkUserId() {
+        return userUserNetworkUserId;
+    }
+
+    public void setUserUserNetworkUserId(int userUserNetworkUserId) {
+        this.userUserNetworkUserId = userUserNetworkUserId;
     }
 
     @Override
@@ -69,16 +80,17 @@ public class Post {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return postId == post.postId &&
-                userUserId == post.userUserId &&
-                Objects.equals(postContent, post.postContent) &&
-                Objects.equals(postTimestamp, post.postTimestamp) &&
+        return id == post.id &&
+                userId == post.userId &&
+                userUserNetworkUserId == post.userUserNetworkUserId &&
+                Objects.equals(content, post.content) &&
+                Objects.equals(timestamp, post.timestamp) &&
                 Objects.equals(isAdvertisment, post.isAdvertisment);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(postId, postContent, postTimestamp, isAdvertisment, userUserId);
+        return Objects.hash(id, content, timestamp, isAdvertisment, userId, userUserNetworkUserId);
     }
 }

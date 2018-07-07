@@ -14,7 +14,7 @@ public class UserService {
 //    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User findUserByEmail(String email) {
-        return repository.findByuserEmail(email);
+        return repository.findByemail(email);
     }
 
 
