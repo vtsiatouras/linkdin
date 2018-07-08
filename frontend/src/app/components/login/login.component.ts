@@ -26,13 +26,11 @@ export class LoginComponent implements OnInit {
   // THE BELOW IS A TEST!! I AM PASSING FIXED JSON TO SERVER
   loginUser() {
     console.log(this.user);
+    const email = this.user.email;
+    const pass = this.user.password;
     const req = this.http.post('http://localhost:8080/api/login', {
-      email: 'asdf@asdf',
-      password: 'asd1234',
-      matchingPassword: 'asd1234',
-      firstName: 'asdf',
-      lastName: 'asdf',
-      phoneNumber: 'asdf'
+      email: email,
+      password: pass
     })
       .subscribe(
         res => {

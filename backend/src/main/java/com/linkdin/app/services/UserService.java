@@ -17,4 +17,12 @@ public class UserService {
         }
         return false;
     }
+
+    public boolean authenticate(String email, String password) {
+        User user = repository.findByuserEmail(email);
+        if (user != null && user.getUserPassword() == password) { // TODO hash klp
+            return true;
+        }
+        return false;
+    }
 }
