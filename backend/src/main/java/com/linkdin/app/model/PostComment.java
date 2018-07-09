@@ -6,32 +6,34 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Table(name = "post_comment", schema = "web_dev_db", catalog = "")
 @IdClass(PostCommentPK.class)
 public class PostComment {
-    private int commentId;
-    private Serializable commentContent;
+    private int id;
+    private Serializable content;
     private Timestamp commentTimestamp;
-    private int postPostId;
-    private int postUserUserId;
+    private int postId;
+    private int postUserId;
+    private int postUserUserNetworkUserId;
 
     @Id
-    @Column(name = "comment_id")
-    public int getCommentId() {
-        return commentId;
+    @Column(name = "id")
+    public int getId() {
+        return id;
     }
 
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
-    @Column(name = "comment_content")
-    public Serializable getCommentContent() {
-        return commentContent;
+    @Column(name = "content")
+    public Serializable getContent() {
+        return content;
     }
 
-    public void setCommentContent(Serializable commentContent) {
-        this.commentContent = commentContent;
+    public void setContent(Serializable content) {
+        this.content = content;
     }
 
     @Basic
@@ -45,23 +47,33 @@ public class PostComment {
     }
 
     @Id
-    @Column(name = "Post_post_id")
-    public int getPostPostId() {
-        return postPostId;
+    @Column(name = "post_id")
+    public int getPostId() {
+        return postId;
     }
 
-    public void setPostPostId(int postPostId) {
-        this.postPostId = postPostId;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     @Id
-    @Column(name = "Post_User_user_id")
-    public int getPostUserUserId() {
-        return postUserUserId;
+    @Column(name = "post_user_id")
+    public int getPostUserId() {
+        return postUserId;
     }
 
-    public void setPostUserUserId(int postUserUserId) {
-        this.postUserUserId = postUserUserId;
+    public void setPostUserId(int postUserId) {
+        this.postUserId = postUserId;
+    }
+
+    @Id
+    @Column(name = "post_user_user_network_user_id")
+    public int getPostUserUserNetworkUserId() {
+        return postUserUserNetworkUserId;
+    }
+
+    public void setPostUserUserNetworkUserId(int postUserUserNetworkUserId) {
+        this.postUserUserNetworkUserId = postUserUserNetworkUserId;
     }
 
     @Override
@@ -69,16 +81,17 @@ public class PostComment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PostComment that = (PostComment) o;
-        return commentId == that.commentId &&
-                postPostId == that.postPostId &&
-                postUserUserId == that.postUserUserId &&
-                Objects.equals(commentContent, that.commentContent) &&
+        return id == that.id &&
+                postId == that.postId &&
+                postUserId == that.postUserId &&
+                postUserUserNetworkUserId == that.postUserUserNetworkUserId &&
+                Objects.equals(content, that.content) &&
                 Objects.equals(commentTimestamp, that.commentTimestamp);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(commentId, commentContent, commentTimestamp, postPostId, postUserUserId);
+        return Objects.hash(id, content, commentTimestamp, postId, postUserId, postUserUserNetworkUserId);
     }
 }
