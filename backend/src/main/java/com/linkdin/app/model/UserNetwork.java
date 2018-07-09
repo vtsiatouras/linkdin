@@ -9,16 +9,16 @@ import java.util.Objects;
 @Entity
 @Table(name = "user_network", schema = "web_dev_db", catalog = "")
 public class UserNetwork {
-    private int userId;
+    private int id;
 
     @Id
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
+    @Column(name = "id")
+    public int getId() {
+        return id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -26,12 +26,12 @@ public class UserNetwork {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserNetwork that = (UserNetwork) o;
-        return userId == that.userId;
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(userId);
+        return Objects.hash(id);
     }
 }

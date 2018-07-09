@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class UserPK implements Serializable {
     private int id;
-    private int userNetworkUserId;
+    private int userNetworkId;
 
     @Column(name = "id")
     @Id
@@ -19,14 +19,14 @@ public class UserPK implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "user_network_user_id")
+    @Column(name = "user_network_id")
     @Id
-    public int getUserNetworkUserId() {
-        return userNetworkUserId;
+    public int getUserNetworkId() {
+        return userNetworkId;
     }
 
-    public void setUserNetworkUserId(int userNetworkUserId) {
-        this.userNetworkUserId = userNetworkUserId;
+    public void setUserNetworkId(int userNetworkId) {
+        this.userNetworkId = userNetworkId;
     }
 
     @Override
@@ -35,12 +35,12 @@ public class UserPK implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         UserPK userPK = (UserPK) o;
         return id == userPK.id &&
-                userNetworkUserId == userPK.userNetworkUserId;
+                userNetworkId == userPK.userNetworkId;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, userNetworkUserId);
+        return Objects.hash(id, userNetworkId);
     }
 }

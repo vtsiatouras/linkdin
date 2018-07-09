@@ -19,8 +19,9 @@ public class UserService {
     }
 
     public boolean authenticate(String email, String password) {
+        System.err.println(email);
         User user = repository.findByemail(email);
-        if (user != null && user.getPassword() == password) { // TODO hash klp
+        if (user != null && user.getPassword().equals(password)) { // TODO hash klp
             return true;
         }
         return false;

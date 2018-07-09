@@ -13,7 +13,6 @@ public class Post {
     private Timestamp timestamp;
     private Byte isAdvertisment;
     private int userId;
-    private int userUserNetworkUserId;
 
     @Id
     @Column(name = "id")
@@ -65,16 +64,6 @@ public class Post {
         this.userId = userId;
     }
 
-    @Id
-    @Column(name = "user_user_network_user_id")
-    public int getUserUserNetworkUserId() {
-        return userUserNetworkUserId;
-    }
-
-    public void setUserUserNetworkUserId(int userUserNetworkUserId) {
-        this.userUserNetworkUserId = userUserNetworkUserId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,7 +71,6 @@ public class Post {
         Post post = (Post) o;
         return id == post.id &&
                 userId == post.userId &&
-                userUserNetworkUserId == post.userUserNetworkUserId &&
                 Objects.equals(content, post.content) &&
                 Objects.equals(timestamp, post.timestamp) &&
                 Objects.equals(isAdvertisment, post.isAdvertisment);
@@ -91,6 +79,6 @@ public class Post {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, content, timestamp, isAdvertisment, userId, userUserNetworkUserId);
+        return Objects.hash(id, content, timestamp, isAdvertisment, userId);
     }
 }

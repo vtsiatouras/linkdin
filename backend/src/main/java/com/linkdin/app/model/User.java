@@ -17,7 +17,7 @@ public class User {
     private String profession;
     private String company;
     private Byte isAdmin;
-    private int userNetworkUserId;
+    private int userNetworkId;
 
     @Id
     @Column(name = "id")
@@ -130,13 +130,13 @@ public class User {
     }
 
     @Id
-    @Column(name = "user_network_user_id")
-    public int getUserNetworkUserId() {
-        return userNetworkUserId;
+    @Column(name = "user_network_id")
+    public int getUserNetworkId() {
+        return userNetworkId;
     }
 
-    public void setUserNetworkUserId(int userNetworkUserId) {
-        this.userNetworkUserId = userNetworkUserId;
+    public void setUserNetworkId(int userNetworkId) {
+        this.userNetworkId = userNetworkId;
     }
 
     @Override
@@ -145,7 +145,7 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
-                userNetworkUserId == user.userNetworkUserId &&
+                userNetworkId == user.userNetworkId &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(name, user.name) &&
@@ -161,6 +161,6 @@ public class User {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, email, password, name, surname, phoneNumber, profilePicture, city, profession, company, isAdmin, userNetworkUserId);
+        return Objects.hash(id, email, password, name, surname, phoneNumber, profilePicture, city, profession, company, isAdmin, userNetworkId);
     }
 }
