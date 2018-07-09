@@ -10,13 +10,14 @@ import {LoginComponent} from './components/login/login.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {HeaderComponent} from './components/header/header.component';
 import {RegisterComponent} from './components/register/register.component';
-
+import { HomeComponent } from './components/home/home.component';
 
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent}
+  {path: 'register', component: RegisterComponent},
+  {path: 'home', component: HomeComponent/*, canActivate: [OnlyLoggedInGuard]*/}
 ];
 
 @NgModule({
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
     LoginComponent,
     FooterComponent,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     HttpClientModule,
