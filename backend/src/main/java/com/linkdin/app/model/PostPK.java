@@ -6,27 +6,38 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class PostPK implements Serializable {
-    private int postId;
-    private int userUserId;
+    private int id;
+    private int userId;
+    private int userUserNetworkUserId;
 
-    @Column(name = "post_id")
+    @Column(name = "id")
     @Id
-    public int getPostId() {
-        return postId;
+    public int getId() {
+        return id;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Column(name = "User_user_id")
+    @Column(name = "user_id")
     @Id
-    public int getUserUserId() {
-        return userUserId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserUserId(int userUserId) {
-        this.userUserId = userUserId;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    @Column(name = "user_user_network_user_id")
+    @Id
+    public int getUserUserNetworkUserId() {
+        return userUserNetworkUserId;
+    }
+
+    public void setUserUserNetworkUserId(int userUserNetworkUserId) {
+        this.userUserNetworkUserId = userUserNetworkUserId;
     }
 
     @Override
@@ -34,13 +45,14 @@ public class PostPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PostPK postPK = (PostPK) o;
-        return postId == postPK.postId &&
-                userUserId == postPK.userUserId;
+        return id == postPK.id &&
+                userId == postPK.userId &&
+                userUserNetworkUserId == postPK.userUserNetworkUserId;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(postId, userUserId);
+        return Objects.hash(id, userId, userUserNetworkUserId);
     }
 }
