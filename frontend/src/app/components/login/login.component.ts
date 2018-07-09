@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Response, Headers, RequestOptions, Http} from '@angular/http';
 import {User} from '../../models/user';
 
@@ -17,29 +17,30 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    // private http_: Http
-  ) { }
+    ) {
+  }
 
   ngOnInit() {
   }
 
-  // THE BELOW IS A TEST!! I AM PASSING FIXED JSON TO SERVER
   loginUser() {
     console.log(this.user);
+
     const email = this.user.email;
-    const pass = this.user.password;
+    const password = this.user.password;
+
     const req = this.http.post('http://localhost:8080/api/login', {
       email: email,
-      password: pass
-    })
-      .subscribe(
-        res => {
-          console.log(res);
+      password: password
+    }, {responseType: 'text', withCredentials: true})
+      .subscribe((data: any) => {
+
+          // localStorage.setItem('userToken', data.access_token);//auto isws na mh xreiazetai
+          this.router.navigate(['/home']);
         },
-        err => {
-          console.log('Error occured');
-        }
-      );
+        (err: HttpErrorResponse) => {
+          console.log(err);
+        });
   }
 
 }
