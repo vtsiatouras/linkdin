@@ -14,7 +14,6 @@ public class PostComment {
     private Timestamp commentTimestamp;
     private int postId;
     private int postUserId;
-    private int postUserUserNetworkUserId;
 
     @Id
     @Column(name = "id")
@@ -66,16 +65,6 @@ public class PostComment {
         this.postUserId = postUserId;
     }
 
-    @Id
-    @Column(name = "post_user_user_network_user_id")
-    public int getPostUserUserNetworkUserId() {
-        return postUserUserNetworkUserId;
-    }
-
-    public void setPostUserUserNetworkUserId(int postUserUserNetworkUserId) {
-        this.postUserUserNetworkUserId = postUserUserNetworkUserId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,7 +73,6 @@ public class PostComment {
         return id == that.id &&
                 postId == that.postId &&
                 postUserId == that.postUserId &&
-                postUserUserNetworkUserId == that.postUserUserNetworkUserId &&
                 Objects.equals(content, that.content) &&
                 Objects.equals(commentTimestamp, that.commentTimestamp);
     }
@@ -92,6 +80,6 @@ public class PostComment {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, content, commentTimestamp, postId, postUserId, postUserUserNetworkUserId);
+        return Objects.hash(id, content, commentTimestamp, postId, postUserId);
     }
 }

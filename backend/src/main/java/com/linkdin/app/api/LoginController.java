@@ -1,11 +1,6 @@
 package com.linkdin.app.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.linkdin.app.dto.Credentials;
-import com.linkdin.app.dto.UserDTO;
-import com.linkdin.app.model.User;
 import com.linkdin.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,14 +18,16 @@ public class LoginController {
 
     @Autowired
     UserService userService;
+
     @PostMapping(path = "/login")
-    public HttpServletResponse login(@RequestBody Credentials credentials, HttpServletResponse response) {
-        if (userService.authenticate(credentials.email, credentials.password)) {
-            response.addCookie(new Cookie("SessionLinkDIn", "6985072887"));
-        }
+    public ResponseEntity<String> login(@RequestBody Credentials credentials, HttpServletResponse response) {
         System.out.println(credentials.email + " " + credentials.password);
-        return response;
-//        return ResponseEntity.ok(credentials.email, response);
+        if (userService.authenticate(credentials.email, credentials.password)) {
+            response.addCookie(new Cookie("SessionLinkDIn", "6985072887")); //TODO
+            return ResponseEntity.ok(credentials.email);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
 

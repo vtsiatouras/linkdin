@@ -9,7 +9,6 @@ public class PostCommentPK implements Serializable {
     private int id;
     private int postId;
     private int postUserId;
-    private int postUserUserNetworkUserId;
 
     @Column(name = "id")
     @Id
@@ -41,16 +40,6 @@ public class PostCommentPK implements Serializable {
         this.postUserId = postUserId;
     }
 
-    @Column(name = "post_user_user_network_user_id")
-    @Id
-    public int getPostUserUserNetworkUserId() {
-        return postUserUserNetworkUserId;
-    }
-
-    public void setPostUserUserNetworkUserId(int postUserUserNetworkUserId) {
-        this.postUserUserNetworkUserId = postUserUserNetworkUserId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,13 +47,12 @@ public class PostCommentPK implements Serializable {
         PostCommentPK that = (PostCommentPK) o;
         return id == that.id &&
                 postId == that.postId &&
-                postUserId == that.postUserId &&
-                postUserUserNetworkUserId == that.postUserUserNetworkUserId;
+                postUserId == that.postUserId;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, postId, postUserId, postUserUserNetworkUserId);
+        return Objects.hash(id, postId, postUserId);
     }
 }
