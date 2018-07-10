@@ -1,19 +1,17 @@
 package com.linkdin.app.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-@Table(name = "user_network", schema = "web_dev_db", catalog = "")
-@IdClass(UserNetworkPK.class)
-public class UserNetwork {
+public class UserNetworkPK implements Serializable {
     private int id;
     private String user1;
     private String user2;
-    private Byte isAccepted;
 
-    @Id
     @Column(name = "id")
+    @Id
     public int getId() {
         return id;
     }
@@ -22,8 +20,8 @@ public class UserNetwork {
         this.id = id;
     }
 
-    @Id
     @Column(name = "user_1")
+    @Id
     public String getUser1() {
         return user1;
     }
@@ -32,8 +30,8 @@ public class UserNetwork {
         this.user1 = user1;
     }
 
-    @Id
     @Column(name = "user_2")
+    @Id
     public String getUser2() {
         return user2;
     }
@@ -42,30 +40,19 @@ public class UserNetwork {
         this.user2 = user2;
     }
 
-    @Basic
-    @Column(name = "is_accepted")
-    public Byte getIsAccepted() {
-        return isAccepted;
-    }
-
-    public void setIsAccepted(Byte isAccepted) {
-        this.isAccepted = isAccepted;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserNetwork that = (UserNetwork) o;
+        UserNetworkPK that = (UserNetworkPK) o;
         return id == that.id &&
                 Objects.equals(user1, that.user1) &&
-                Objects.equals(user2, that.user2) &&
-                Objects.equals(isAccepted, that.isAccepted);
+                Objects.equals(user2, that.user2);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, user1, user2, isAccepted);
+        return Objects.hash(id, user1, user2);
     }
 }
