@@ -29,18 +29,22 @@ export class LoginComponent implements OnInit {
     const email = this.user.email;
     const password = this.user.password;
 
-    const req = this.http.post('http://localhost:8080/api/login', {
-      email: email,
-      password: password
-    }, {responseType: 'text', withCredentials: true})
-      .subscribe((data: any) => {
+    if (email == '' || password == '' ) { // Don't send null values
+      this.router.navigate(['/']);
+    } else {
 
-          // localStorage.setItem('userToken', data.access_token);//auto isws na mh xreiazetai
-          this.router.navigate(['/home']);
-        },
-        (err: HttpErrorResponse) => {
-          console.log(err);
-        });
+      const req = this.http.post('http://localhost:8080/api/login', {
+        email: email,
+        password: password
+      }, {responseType: 'text', withCredentials: true})
+        .subscribe((data: any) => {
+            localStorage.setItem('userToken', data);//auto isws na mh xreiazetai
+            this.router.navigate(['/home']);
+          },
+          (err: HttpErrorResponse) => {
+            console.log(err);
+          });
+    }
   }
 
 }
