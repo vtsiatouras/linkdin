@@ -1,10 +1,12 @@
 package com.linkdin.app.model;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-@IdClass(UserPK.class)
 public class User {
     private int id;
     private String email;
@@ -17,7 +19,6 @@ public class User {
     private String profession;
     private String company;
     private Byte isAdmin;
-    private int userNetworkId;
 
     @Id
     @Column(name = "id")
@@ -129,23 +130,12 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    @Id
-    @Column(name = "user_network_id")
-    public int getUserNetworkId() {
-        return userNetworkId;
-    }
-
-    public void setUserNetworkId(int userNetworkId) {
-        this.userNetworkId = userNetworkId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id &&
-                userNetworkId == user.userNetworkId &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(name, user.name) &&
@@ -161,6 +151,6 @@ public class User {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, email, password, name, surname, phoneNumber, profilePicture, city, profession, company, isAdmin, userNetworkId);
+        return Objects.hash(id, email, password, name, surname, phoneNumber, profilePicture, city, profession, company, isAdmin);
     }
 }
