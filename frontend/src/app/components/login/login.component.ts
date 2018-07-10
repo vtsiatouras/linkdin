@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Response, Headers, RequestOptions, Http} from '@angular/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {User} from '../../models/user';
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -12,6 +12,8 @@ import {User} from '../../models/user';
 
 export class LoginComponent implements OnInit {
   user: User = new User();
+  loginForm: FormControl = new FormControl();
+
 
   constructor(
     private route: ActivatedRoute,
@@ -32,18 +34,16 @@ export class LoginComponent implements OnInit {
     if (email == '' || password == '' ) { // Don't send null values
       this.router.navigate(['/']);
     } else {
-
       const req = this.http.post('http://localhost:8080/api/login', {
         email: email,
         password: password
-      }, {responseType: 'text', withCredentials: true})
-        .subscribe((data: any) => {
-            localStorage.setItem('userToken', data);//auto isws na mh xreiazetai
-            this.router.navigate(['/home']);
-          },
-          (err: HttpErrorResponse) => {
-            console.log(err);
-          });
+      }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        localStorage.setItem('userToken', data);
+        this.router.navigate(['/home']);
+        },
+        (err: HttpErrorResponse) => {
+        console.log(err);
+      });
     }
   }
 
