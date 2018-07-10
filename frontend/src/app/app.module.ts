@@ -12,7 +12,6 @@ import {HeaderComponent} from './components/header/header.component';
 import {RegisterComponent} from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 
-
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
@@ -38,5 +37,6 @@ const appRoutes: Routes = [
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
