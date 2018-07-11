@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -19,6 +21,12 @@ export class HomeComponent implements OnInit {
   logoutUser() {
     console.log("logout");
     localStorage.clear();
-    this.router.navigate(['/login']);
+    const req = this.http.post('http://localhost:8080/api/logout',{},
+      {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        this.router.navigate(['/login']);
+        },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
   }
 }
