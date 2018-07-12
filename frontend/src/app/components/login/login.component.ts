@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {User} from '../../models/user';
 import {FormControl} from "@angular/forms";
+import {IsAuthenticatedService} from "../../services/isauthenticated.service";
 
 @Component({
   selector: 'app-login',
@@ -14,19 +15,24 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   loginForm: FormControl = new FormControl();
 
+  authService: IsAuthenticatedService;
+
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient,
+    private http: HttpClient
     ) {
+
+    this.authService = new IsAuthenticatedService(route, router, http);
   }
 
   ngOnInit() {
+    this.authService.authenticationCheck();
   }
 
   loginUser() {
-    console.log(this.user);
+    // console.log(this.user);
 
     const email = this.user.email;
     const password = this.user.password;

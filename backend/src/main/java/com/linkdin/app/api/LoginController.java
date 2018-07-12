@@ -21,24 +21,23 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    private HttpSession session;
+//    @Autowired
+//    private HttpSession session;
 
     @PostMapping(path = "/login")
-    public ResponseEntity<String> login(@RequestBody Credentials credentials, HttpServletResponse response) {
+    public ResponseEntity<String> login(@RequestBody Credentials credentials, HttpSession session) {
         System.out.println(credentials.email + " " + credentials.password);
         if (userService.authenticate(credentials.email, credentials.password)) {
-//            response.addCookie(new Cookie("SessionLinkDIn", "6985072887")); //TODO
             String email = credentials.email;
-            Long userId = (Long) this.session.getAttribute(email);
-            System.err.println("user id " + userId);
 
-            this.session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, email);
+            session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, email);
+//            session.setAttribute("email", email);
 
             return ResponseEntity.ok(credentials.email);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
 }
 
