@@ -6,11 +6,11 @@
     <div class="card card-container">
       <img id="logo-img" class="logo-img-card" src="../../../assets/images/linkDIn.png"/>
       <p id="profile-name" class="profile-name-card"></p>
-      <form class="form-signin" ngNativeValidate>
+      <form class="form-signin" (submit)="loginUser()" ngNativeValidate>
         <span id="reauth-email" class="reauth-email"></span>
         <input class="form-control" type="email" id="inputEmail" placeholder="Email address" name="email" [(ngModel)]="user.email" required autofocus>
         <input class="form-control" type="password" id="inputPassword" placeholder="Password" name="password" [(ngModel)]="user.password" required>
-        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" (click)="loginUser()">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
       </form><!-- /form -->
       <a [routerLink]="['/register']" class="register">
         New to linkDIn? Register now!
