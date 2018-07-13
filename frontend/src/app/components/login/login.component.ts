@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // If there is store a userToken check if there is a valid session
     // And redirect to users home page
-    if(localStorage.getItem('userToken')){
+    if (localStorage.getItem('userToken')) {
       this.router.navigate(['/home']);
     }
 
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     const password = this.user.password;
 
     // Don't send null values
-    if (email == '' || password == '' ) { //TODO mporei na nai peritto auto
+    if (email === '' || password === '' ) { // TODO mporei na nai peritto auto
       this.router.navigate(['/']);
     } else {
       // Make a post request with users credentials

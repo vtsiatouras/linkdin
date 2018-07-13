@@ -11,13 +11,13 @@ import {FooterComponent} from './components/footer/footer.component';
 import {HeaderComponent} from './components/header/header.component';
 import {RegisterComponent} from './components/register/register.component';
 import {HomeComponent} from './components/home/home.component';
-import {AuthGuard} from "./guard/auth.guard";
+import {AuthGuard} from './guard/auth.guard';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]} //For Logged in users ONLY
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]} // For Logged in users ONLY
 ];
 
 @NgModule({

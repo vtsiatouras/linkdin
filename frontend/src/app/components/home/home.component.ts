@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {ActivatedRoute, Router} from '@angular/router';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
   }
 
   logoutUser() {
-    console.log("logout");
+    console.log('logout');
     localStorage.clear();
-    const req = this.http.post('http://localhost:8080/api/logout',{},
+    const req = this.http.post('http://localhost:8080/api/logout', {},
       {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
         this.router.navigate(['/login']);
         },
