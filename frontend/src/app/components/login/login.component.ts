@@ -34,8 +34,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    // console.log(this.user);
-
     const email = this.user.email;
     const password = this.user.password;
 
