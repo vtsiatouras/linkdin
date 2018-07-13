@@ -1,8 +1,10 @@
 package com.linkdin.app.api;
 
-import com.linkdin.app.dto.UserDTO;
+import com.linkdin.app.dto.UserRegister;
+import com.linkdin.app.model.User;
 import com.linkdin.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,15 +17,22 @@ public class RegisterController {
     UserService userService;
 
     @PostMapping(path = "/register")
-    public ResponseEntity <String> register(@RequestBody UserDTO userDto) {
+    public ResponseEntity <String> register(@RequestBody UserRegister userRegister) {
 
-        System.out.println(userDto.getFirstName());
-
-        if(userService.emailExist(userDto.getEmail())){
-            System.out.println("EXISTS!");
-        } else {
-            System.out.println("AAAAAAAA!");
+        // Check if email is already stored
+        if (userService.emailExist(userRegister.email)) {
+            System.out.println("EMAIL EXISTS");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return ResponseEntity.ok(userDto.getFirstName());
+
+        // Check if the passwords are not matching
+        if(!userRegister.passwordCheck(userRegister)){
+            System.out.println("PASSWORDS DO NOT MATCH");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        // Store new user
+        User user = userRegister.transformToUser(userRegister);
+        userService.storeUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -6,18 +6,17 @@
   <div class="card card-container">
     <img id="logo-img" class="logo-img-card" src="../../../assets/images/linkDIn.png"/>
     <p id="profile-name" class="profile-name-card"></p>
-    <form class="form-signup" ngNativeValidate>
+    <form class="form-signup" (submit)="registerUser()" ngNativeValidate>
       <span id="reauth-email" class="reauth-email"></span>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <input class="form-control" id="password" name="password" type="password" onchange="if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Password" required>
-      <input class="form-control" id="password_two" name="password_two" type="password" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required>
-      <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
-      <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
-      <input type="tel" id="phoneNumber" class="form-control" placeholder="Phone Number" required>
+      <input class="form-control" id="inputEmail" name= "email" type="email" placeholder="Email address" required autofocus [(ngModel)]="email" >
+      <input class="form-control" id="password" name="password_1" type="password" [(ngModel)]="password_1" onchange="if(this.checkValidity()) form.password_2.pattern = this.value;" placeholder="Password" required>
+      <input class="form-control" id="password_two" name="password_2" type="password" [(ngModel)]="password_2" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required>
+      <input class="form-control" id="firstName" name="firstName" type="text" placeholder="First Name" required [(ngModel)]="firstName">
+      <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Last Name" required [(ngModel)]="lastName">
+      <input class="form-control" id="phoneNumber" name="phoneNumber" type="tel" placeholder="Phone Number" required [(ngModel)]="phoneNumber">
       <div class="form-group form-group-sm">
         <p id="fileHelp" class="form-text text-muted">Upload profile picture</p>
         <input type="file" class="form-control-file input-sm" id="exampleInputFile" aria-describedby="fileHelp" accept="image/*">
-
       </div>
       <button class="btn btn-lg btn-primary btn-block btn-signup" type="submit">Register</button>
     </form><!-- /form -->

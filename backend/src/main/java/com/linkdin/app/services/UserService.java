@@ -26,4 +26,8 @@ public class UserService {
         }
         return false;
     }
+
+    public void storeUser(User user) {
+        repository.save(user);
+    }
 }
