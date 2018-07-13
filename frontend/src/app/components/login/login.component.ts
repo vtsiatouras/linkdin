@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {User} from '../../models/user';
 import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
@@ -11,7 +10,9 @@ import {AuthenticationService} from '../../services/authentication.service';
 })
 
 export class LoginComponent implements OnInit {
-  user: User = new User();
+
+  email: string;
+  password: string;
   authService: AuthenticationService;
 
   constructor(
@@ -19,7 +20,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private http: HttpClient
     ) {
-
     this.authService = new AuthenticationService(route, router, http);
   }
 
@@ -34,11 +34,8 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    const email = this.user.email;
-    const password = this.user.password;
-
     // Don't send null values
-    if (email === '' || password === '' ) { // TODO mporei na nai peritto auto
+    if (this.email === '' || this.password === '' ) { // TODO mporei na nai peritto auto
       this.router.navigate(['/']);
     } else {
       // Make a post request with users credentials
@@ -46,8 +43,8 @@ export class LoginComponent implements OnInit {
       // and the client will redirect to user's home page
       // If the credentials have errors then the server will send UNAUTHORIZED //TODO HANDLE THIS
       const req = this.http.post('http://localhost:8080/api/login', {
-        email: email,
-        password: password
+        email:  this.email,
+        password: this.password
       }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
         localStorage.setItem('userToken', data);
         this.router.navigate(['/home']);

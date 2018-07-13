@@ -25,7 +25,6 @@ export class AuthenticationService {
           userToken: userToken
         }, {responseType: 'text', withCredentials: true}).mapTo(true)
         .catch(err => (Observable.of(false)));
-
     // Else cannot be exist a valid session
     } else {
       return Observable.of(false);
