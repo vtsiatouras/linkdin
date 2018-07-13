@@ -1,5 +1,4 @@
 <!--<meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=0, user-scalable=no">-->
-<!--TODO RENAME SIGN IN TO SIGN UP-->
 <img class="background-img" src="../../../assets/images/welcome_page_image_16_9.jpg"/>
 <div class="layer">
 </div>
@@ -7,27 +6,20 @@
   <div class="card card-container">
     <img id="logo-img" class="logo-img-card" src="../../../assets/images/linkDIn.png"/>
     <p id="profile-name" class="profile-name-card"></p>
-    <form class="form-signin" ngNativeValidate>
+    <form class="form-signup" ngNativeValidate>
       <span id="reauth-email" class="reauth-email"></span>
       <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <!--<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-      <input type="password" id="reenterPassword" class="form-control" placeholder="Password confirmation" required>-->
-
       <input class="form-control" id="password" name="password" type="password" onchange="if(this.checkValidity()) form.password_two.pattern = this.value;" placeholder="Password" required>
-
       <input class="form-control" id="password_two" name="password_two" type="password" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required>
-
       <input type="text" id="firstName" class="form-control" placeholder="First Name" required>
-
       <input type="text" id="lastName" class="form-control" placeholder="Last Name" required>
-      <!--todo add names-->
       <input type="tel" id="phoneNumber" class="form-control" placeholder="Phone Number" required>
       <div class="form-group form-group-sm">
         <p id="fileHelp" class="form-text text-muted">Upload profile picture</p>
         <input type="file" class="form-control-file input-sm" id="exampleInputFile" aria-describedby="fileHelp" accept="image/*">
 
       </div>
-      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Register</button>
+      <button class="btn btn-lg btn-primary btn-block btn-signup" type="submit">Register</button>
     </form><!-- /form -->
   </div><!-- /card-container -->
 </div><!-- /container -->

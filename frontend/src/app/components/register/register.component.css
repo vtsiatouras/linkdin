@@ -105,17 +105,17 @@ body, html {
   box-sizing: border-box;
 }
 
-.form-signin #inputEmail,
-.form-signin #inputPassword {
+.form-signup #inputEmail,
+.form-signup #inputPassword {
   direction: ltr;
   height: 44px;
   font-size: 16px;
 }
 
-.form-signin input[type=email],
-.form-signin input[type=password],
-.form-signin input[type=text],
-.form-signin button {
+.form-signup input[type=email],
+.form-signup input[type=password],
+.form-signup input[type=text],
+.form-signup button {
   width: 100%;
   display: block;
   margin-bottom: 10px;
@@ -126,7 +126,7 @@ body, html {
   box-sizing: border-box;
 }
 
-.form-signin .form-control:focus {
+.form-signup .form-control:focus {
   border-color: rgb(104, 145, 162);
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(104, 145, 162);
@@ -150,7 +150,7 @@ body, html {
 
 }
 
-.btn.btn-signin {
+.btn.btn-signup {
   /*background-color: #4d90fe; */
   background-color: rgb(104, 145, 162);
   /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
@@ -168,9 +168,9 @@ body, html {
   transition: all 0.218s;
 }
 
-.btn.btn-signin:hover,
-.btn.btn-signin:active,
-.btn.btn-signin:focus {
+.btn.btn-signup:hover,
+.btn.btn-signup:active,
+.btn.btn-signup:focus {
   background-color: #006394;
 }
 
