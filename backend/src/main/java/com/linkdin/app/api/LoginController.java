@@ -20,11 +20,10 @@ public class LoginController {
     @PostMapping(path = "/login")
     public ResponseEntity<String> login(@RequestBody Credentials credentials, HttpSession session) {
         System.out.println(credentials.email + " " + credentials.password);
+        // Check if credentials are legit
         if (userService.authenticate(credentials.email, credentials.password)) {
             String email = credentials.email;
-
             session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, email);
-
             return ResponseEntity.ok(credentials.email);
         } else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

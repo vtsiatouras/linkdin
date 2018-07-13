@@ -13,17 +13,17 @@ import javax.servlet.http.HttpSession;
 public class AuthCheckController {
 
     @PostMapping(path = "/authcheck")
-    public ResponseEntity<String> authCheck(@RequestBody UserToken userToken, HttpSession session) {
+    public ResponseEntity<String> authCheck(@RequestBody UserToken userTok, HttpSession session) {
 
         if(session == null){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        if(userToken == null){
+        if(userTok == null){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        if(session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME).equals(userToken.userTok)){
+        if(session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME).equals(userTok.userToken)){
             System.err.println("user is authenticated!");
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
