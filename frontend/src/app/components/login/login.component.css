@@ -13,8 +13,6 @@ body, html {
 }
 
 .background-img {
-  /*background-image: url("../../../assets/images/welcome_page_image_16_9.jpg");*/
-
   background-size: cover;
   background-repeat: no-repeat;
   height: auto;
@@ -76,7 +74,6 @@ body, html {
   height: 96px;
   margin: 0 auto 10px;
   display: block;
-
 }
 
 /*

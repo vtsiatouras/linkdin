@@ -1,0 +1,29 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.navbar {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: #263238;
+  color: white;
+  text-align: center;
+  font-size: 9pt;
+}
+
+#navbar-content{
+  width: 1200px;
+  margin:0 auto;
+}
+
+.logo {
+  width: 100px;
+  height: 40px;
+  left: 0;
+  top: 0;
+  display: block;
+}
