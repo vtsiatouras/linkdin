@@ -126,6 +126,10 @@ body, html {
   box-sizing: border-box;
 }
 
+.form-signup .ng-invalid.ng-touched  {
+  border: 2px solid red;
+}
+
 .form-signup .form-control:focus {
   border-color: rgb(104, 145, 162);
   outline: 0;

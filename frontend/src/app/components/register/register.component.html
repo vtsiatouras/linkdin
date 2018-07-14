@@ -6,21 +6,34 @@
   <div class="card card-container">
     <img id="logo-img" class="logo-img-card" src="../../../assets/images/linkDIn.png"/>
     <p id="profile-name" class="profile-name-card"></p>
-    <form class="form-signup" (submit)="registerUser()" ngNativeValidate>
-      <span id="reauth-email" class="reauth-email"></span>
-      <input class="form-control" id="inputEmail" name= "email" type="email" placeholder="Email address" required autofocus [(ngModel)]="email" >
-      <input class="form-control" id="password" name="password_1" type="password" [(ngModel)]="password_1" onchange="if(this.checkValidity()) form.password_2.pattern = this.value;" placeholder="Password" required>
-      <input class="form-control" id="password_two" name="password_2" type="password" [(ngModel)]="password_2" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" placeholder="Verify Password" required>
-      <input class="form-control" id="firstName" name="firstName" type="text" placeholder="First Name" required [(ngModel)]="firstName">
-      <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Last Name" required [(ngModel)]="lastName">
-      <input class="form-control" id="phoneNumber" name="phoneNumber" type="tel" placeholder="Phone Number" required [(ngModel)]="phoneNumber">
+    <form class="form-signup" #regForm="ngForm" (ngSubmit)="regForm.valid && registerUser()" novalidate>
+      <input class="form-control" id="inputEmail" name= "email" type="email" #email_form="ngModel" placeholder="Email address" ngModel email required autofocus [(ngModel)]="email" >
+      <div *ngIf="email_form.errors && (email_form.dirty || email_form.touched)" class="alert-error"></div>
+      <input class="form-control" id="password_1" name="password_1" type="password" #pass_1_form="ngModel" placeholder="Password" required [(ngModel)]="password_1">
+      <div *ngIf="pass_1_form.errors && (pass_1_form.dirty || pass_1_form.touched)" class="alert-error"></div>
+      <input class="form-control" id="password_2" name="password_2" type="password" #pass_2_form="ngModel" placeholder="Confirm Password" pattern={{password_1}} required [(ngModel)]="password_2">
+      <div *ngIf="pass_2_form.errors && (pass_2_form.dirty || pass_2_form.touched)" class="alert-error"></div>
+      <input class="form-control" id="firstName" name="firstName" type="text" #firstname_form="ngModel" placeholder="First Name" required [(ngModel)]="firstName">
+      <div *ngIf="firstname_form.errors && (firstname_form.dirty || firstname_form.touched)" class="alert-error"></div>
+      <input class="form-control" id="lastName" name="lastName" type="text" #lastname_form="ngModel" placeholder="Last Name" required [(ngModel)]="lastName">
+      <div *ngIf="lastname_form.errors && (lastname_form.dirty || lastname_form.touched)" class="alert-error"></div>
+      <input class="form-control" id="phoneNumber" name="phoneNumber" type="tel" #phone_form="ngModel" placeholder="Phone Number" required [(ngModel)]="phoneNumber">
+      <div *ngIf="phone_form.errors && (phone_form.dirty || phone_form.touched)" class="alert-error"></div>
       <div class="form-group form-group-sm">
         <p id="fileHelp" class="form-text text-muted">Upload profile picture</p>
         <input type="file" class="form-control-file input-sm" id="exampleInputFile" aria-describedby="fileHelp" accept="image/*">
       </div>
       <button class="btn btn-lg btn-primary btn-block btn-signup" type="submit">Register</button>
-    </form><!-- /form -->
-  </div><!-- /card-container -->
-</div><!-- /container -->
+    </form>
+  </div>
+</div>
 
 <app-footer></app-footer>
+
+
+<!--
+(submit)="registerUser()" novalidate
+
+onchange="if(this.checkValidity()) form.password_2.pattern = this.value;"
+onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');"
+-->

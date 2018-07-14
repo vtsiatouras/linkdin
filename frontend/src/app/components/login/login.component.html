@@ -6,16 +6,17 @@
     <div class="card card-container">
       <img id="logo-img" class="logo-img-card" src="../../../assets/images/linkDIn.png"/>
       <p id="profile-name" class="profile-name-card"></p>
-      <form class="form-signin" (submit)="loginUser()" ngNativeValidate>
-        <span id="reauth-email" class="reauth-email"></span>
-        <input class="form-control" type="email" id="inputEmail" placeholder="Email address" name="email" [(ngModel)]="email" required autofocus>
-        <input class="form-control" type="password" id="inputPassword" placeholder="Password" name="password" [(ngModel)]="password" required>
+      <form class="form-signin" #logForm="ngForm" (ngSubmit)="logForm.valid && loginUser()" novalidate>
+        <input class="form-control" id="inputEmail" name= "email" type="email" #email_form="ngModel" placeholder="Email address" ngModel email required autofocus [(ngModel)]="email">
+        <div *ngIf="email_form.errors && (email_form.dirty || email_form.touched)" class="alert-error"></div>
+        <input class="form-control" id="password" name="password" type="password" #pass__form="ngModel" placeholder="Password" required [(ngModel)]="password">
+        <div *ngIf="pass__form.errors && (pass__form.dirty || pass__form.touched)" class="alert-error"></div>
         <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-      </form><!-- /form -->
+      </form>
       <a [routerLink]="['/register']" class="register">
         New to linkDIn? Register now!
       </a>
-    </div><!-- /card-container -->
-</div><!-- /container -->
+    </div>
+</div>
 
 <app-footer></app-footer>
