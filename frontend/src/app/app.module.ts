@@ -12,6 +12,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {RegisterComponent} from './components/register/register.component';
 import {HomeComponent} from './components/home/home.component';
 import {AuthGuard} from './guard/auth.guard';
+import {NavbarComponent} from './components/navbar/navbar.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
     FooterComponent,
     HeaderComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent
   ],
   imports: [
     HttpClientModule,
