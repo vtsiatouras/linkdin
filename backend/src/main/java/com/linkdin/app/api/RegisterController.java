@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Random;
 
 @RestController
 public class RegisterController {
@@ -38,16 +41,23 @@ public class RegisterController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            // TODO STORE THE IMAGE
-            try {
-                String content = new String(profileImage.getBytes());
-                System.err.println("IMAGE\n" + content);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            // Store image
+            // Save all images at this path
+            new File("user_images").mkdirs();
+            // Generate random name for the image
+            // TODO NA VRE8EI PIO E3UPNOS TROPOS
+            Random rand = new Random();
+            int randNum = rand.nextInt(9000000) + 1000000;
+            String imageName = "user_images/"+Integer.toString(randNum);
+            File userImg = new File(imageName);
+            userImg.createNewFile();
+            FileOutputStream fos = new FileOutputStream(userImg);
+            fos.write(profileImage.getBytes());
+            fos.close();
 
             // Store new user
             User user = userRegister.transformToUser(userRegister);
+            user.setProfilePicture(imageName);
             userService.storeUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception ex) {

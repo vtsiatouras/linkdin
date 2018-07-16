@@ -29,19 +29,20 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
 
-    const formData:FormData = new FormData();
+    const formData: FormData = new FormData();
 
     const user = {
-      "email": this.email,
-      "password_1": this.password_1,
-      "password_2": this.password_2,
-      "firstName": this.firstName,
-      "lastName": this.lastName,
-      "phoneNumber": this.phoneNumber};
+      'email': this.email,
+      'password_1': this.password_1,
+      'password_2': this.password_2,
+      'firstName': this.firstName,
+      'lastName': this.lastName,
+      'phoneNumber': this.phoneNumber
+    };
 
     const image = {
-        "imageFile": this.fileToUpload
-      }
+        'imageFile': this.fileToUpload
+    };
 
     formData.append('user', JSON.stringify(user));
     formData.append('profileImage', this.fileToUpload);
