@@ -47,3 +47,6 @@ ui-src/
 
 # Database Schema Files
 *.bak
+
+# User Images Directory
+user_images
