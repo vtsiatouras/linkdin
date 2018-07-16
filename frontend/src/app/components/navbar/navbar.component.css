@@ -5,19 +5,23 @@ body, html {
 }
 
 .navbar {
-  position: relative;
-  left: 0;
-  top: 0;
+  position: fixed;
+  padding: 10px;
   width: 100%;
   background-color: #263238;
-  color: white;
-  text-align: center;
-  font-size: 9pt;
 }
 
-#navbar-content{
+.navbar-content {
   width: 1200px;
   margin:0 auto;
+}
+
+.contents-right {
+  float: right;
+}
+
+.profile-button {
+  display: inline-block;
 }
 
 .logo {
@@ -25,5 +29,13 @@ body, html {
   height: 40px;
   left: 0;
   top: 0;
-  display: block;
+  display: inline-block;
+}
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown-toggle::after {
+  display: none;
 }

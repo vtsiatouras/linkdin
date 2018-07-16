@@ -18,15 +18,4 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  logoutUser() {
-    console.log('logout');
-    localStorage.clear();
-    const req = this.http.post('http://localhost:8080/api/logout', {},
-      {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
-        this.router.navigate(['/login']);
-        },
-      (err: HttpErrorResponse) => {
-        console.log(err);
-      });
-  }
 }

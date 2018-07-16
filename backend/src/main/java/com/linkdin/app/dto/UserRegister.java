@@ -12,7 +12,7 @@ public class UserRegister {
     public String phoneNumber;
 
     public boolean passwordCheck(UserRegister userRegister) {
-        if(password_1.equals(password_2)){
+        if(userRegister.password_1.equals(userRegister.password_2)){
             return true;
         }
         return false;

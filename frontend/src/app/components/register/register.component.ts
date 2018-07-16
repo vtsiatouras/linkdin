@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
       password_1: this.password_1,
       password_2: this.password_2,
       firstName: this.firstName,
-      lastName: this.firstName,
+      lastName: this.lastName,
       phoneNumber: this.phoneNumber
     }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
       this.router.navigate(['/login']); // TODO make a pop up that says "Register completed"
