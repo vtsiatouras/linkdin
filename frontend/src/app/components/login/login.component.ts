@@ -46,7 +46,11 @@ export class LoginComponent implements OnInit {
         email:  this.email,
         password: this.password
       }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
-        localStorage.setItem('userToken', data);
+        var obj = JSON.parse(data);
+        localStorage.setItem('userToken', obj.userToken);
+        localStorage.setItem('firstName', obj.firstName);
+        localStorage.setItem('lastName', obj.lastName);
+        localStorage.setItem('email', obj.email);
         this.router.navigate(['/home']);
         },
         (err: HttpErrorResponse) => {

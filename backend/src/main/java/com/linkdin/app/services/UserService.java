@@ -18,6 +18,14 @@ public class UserService {
         return false;
     }
 
+    public User returnUser(String email) {
+        User user = repository.findByemail(email);
+        if (user != null) {
+            return user;
+        }
+        return null;
+    }
+
     public boolean authenticate(String email, String password) {
         System.err.println(email);
         User user = repository.findByemail(email);
