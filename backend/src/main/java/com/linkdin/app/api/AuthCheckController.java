@@ -20,7 +20,7 @@ public class AuthCheckController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        if (userAttributes == null) {
+        if (userAttributes.userToken == null || userAttributes.email == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
