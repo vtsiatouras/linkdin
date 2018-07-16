@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent implements OnInit {
 
   email: string;
@@ -16,7 +17,6 @@ export class RegisterComponent implements OnInit {
   lastName: string;
   phoneNumber: string;
   fileToUpload: File = null;
-
 
   constructor(
     private route: ActivatedRoute,

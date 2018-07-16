@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  faCoffee = faCoffee;
   firstName = localStorage.getItem('firstName');
   lastName = localStorage.getItem('lastName');
 
