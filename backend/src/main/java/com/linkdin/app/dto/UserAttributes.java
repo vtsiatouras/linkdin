@@ -1,5 +1,6 @@
 package com.linkdin.app.dto;
 
-public class UserToken {
+public class UserAttributes {
     public String userToken;
+    public String email;
 }

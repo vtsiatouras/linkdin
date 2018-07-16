@@ -17,12 +17,14 @@ export class AuthenticationService {
 
   isAuthenticated(): Observable<boolean> {
     const userToken = localStorage.getItem('userToken');
+    const email = localStorage.getItem('email');
     // If there is a user token
     if (userToken) {
       // Check the server if the session belongs to online user
       // If not the server will send UNAUTHORIZED
       return this.http.post('http://localhost:8080/api/authcheck', {
-          userToken: userToken
+          userToken: userToken,
+          email: email
         }, {responseType: 'text', withCredentials: true}).mapTo(true)
         .catch(err => (Observable.of(false)));
     // Else cannot be exist a valid session
