@@ -1,5 +1,21 @@
-<div class="container-fluid navbar">
+<div class="container-fluid navbar-fixed-top navbar">
   <div class="navbar-content">
     <img id="logo-img" class="navbar-brand logo" src="../../../assets/images/linkDIn_light.png"/>
+
+    <div class="contents-right">
+    <button class="btn btn-secondary profile-button navbar-right" type="button">
+      {{ firstName }} {{ lastName }}
+    </button>
+
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" (click)="logoutUser()">Logout</a>
+      </div>
+    </div>
+
+    </div>
   </div>
 </div>
