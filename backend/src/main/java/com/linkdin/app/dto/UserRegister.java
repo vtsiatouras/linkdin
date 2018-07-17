@@ -28,4 +28,13 @@ public class UserRegister {
         return user;
     }
 
+    // Returns true if empty fields are found
+    public boolean checkForEmptyFields(UserRegister userRegister) {
+        if(userRegister.email == null || userRegister.password_1 == null || userRegister.password_2 == null ||
+                userRegister.firstName == null || userRegister.lastName == null || userRegister.phoneNumber == null) {
+            return true;
+        }
+        return false;
+    }
+
 }
