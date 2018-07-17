@@ -17,6 +17,12 @@
         New to linkDIn? Register now!
       </a>
     </div>
+    <div *ngIf="hasError">
+      <div class="alert alert-danger alert-dismissible fade in show" id="alert1" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+        {{ alerts }}
+      </div>
+    </div>
 </div>
 
 <app-footer></app-footer>

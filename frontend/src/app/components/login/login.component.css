@@ -169,3 +169,10 @@ body, html {
 .register:focus {
   color: #006394;
 }
+
+.alert {
+  width: 276px;
+  /*padding: 20px 25px 20px;*/
+  margin: 0 auto 25px;
+  margin-top: 50px;
+}

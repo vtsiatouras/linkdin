@@ -15,6 +15,10 @@ export class LoginComponent implements OnInit {
   password: string;
   authService: AuthenticationService;
 
+  hasError = false;
+  alerts: string;
+  type: 'danger';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -34,6 +38,8 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
+    // Re initialize error flag for the alert pop up
+    this.hasError = false;
     // Don't send null values
     if (this.email === '' || this.password === '' ) { // TODO mporei na nai peritto auto
       this.router.navigate(['/']);
@@ -54,8 +60,17 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
         },
         (err: HttpErrorResponse) => {
-        console.log(err);
+          this.showAlert(err.error);
+          console.log(err);
       });
+    }
+  }
+
+  showAlert(errorMessage) {
+    console.log(errorMessage);
+    if(errorMessage === 'BAD_CREDENTIALS') {
+      this.hasError = true;
+      this.alerts = 'Wrong Email or Password';
     }
   }
 

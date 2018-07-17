@@ -25,10 +25,14 @@ public class LoginController {
     @PostMapping(path = "/login")
     public ResponseEntity<String> login(@RequestBody Credentials credentials, HttpServletRequest request) {
         System.out.println(credentials.email + " " + credentials.password);
-        // TODO HANDLE NULL CREDENTIALS!!! (kai sto register)
-        // Check if credentials are legit
-        if (userService.authenticate(credentials.email, credentials.password)) {
 
+        // Check if credentials are legit
+        // Check for empty fields
+        if(credentials.checkForEmptyFCreds(credentials)) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        // Authenticate user
+        if (userService.authenticate(credentials.email, credentials.password)) {
             User user = userService.returnUser(credentials.email);
             String email = user.getEmail();
             String firstName = user.getName();
@@ -45,15 +49,16 @@ public class LoginController {
                     .put("email", email)
                     .toString();
 
-            System.err.println(jsonString);
-
+//            System.err.println(jsonString);
             // Create a new session and add the security context.
             HttpSession session = request.getSession(true);
             session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, email);
             session.setAttribute("userToken", userToken);
             return ResponseEntity.ok(jsonString);
         } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            System.err.println("bad creds");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("BAD_CREDENTIALS");
         }
     }
 
