@@ -1,23 +1,22 @@
 <div class="container-fluid navbar-fixed-top navbar">
   <div class="navbar-content">
-    <img id="logo-img" class="navbar-brand logo" src="../../../assets/images/linkDIn_light.png" />
-
+    <div class="logo">
+      <a [routerLink]="['/home']">
+        <img id="logo-img" class="navbar-brand logo" src="../../../assets/images/linkDIn_light.png" />
+      </a>
+    </div>
     <div class="contents-right">
       <button class="btn btn-secondary profile-button navbar-right" type="button">
         {{ firstName }} {{ lastName }}
       </button>
-
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">
-          <!--<i class="fa fa-heart"></i>-->
-          <fa-icon [icon]="faCoffee"></fa-icon>
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <fa-icon [icon]="faCaretDown"></fa-icon>
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <div class="dropdown-menu dropdown-menu-right">
           <a class="dropdown-item" (click)="logoutUser()">Logout</a>
         </div>
       </div>
-
     </div>
   </div>
 </div>

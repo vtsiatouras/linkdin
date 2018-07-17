@@ -6,13 +6,13 @@
   <div class="card card-container">
     <img id="logo-img" class="logo-img-card" src="../../../assets/images/linkDIn.png" />
     <p id="profile-name" class="profile-name-card"></p>
-    <form class="form-signin" #logForm="ngForm" (ngSubmit)="logForm.valid && loginUser()" novalidate>
+    <form class="form-signin" #login_Form="ngForm" (ngSubmit)="login_Form.valid && loginUser()" novalidate>
       <input class="form-control" id="inputEmail" name="email" type="email" #email_form="ngModel" placeholder="Email address" ngModel
         email required autofocus [(ngModel)]="email">
       <div *ngIf="email_form.errors && (email_form.dirty || email_form.touched)" class="alert-error"></div>
-      <input class="form-control" id="password" name="password" type="password" #pass__form="ngModel" placeholder="Password" required
+      <input class="form-control" id="password" name="password" type="password" #pass_form="ngModel" placeholder="Password" required
         [(ngModel)]="password">
-      <div *ngIf="pass__form.errors && (pass__form.dirty || pass__form.touched)" class="alert-error"></div>
+      <div *ngIf="pass_form.errors && (pass_form.dirty || pass_form.touched)" class="alert-error"></div>
       <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
     </form>
     <a [routerLink]="['/register']" class="register">

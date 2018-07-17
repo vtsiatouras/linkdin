@@ -23,6 +23,18 @@ html {
 
 .profile-button {
   display: inline-block;
+  border: none;
+  background: none;
+  margin-right: 10px;
+}
+
+.btn.profile-button:hover,
+.btn.profile-button:active,
+.btn.profile-button:focus {
+  background-color: #006394;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .logo {
@@ -33,10 +45,34 @@ html {
   display: inline-block;
 }
 
-.dropdown {
-  display: inline-block;
+.dropdown-toggle:after {
+  display: none;
+  border: none;
+  background: none;
 }
 
-.dropdown-toggle::after {
-  display: none;
+.btn.btn-secondary.dropdown-toggle {
+  border: none;
+  background: none;
+}
+
+.btn.btn-secondary.dropdown-toggle.focus,
+.btn.btn-secondary.dropdown-toggle:focus,
+.btn.btn-secondary.dropdown-toggle:hover {
+  border: none;
+  background: none;
+  color: #006394;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.dropdown-menu-right {
+  right: 0;
+  left: auto;
+}
+
+.dropdown-menu > a:hover {
+  background-color: #006394;
+  color: #ffffff;
 }
