@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     };
 
     const image = {
-        'imageFile': this.fileToUpload
+      'imageFile': this.fileToUpload
     };
 
     formData.append('user', JSON.stringify(user));
@@ -51,12 +51,12 @@ export class RegisterComponent implements OnInit {
 
     const req = this.http.post('http://localhost:8080/api/register',
       formData
-     , {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
-      this.router.navigate(['/login']); // TODO make a pop up that says "Register completed"
+      , { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+        this.router.navigate(['/login']); // TODO make a pop up that says "Register completed"
       },
-      (err: HttpErrorResponse) => {
-        console.log(err); // TODO this will be trigger if the server is down or the email already exists.
-    });
+        (err: HttpErrorResponse) => {
+          console.log(err); // TODO this will be trigger if the server is down or the email already exists.
+        });
   }
 
   handleFileInput(files: FileList) {
