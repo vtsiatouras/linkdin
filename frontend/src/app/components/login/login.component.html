@@ -1,28 +1,30 @@
 <!--<meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=0, user-scalable=no">-->
-<img class="background-img" src="../../../assets/images/welcome_page_image_16_9.jpg"/>
-  <div class="layer">
+<img class="background-img" src="../../../assets/images/welcome_page_image_16_9.jpg" />
+<div class="layer">
+</div>
+<div class="container">
+  <div class="card card-container">
+    <img id="logo-img" class="logo-img-card" src="../../../assets/images/linkDIn.png" />
+    <p id="profile-name" class="profile-name-card"></p>
+    <form class="form-signin" #logForm="ngForm" (ngSubmit)="logForm.valid && loginUser()" novalidate>
+      <input class="form-control" id="inputEmail" name="email" type="email" #email_form="ngModel" placeholder="Email address" ngModel
+        email required autofocus [(ngModel)]="email">
+      <div *ngIf="email_form.errors && (email_form.dirty || email_form.touched)" class="alert-error"></div>
+      <input class="form-control" id="password" name="password" type="password" #pass__form="ngModel" placeholder="Password" required
+        [(ngModel)]="password">
+      <div *ngIf="pass__form.errors && (pass__form.dirty || pass__form.touched)" class="alert-error"></div>
+      <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+    </form>
+    <a [routerLink]="['/register']" class="register">
+      New to linkDIn? Register now!
+    </a>
   </div>
-  <div class="container">
-    <div class="card card-container">
-      <img id="logo-img" class="logo-img-card" src="../../../assets/images/linkDIn.png"/>
-      <p id="profile-name" class="profile-name-card"></p>
-      <form class="form-signin" #logForm="ngForm" (ngSubmit)="logForm.valid && loginUser()" novalidate>
-        <input class="form-control" id="inputEmail" name= "email" type="email" #email_form="ngModel" placeholder="Email address" ngModel email required autofocus [(ngModel)]="email">
-        <div *ngIf="email_form.errors && (email_form.dirty || email_form.touched)" class="alert-error"></div>
-        <input class="form-control" id="password" name="password" type="password" #pass__form="ngModel" placeholder="Password" required [(ngModel)]="password">
-        <div *ngIf="pass__form.errors && (pass__form.dirty || pass__form.touched)" class="alert-error"></div>
-        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-      </form>
-      <a [routerLink]="['/register']" class="register">
-        New to linkDIn? Register now!
-      </a>
+  <div *ngIf="hasError">
+    <div class="alert alert-danger alert-dismissible fade in show" id="alert1" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+      {{ alerts }}
     </div>
-    <div *ngIf="hasError">
-      <div class="alert alert-danger alert-dismissible fade in show" id="alert1" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
-        {{ alerts }}
-      </div>
-    </div>
+  </div>
 </div>
 
 <app-footer></app-footer>

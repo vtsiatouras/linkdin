@@ -1,10 +1,13 @@
 /*
  * Specific styles of signin component
  */
+
 /*
  * General styles
  */
-body, html {
+
+body,
+html {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -14,7 +17,6 @@ body, html {
 
 .background-img {
   /*background-image: url("../../../assets/images/welcome_page_image_16_9.jpg");*/
-
   background-size: cover;
   background-repeat: no-repeat;
   height: auto;
@@ -24,7 +26,6 @@ body, html {
   position: fixed;
   -webkit-filter: blur(3px);
   filter: blur(3px);
-
 }
 
 .layer {
@@ -41,7 +42,6 @@ body, html {
   max-width: 350px;
   padding: 40px 40px;
   top: 2em;
-
 }
 
 .btn {
@@ -56,6 +56,7 @@ body, html {
 /*
  * Card component
  */
+
 .card {
   background-color: #F7F7F7;
   /* just in case there no content*/
@@ -76,12 +77,12 @@ body, html {
   height: 96px;
   margin: 0 auto 10px;
   display: block;
-
 }
 
 /*
  * Form styles
  */
+
 .profile-name-card {
   font-size: 16px;
   font-weight: bold;
@@ -126,7 +127,7 @@ body, html {
   box-sizing: border-box;
 }
 
-.form-signup .ng-invalid.ng-touched  {
+.form-signup .ng-invalid.ng-touched {
   border: 2px solid red;
 }
 
@@ -143,7 +144,6 @@ body, html {
 
 .form-group input {
   margin-top: -10px;
-
 }
 
 .form-group .form-control-file {
@@ -151,7 +151,6 @@ body, html {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
-
 }
 
 .btn.btn-signup {
