@@ -3,6 +3,7 @@ package com.linkdin.app.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserRegister;
 import com.linkdin.app.model.User;
+import com.linkdin.app.services.ImageStorageService;
 import com.linkdin.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,8 @@ public class RegisterController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    ImageStorageService imageStorageService;
 
     @PostMapping(path = "/register")
     public ResponseEntity <String> register(@RequestPart("user") String jsonUser,
@@ -28,6 +31,12 @@ public class RegisterController {
         try {
             UserRegister userRegister = objectMapper.readValue(jsonUser, UserRegister.class);
             System.err.println(userRegister.email);
+
+            // Check for empty fields
+            if(userRegister.checkForEmptyFields(userRegister)) {
+                System.out.println("EMPTY FIELDS FOUND");
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
 
             // Check if email is already stored
             if (userService.emailExist(userRegister.email)) {
@@ -41,19 +50,8 @@ public class RegisterController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            // Store image
-            // Save all images at this path
-            new File("user_images").mkdirs();
-            // Generate random name for the image
-            // TODO NA VRE8EI PIO E3UPNOS TROPOS
-            Random rand = new Random();
-            int randNum = rand.nextInt(9000000) + 1000000;
-            String imageName = "user_images/"+Integer.toString(randNum);
-            File userImg = new File(imageName);
-            userImg.createNewFile();
-            FileOutputStream fos = new FileOutputStream(userImg);
-            fos.write(profileImage.getBytes());
-            fos.close();
+            // Store profile image
+            String imageName = imageStorageService.storeImage(profileImage);
 
             // Store new user
             User user = userRegister.transformToUser(userRegister);
