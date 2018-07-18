@@ -1,36 +1,27 @@
-body,
-html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
 .navbar {
-  position: fixed;
-  padding: 10px;
   width: 100%;
   background-color: #263238;
 }
 
-.navbar-content {
-  width: 1200px;
+.navbar.navbar-collapse {
+  text-align: center;
+}
+
+.container-fluid {
+  width: 1230px;
   margin: 0 auto;
 }
 
-.contents-right {
-  float: right;
-}
-
-.profile-button {
+.no-background-button {
   display: inline-block;
   border: none;
   background: none;
   margin-right: 10px;
 }
 
-.btn.profile-button:hover,
-.btn.profile-button:active,
-.btn.profile-button:focus {
+.btn.no-background-button:hover,
+.btn.no-background-button:active,
+.btn.no-background-button:focus {
   background-color: #006394;
   border-color: inherit;
   -webkit-box-shadow: none;
@@ -45,10 +36,72 @@ html {
   display: inline-block;
 }
 
+.search-button {
+  background-color: #006394;
+  border: none;
+}
+
+.btn.search-button:hover,
+.btn.search-button:active {
+  background-color: #00334d;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
+
+.divider {
+  margin-right: 10px;
+  border-right: 2px solid #ffffff;
+}
+
+/* .search {
+  margin-left: 130px;
+  width: 300px;
+} */
+
+.btn-group.mr-2.user-buttons {
+  margin: 0;
+  float: none;
+  text-align: center;
+}
+
 .dropdown-toggle:after {
   display: none;
   border: none;
   background: none;
+}
+
+.btn.btn-secondary.notifications {
+  border: none;
+  background: none;
+}
+
+.btn.btn-secondary.notifications.focus,
+.btn.btn-secondary.notifications:focus,
+.btn.btn-secondary.notifications:hover {
+  border: none;
+  background: none;
+  color: #006394;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn.btn-secondary.messages {
+  border: none;
+  background: none;
+}
+
+.btn.btn-secondary.messages.focus,
+.btn.btn-secondary.messages:focus,
+.btn.btn-secondary.messages:hover {
+  border: none;
+  background: none;
+  color: #006394;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .btn.btn-secondary.dropdown-toggle {
@@ -67,12 +120,11 @@ html {
   box-shadow: none;
 }
 
-.dropdown-menu-right {
-  right: 0;
-  left: auto;
+.dropdown {
+  display: inline-block;
 }
 
-.dropdown-menu > a:hover {
+.dropdown-menu>a:hover {
   background-color: #006394;
   color: #ffffff;
 }

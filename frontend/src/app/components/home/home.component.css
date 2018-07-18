@@ -1,5 +1,7 @@
-.home-content{
+div.home-content {
   width: 1200px;
-  margin:0 auto;
-  padding-top: 70px;
+  max-width: 100%;
+  height: auto;
+  background: #ccc;
+  margin: 10px auto;
 }
