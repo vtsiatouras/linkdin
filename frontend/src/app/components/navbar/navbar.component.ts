@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -10,7 +13,12 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
   faCaretDown = faCaretDown;
+  faEnvelope = faEnvelope;
+  faBell = faBell;
+  faSearch = faSearch;
+
   firstName = localStorage.getItem('firstName');
   lastName = localStorage.getItem('lastName');
 
