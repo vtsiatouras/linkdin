@@ -35,23 +35,31 @@ public class RegisterController {
             // Check for empty fields
             if(userRegister.checkForEmptyFields(userRegister)) {
                 System.out.println("EMPTY FIELDS FOUND");
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("EMPTY_FIELDS");
             }
 
             // Check if email is already stored
             if (userService.emailExist(userRegister.email)) {
                 System.out.println("EMAIL EXISTS");
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("EMAIL_EXISTS");
             }
 
             // Check if the passwords are not matching
             if (!userRegister.passwordCheck(userRegister)) {
                 System.out.println("PASSWORDS DO NOT MATCH");
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("PASSWORDS_NOT_MATCHING");
             }
 
-            // Store profile image
-            String imageName = imageStorageService.storeImage(profileImage);
+            String imageName;
+            if (profileImage != null) {
+                // Store profile image
+                imageName = imageStorageService.storeImage(profileImage);
+            } else {
+                imageName = null;
+            }
 
             // Store new user
             User user = userRegister.transformToUser(userRegister);
