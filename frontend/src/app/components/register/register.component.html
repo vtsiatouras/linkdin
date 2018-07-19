@@ -24,13 +24,33 @@
       <input class="form-control" id="phoneNumber" name="phoneNumber" type="tel" #phone_form="ngModel" placeholder="Phone Number"
         required [(ngModel)]="phoneNumber">
       <div *ngIf="phone_form.errors && (phone_form.dirty || phone_form.touched)" class="alert-error"></div>
-      <div class="form-group form-group-sm">
-        <p id="fileHelp" class="form-text text-muted">Upload profile picture</p>
-        <input type="file" class="form-control-file input-sm" id="exampleInputFile" aria-describedby="fileHelp" accept="image/*"
-          (change)="handleFileInput($event.target.files)">
+      <div class="input-group upload-image">
+        <label class="input-group-btn">
+          <span class="btn btn-primary upload-button">
+            <fa-icon [icon]="faUpload"></fa-icon>
+            <input class="form-control image-up" id="my-file-selector" type="file" accept="image/*" name="image" #image_form="ngModel"
+              [(ngModel)]="image" style="display:none;" onchange="$('#upload-file-info').val($(this).val());" (change)="handleFileInput($event.target.files)"
+              required>
+          </span>
+        </label>
+        <input type="text" class="form-control upload-image-info" id="upload-file-info" placeholder="Upload Profile Image" readonly>
       </div>
+
+      <p class="text-sm-center font-weight-light">
+        All fields are required.
+      </p>
+
       <button class="btn btn-lg btn-primary btn-block btn-signup" type="submit">Register</button>
     </form>
   </div>
+  <div *ngIf="hasError">
+    <div class="alert alert-danger alert-dismissible fade in show" id="alert1" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+      {{ alerts }}
+    </div>
+  </div>
 </div>
+
+<!-- $('#upload-file-info').val($(this).val());  -->
+
 <app-footer></app-footer>
