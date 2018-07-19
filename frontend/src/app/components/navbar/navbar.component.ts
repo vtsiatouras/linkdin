@@ -42,7 +42,6 @@ export class NavbarComponent implements OnInit {
   }
 
   redirectToProfile() {
-    // const fistLastName = this.firstName + '.' + this.lastName;
     this.router.navigate(['/users', this.userID]);
   }
 

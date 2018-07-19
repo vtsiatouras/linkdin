@@ -26,6 +26,14 @@ public class UserService {
         return null;
     }
 
+    public User returnUserByID(Integer id) {
+        User user = repository.findByid(id);
+        if (user != null) {
+            return user;
+        }
+        return null;
+    }
+
     public boolean authenticate(String email, String password) {
         System.err.println(email);
         User user = repository.findByemail(email);
