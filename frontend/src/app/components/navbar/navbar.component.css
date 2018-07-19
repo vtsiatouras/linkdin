@@ -3,13 +3,19 @@
   background-color: #263238;
 }
 
-.navbar.navbar-collapse {
-  text-align: center;
-}
-
 .container-fluid {
   width: 1230px;
   margin: 0 auto;
+}
+
+.search-bar {
+  list-style: none;
+  text-align: center;
+  display:inline;
+}
+
+.search {
+  display:inline;
 }
 
 .no-background-button {
@@ -31,8 +37,6 @@
 .logo {
   width: 100px;
   height: 40px;
-  left: 0;
-  top: 0;
   display: inline-block;
 }
 
@@ -54,11 +58,6 @@
   margin-right: 10px;
   border-right: 2px solid #ffffff;
 }
-
-/* .search {
-  margin-left: 130px;
-  width: 300px;
-} */
 
 .btn-group.mr-2.user-buttons {
   margin: 0;

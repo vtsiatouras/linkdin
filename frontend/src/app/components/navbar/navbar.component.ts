@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
   }
 
   clickLogo() {
-    console.log("logo clicked");
+    console.log('logo clicked');
     this.router.navigate(['/home']);
   }
 
