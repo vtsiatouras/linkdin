@@ -11,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Random;
+// TODO remove all prints and use log system
 
 @RestController
 public class RegisterController {
@@ -71,6 +68,4 @@ public class RegisterController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
-
-
 }

@@ -53,7 +53,9 @@ export class LoginComponent implements OnInit {
         password: this.password
       }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
         const obj = JSON.parse(data);
+        console.log(obj);
         localStorage.setItem('userToken', obj.userToken);
+        localStorage.setItem('userID', obj.userID);
         localStorage.setItem('firstName', obj.firstName);
         localStorage.setItem('lastName', obj.lastName);
         localStorage.setItem('email', obj.email);
