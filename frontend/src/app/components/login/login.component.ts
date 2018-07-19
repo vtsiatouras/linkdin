@@ -33,8 +33,6 @@ export class LoginComponent implements OnInit {
     if (localStorage.getItem('userToken')) {
       this.router.navigate(['/home']);
     }
-
-    // this.authService.authenticatedRedirect();
   }
 
   loginUser() {
