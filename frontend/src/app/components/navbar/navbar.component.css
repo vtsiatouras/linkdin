@@ -59,7 +59,7 @@
   border-right: 2px solid #ffffff;
 }
 
-.btn-group.mr-2.user-buttons {
+.btn-group.user-buttons {
   margin: 0;
   float: none;
   text-align: center;
@@ -123,7 +123,7 @@
   display: inline-block;
 }
 
-.dropdown-menu>a:hover {
+.dropdown-menu>button:hover {
   background-color: #006394;
   color: #ffffff;
 }

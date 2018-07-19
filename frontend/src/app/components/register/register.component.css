@@ -6,15 +6,6 @@
  * General styles
  */
 
-/* body,
-html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
-} */
-
 .background-img {
   background-size: cover;
   background-repeat: no-repeat;
@@ -179,9 +170,10 @@ html {
   color: #006394;
 }
 
-.text-sm-center .font-weight-light {
-  font-size: 10px;
+.text-req {
+  font-size: 15px;
   font-weight: 100;
+  text-align: center;
 }
 
 .alert {
