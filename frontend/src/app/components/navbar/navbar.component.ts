@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
 
   firstName = localStorage.getItem('firstName');
   lastName = localStorage.getItem('lastName');
+  userID = localStorage.getItem('userID');
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +35,15 @@ export class NavbarComponent implements OnInit {
   clickLogo() {
     console.log('logo clicked');
     this.router.navigate(['/home']);
+  }
+
+  redirectToHome() {
+    this.router.navigate(['/home']);
+  }
+
+  redirectToProfile() {
+    // const fistLastName = this.firstName + '.' + this.lastName;
+    this.router.navigate(['/users', this.userID]);
   }
 
   logoutUser() {

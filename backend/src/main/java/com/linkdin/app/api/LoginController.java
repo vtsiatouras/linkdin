@@ -28,12 +28,13 @@ public class LoginController {
 
         // Check if credentials are legit
         // Check for empty fields
-        if(credentials.checkForEmptyFCreds(credentials)) {
+        if(credentials.checkForEmptyCreds(credentials)) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         // Authenticate user
         if (userService.authenticate(credentials.email, credentials.password)) {
             User user = userService.returnUser(credentials.email);
+            String id = Integer.toString(user.getId());
             String email = user.getEmail();
             String firstName = user.getName();
             String lastName = user.getSurname();
@@ -44,6 +45,7 @@ public class LoginController {
 
             String jsonString = new JSONObject()
                     .put("userToken", userToken)
+                    .put("userID", id)
                     .put("firstName", firstName)
                     .put("lastName", lastName)
                     .put("email", email)

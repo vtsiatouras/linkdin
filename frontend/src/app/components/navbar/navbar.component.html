@@ -19,10 +19,10 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button> 
+      </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <button class="btn btn-secondary no-background-button navbar-right" type="button">
+          <button class="btn btn-secondary no-background-button navbar-right" type="button" (click)="redirectToHome()">
             Home Page
           </button>
           <button class="btn btn-secondary no-background-button navbar-right" type="button">
@@ -44,7 +44,7 @@
           </ul>
           <ul class="navbar-nav text-center">
             <div class="btn-group-justified" role="group" aria-label="Second group">
-              <button class="btn btn-secondary no-background-button" type="button">
+              <button class="btn btn-secondary no-background-button" type="button" (click)="redirectToProfile()">
                 {{ firstName }} {{ lastName }}
               </button>
               <div class="nav-item dropdown">
