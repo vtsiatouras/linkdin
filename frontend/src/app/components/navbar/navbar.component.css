@@ -3,19 +3,13 @@
   background-color: #263238;
 }
 
+.navbar-collapse.collapse {
+  text-align: center;
+}
+
 .container-fluid {
   width: 1230px;
   margin: 0 auto;
-}
-
-.search-bar {
-  list-style: none;
-  text-align: center;
-  display:inline;
-}
-
-.search {
-  display:inline;
 }
 
 .no-background-button {
@@ -38,6 +32,21 @@
   width: 100px;
   height: 40px;
   display: inline-block;
+}
+
+.input-group.search-box {
+  align-content: center;
+}
+
+.search-bar{
+  width: 40%;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.search-bar .input-group{
+  width: 60%;
 }
 
 .search-button {

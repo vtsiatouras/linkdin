@@ -128,12 +128,12 @@
   background-color: #006394;
 }
 
-#upload-file-info {
+.form-control.upload-image-info {
   background-color: rgb(255, 255, 255);
 }
 
-.image-up .ng-invalid.ng-touched {
-  border: 2px solid red;
+.alert-error.image-upload-alert {
+  color: red;
 }
 
 .btn.btn-signup {
