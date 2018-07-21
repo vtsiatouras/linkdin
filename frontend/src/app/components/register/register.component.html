@@ -28,18 +28,17 @@
         <label class="input-group-btn">
           <span class="btn btn-primary upload-button">
             <fa-icon [icon]="faUpload"></fa-icon>
-            <input class="form-control image-up" id="my-file-selector" type="file" accept="image/*" name="image" #image_form="ngModel"
-              [(ngModel)]="image" style="display:none;" onchange="$('#upload-file-info').val($(this).val());" (change)="handleFileInput($event.target.files)"
-              required>
+            <input class="form-control image-up" id="my-file-selector" name="image" type="file" accept="image/*" style="display:none;"
+              onchange="$('#upload-file-info').val($(this).val());" (change)="handleFileInput($event.target.files)" required
+              ng-model="filepath">
           </span>
         </label>
         <input type="text" class="form-control upload-image-info" id="upload-file-info" placeholder="Upload Profile Image" readonly>
       </div>
-
+      <div *ngIf="!imageUploaded" class="text-center alert-error image-upload-alert">Image required</div>
       <div class="text-req text-center">
         All fields are required.
       </div>
-
       <button class="btn btn-lg btn-primary btn-block btn-signup" type="submit">Register</button>
     </form>
   </div>
@@ -50,7 +49,4 @@
     </div>
   </div>
 </div>
-
-<!-- $('#upload-file-info').val($(this).val());  -->
-
 <app-footer></app-footer>

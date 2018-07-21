@@ -22,6 +22,7 @@ export class RegisterComponent implements OnInit {
   fileToUpload: File;
 
   image: string;
+  imageUploaded: boolean;
 
   hasError = false;
   alerts: string;
@@ -76,6 +77,7 @@ export class RegisterComponent implements OnInit {
       };
 
       formData.append('user', JSON.stringify(user));
+      const imageToString = (this.fileToUpload);
       formData.append('profileImage', this.fileToUpload);
 
       console.log(formData);
@@ -93,7 +95,12 @@ export class RegisterComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+    if (files.item(0) === null) {
+      this.imageUploaded = false;
+    } else {
+      this.fileToUpload = files.item(0);
+      this.imageUploaded = true;
+    }
   }
 
   showAlert(errorMessage) {
