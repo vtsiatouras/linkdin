@@ -54,7 +54,7 @@ public class ImageStorageService {
         }
     }
 
-    public File retrieveImage() {
+    public File retrieveImage(String imageName) {
         return null;
     }
 
