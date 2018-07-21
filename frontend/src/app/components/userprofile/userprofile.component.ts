@@ -11,11 +11,18 @@ export class UserprofileComponent implements OnInit {
 
   href = '';
 
+  // Retrieve user's data from local storage
   email = localStorage.getItem('email');
   userToken = localStorage.getItem('userToken');
   firstName = localStorage.getItem('firstName');
   lastName = localStorage.getItem('lastName');
   userID = localStorage.getItem('userID');
+
+  // Variables for requested user's profile
+  profileFirstName: string;
+  profileSurname: string;
+  profilePhoneNumber: string;
+  profileImage: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +44,11 @@ export class UserprofileComponent implements OnInit {
       profileUserID: urlUserID
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
+      this.profileImage = 'data:image/jpeg;base64,' + obj.profileImage;
+
+      // const usrObj = JSON.parse(obj.user);
+      this.profileFirstName = obj.user.firstName;
+
       console.log(obj);
     },
       (err: HttpErrorResponse) => {

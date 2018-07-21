@@ -1,5 +1,10 @@
 <app-navbar></app-navbar>
-<div class="home-content">
-  PROFILE
+<div class="profile-content">
+  <div class="profile-info row text-center">
+    <img class="rounded-circle profile-image" src="{{profileImage}}">
+    <div class="user-name">
+      {{ firstName }} {{ lastName }}
+    </div>
+  </div>
 </div>
 <app-footer></app-footer>
