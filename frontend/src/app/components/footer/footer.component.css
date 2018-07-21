@@ -1,5 +1,5 @@
 .footer {
-  position: relative;
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -7,4 +7,5 @@
   color: white;
   text-align: center;
   font-size: 10pt;
+  overflow: hidden;
 }
