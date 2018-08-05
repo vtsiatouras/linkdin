@@ -36,8 +36,8 @@
     margin-top: -10px;
     color: #006394;
     background-color: Transparent;
-    background-repeat:no-repeat;
-    outline:none;
+    background-repeat: no-repeat;
+    outline: none;
     border: none;
     font-size: 14pt;
 }
@@ -48,12 +48,47 @@
     margin-top: -10px;
     color: #006394;
     background-color: Transparent;
-    background-repeat:no-repeat;
-    outline:none;
+    background-repeat: no-repeat;
+    outline: none;
     border: none;
     font-size: 14pt;
 }
 
+.btn.interested-button:hover,
+.btn.interested-button:active {
+    color: #00334d;
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+}
+
+.btn.comment-button:hover,
+.btn.comment-button:active {
+    color: #00334d;
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+}
+
 .post-comment {
     padding: 5px;
+}
+
+.post-comment-button {
+    background-color: #006394;
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+}
+
+.btn.post-comment-button:hover,
+.btn.post-comment-button:active {
+    background-color: #00334d;
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
 }
