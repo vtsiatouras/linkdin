@@ -15,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './guard/auth.guard';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
+import { PostComponent } from './components/post/post.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -33,7 +34,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     NavbarComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    PostComponent
   ],
   imports: [
     HttpClientModule,

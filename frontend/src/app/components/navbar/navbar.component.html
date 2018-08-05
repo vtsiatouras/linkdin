@@ -16,50 +16,50 @@
       </div>
     </div>
     <!-- <ul class="navbar-nav justify-content-right"> -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <button class="btn btn-secondary no-background-button navbar-right" type="button" (click)="redirectToHome()">
-            Home Page
-          </button>
-          <button class="btn btn-secondary no-background-button navbar-right" type="button">
-            Network
-          </button>
-          <button class="btn btn-secondary no-background-button navbar-right" type="button">
-            Job Adverts
-          </button>
-          <li class="divider"></li>
-          <ul class="navbar-nav text-center">
-            <div class="btn-group-justified" role="group" aria-label="First group">
-              <button type="button" class="btn btn-secondary notifications">
-                <fa-icon [icon]="faBell"></fa-icon>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <button class="btn btn-secondary no-background-button navbar-right" type="button" (click)="redirectToHome()">
+          Home Page
+        </button>
+        <button class="btn btn-secondary no-background-button navbar-right" type="button">
+          Network
+        </button>
+        <button class="btn btn-secondary no-background-button navbar-right" type="button">
+          Job Adverts
+        </button>
+        <li class="divider"></li>
+        <ul class="navbar-nav text-center">
+          <div class="btn-group-justified" role="group" aria-label="First group">
+            <button type="button" class="btn btn-secondary notifications">
+              <fa-icon [icon]="faBell"></fa-icon>
+            </button>
+            <button type="button" class="btn btn-secondary messages">
+              <fa-icon [icon]="faEnvelope"></fa-icon>
+            </button>
+          </div>
+        </ul>
+        <ul class="navbar-nav text-center">
+          <div class="btn-group-justified" role="group" aria-label="Second group">
+            <button class="btn btn-secondary no-background-button" type="button" (click)="redirectToProfile()">
+              {{ firstName }} {{ lastName }}
+            </button>
+            <div class="nav-item dropdown">
+              <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <fa-icon [icon]="faCaretDown"></fa-icon>
               </button>
-              <button type="button" class="btn btn-secondary messages">
-                <fa-icon [icon]="faEnvelope"></fa-icon>
-              </button>
-            </div>
-          </ul>
-          <ul class="navbar-nav text-center">
-            <div class="btn-group-justified" role="group" aria-label="Second group">
-              <button class="btn btn-secondary no-background-button" type="button" (click)="redirectToProfile()">
-                {{ firstName }} {{ lastName }}
-              </button>
-              <div class="nav-item dropdown">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <fa-icon [icon]="faCaretDown"></fa-icon>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <button class="dropdown-item">Settings</button>
-                  <button class="dropdown-item" (click)="logoutUser()">Logout</button>
-                </div>
+              <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item">Settings</button>
+                <button class="dropdown-item" (click)="logoutUser()">Logout</button>
               </div>
             </div>
-          </ul>
+          </div>
         </ul>
-      </div>
+      </ul>
+    </div>
     <!-- </ul> -->
   </div>
 </nav>

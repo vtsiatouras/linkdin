@@ -1,0 +1,33 @@
+<div class="post-box">
+  <div class="post-details">
+    <span class="user-name">Dummy User</span>
+    <span class="timestamp">2 mins ago</span>
+  </div>
+  <div class="post-content">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </div>
+  <hr>
+  <div class="post-controls">
+    <button class="btn btn-info btn-lg interested-button" type="button">
+      <fa-icon [icon]="faStar"></fa-icon>
+      Interested
+    </button>
+    <button class="btn btn-info btn-lg comment-button" type="button">
+      <fa-icon [icon]="faCommentAlt"></fa-icon>
+      Comment
+    </button>
+  </div>
+  <hr>
+  <!-- TODO add here comments components -->
+  <div class="input-group post-comment">
+    <input class="form-control" type="text" placeholder="Comment" aria-label="post-comment">
+    <span class="input-group-btn">
+      <button class="btn btn-info btn-lg post-commnet-button" type="button">
+        <fa-icon [icon]="faCommentAlt"></fa-icon>
+      </button>
+    </span>
+  </div>
+</div>
