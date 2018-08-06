@@ -9,7 +9,7 @@ import java.util.Objects;
 @IdClass(PostPK.class)
 public class Post {
     private int id;
-    private Serializable content;
+    private String content;
     private Timestamp timestamp;
     private Byte isAdvertisment;
     private int userId;
@@ -26,11 +26,11 @@ public class Post {
 
     @Basic
     @Column(name = "content")
-    public Serializable getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(Serializable content) {
+    public void setContent(String content) {
         this.content = content;
     }
 

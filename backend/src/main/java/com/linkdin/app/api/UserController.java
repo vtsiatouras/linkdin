@@ -1,6 +1,5 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ProfileRequest;
 import com.linkdin.app.dto.UserAttributes;
@@ -16,12 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class UserController {
@@ -37,15 +33,12 @@ public class UserController {
     public ResponseEntity<Object> user(@RequestBody String jsonProfileRequest, HttpSession session) {
 
         ObjectMapper objectMapper = new ObjectMapper();
-
         JSONObject obj = new JSONObject(jsonProfileRequest);
-
-        System.err.println(jsonProfileRequest);
         try {
-            JSONObject userAttrs = obj.getJSONObject("userAttrs");
-            JSONObject profileReq = obj.getJSONObject("requestProfile");
-            ProfileRequest profileRequest = objectMapper.readValue(profileReq.toString(), ProfileRequest.class);
-            UserAttributes userAttributes = objectMapper.readValue(userAttrs.toString(), UserAttributes.class);
+            JSONObject userObj = obj.getJSONObject("userAttrs");
+            JSONObject profileObj = obj.getJSONObject("requestProfile");
+            UserAttributes userAttributes = objectMapper.readValue(userObj.toString(), UserAttributes.class);
+            ProfileRequest profileRequest = objectMapper.readValue(profileObj.toString(), ProfileRequest.class);
 
             // TODO check if the requested profile is user's that send the request
             // TODO check if the requested profile is not user's friend
