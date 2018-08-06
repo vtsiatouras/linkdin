@@ -1,7 +1,6 @@
 package com.linkdin.app.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -10,7 +9,7 @@ import java.util.Objects;
 @IdClass(PostCommentPK.class)
 public class PostComment {
     private int id;
-    private Serializable content;
+    private String content;
     private Timestamp commentTimestamp;
     private int postId;
     private int postUserId;
@@ -27,11 +26,11 @@ public class PostComment {
 
     @Basic
     @Column(name = "content")
-    public Serializable getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(Serializable content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
