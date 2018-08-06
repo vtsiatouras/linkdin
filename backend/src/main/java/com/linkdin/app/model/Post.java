@@ -1,7 +1,6 @@
 package com.linkdin.app.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -12,6 +11,7 @@ public class Post {
     private String content;
     private Timestamp timestamp;
     private Byte isAdvertisment;
+    private Byte isPublic;
     private int userId;
 
     @Id
@@ -54,6 +54,16 @@ public class Post {
         this.isAdvertisment = isAdvertisment;
     }
 
+    @Basic
+    @Column(name = "is_public")
+    public Byte getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(Byte isPublic) {
+        this.isPublic = isPublic;
+    }
+
     @Id
     @Column(name = "user_id")
     public int getUserId() {
@@ -73,12 +83,13 @@ public class Post {
                 userId == post.userId &&
                 Objects.equals(content, post.content) &&
                 Objects.equals(timestamp, post.timestamp) &&
-                Objects.equals(isAdvertisment, post.isAdvertisment);
+                Objects.equals(isAdvertisment, post.isAdvertisment) &&
+                Objects.equals(isPublic, post.isPublic);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, content, timestamp, isAdvertisment, userId);
+        return Objects.hash(id, content, timestamp, isAdvertisment, isPublic, userId);
     }
 }

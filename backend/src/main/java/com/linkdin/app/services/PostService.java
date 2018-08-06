@@ -7,6 +7,8 @@ import com.linkdin.app.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,6 +26,14 @@ public class PostService {
         } else {
             post.setIsAdvertisment((byte) 0);
         }
+        if (newPostData.isPublic) {
+            post.setIsPublic((byte) 1);
+        } else {
+            post.setIsPublic((byte) 0);
+        }
+        Date date = new java.util.Date();
+        Timestamp sqlDate = new java.sql.Timestamp(date.getTime());
+        post.setTimestamp(sqlDate);
         post.setUserId(user.getId());
         postRepository.save(post);
         System.err.println("post saved!");
