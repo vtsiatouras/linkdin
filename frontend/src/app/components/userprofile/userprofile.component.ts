@@ -41,19 +41,12 @@ export class UserprofileComponent implements OnInit {
     const requestProfile = { userID: this.userID, profileUserID: urlUserID };
 
     const req = this.http.post('http://localhost:8080/api/user', {
-      // userToken: this.userToken,
-      // email: this.email,
-      // userID: this.userID,
-      // profileUserID: urlUserID
       userAttrs,
       requestProfile
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
       this.profileImage = 'data:image/jpeg;base64,' + obj.profileImage;
-
-      // const usrObj = JSON.parse(obj.user);
       this.profileFirstName = obj.user.firstName;
-
       console.log(obj);
     },
       (err: HttpErrorResponse) => {
