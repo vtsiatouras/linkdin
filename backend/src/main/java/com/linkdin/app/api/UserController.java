@@ -1,27 +1,24 @@
 package com.linkdin.app.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ProfileRequest;
 import com.linkdin.app.dto.UserAttributes;
 import com.linkdin.app.model.User;
+import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.ImageStorageService;
 import com.linkdin.app.services.UserService;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,20 +29,31 @@ public class UserController {
     @Autowired
     UserService userService;
     @Autowired
+    AuthRequestService authRequestService;
+    @Autowired
     ImageStorageService imageStorageService;
 
-    List<String> files = new ArrayList<String>();
-
     @PostMapping(path = "/user")
-    public ResponseEntity<Object> user(@RequestBody String jsonProfileRequest, HttpServletResponse response) {
+    public ResponseEntity<Object> user(@RequestBody String jsonProfileRequest, HttpSession session) {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
+        JSONObject obj = new JSONObject(jsonProfileRequest);
+
+        System.err.println(jsonProfileRequest);
         try {
-            ProfileRequest profileRequest = objectMapper.readValue(jsonProfileRequest, ProfileRequest.class);
-            // TODO authenticate user...
+            JSONObject userAttrs = obj.getJSONObject("userAttrs");
+            JSONObject profileReq = obj.getJSONObject("requestProfile");
+            ProfileRequest profileRequest = objectMapper.readValue(profileReq.toString(), ProfileRequest.class);
+            UserAttributes userAttributes = objectMapper.readValue(userAttrs.toString(), UserAttributes.class);
+
             // TODO check if the requested profile is user's that send the request
             // TODO check if the requested profile is not user's friend
+
+            // Authenticate user
+            if (!authRequestService.authenticateRequest(userAttributes, session)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
 
             // Send requested user's profile info
             User user = userService.returnUserByID(Integer.parseInt(profileRequest.profileUserID));
@@ -57,21 +65,10 @@ public class UserController {
 
             System.err.println(jsonUser);
 
-            String imagePathName = "user_images/"+ user.getProfilePicture();
+            String imagePathName = "user_images/" + user.getProfilePicture();
             File userImg = new File(imagePathName);
             byte[] imageBytes = Files.readAllBytes(userImg.toPath());
             String base64String = Base64.encodeBase64String(imageBytes);
-//
-//            String jsonImage = JSONObject()
-//                    .put(imageBytes).toString();
-
-
-//            MultiValueMap<String, Object> map = new LinkedMultiValueMap<String, Object>();
-//            map.add("firstName", user.getName());
-//            map.add("lasrName", user.getSurname());
-//            map.add("phoneNumber", user.getPhoneNumber());
-//
-//            map.add("file", new FileSystemResource(imagePathName));
             String responseObject = new JSONObject()
                     .put("user", jsonUser)
                     .put("profileImage", base64String)
