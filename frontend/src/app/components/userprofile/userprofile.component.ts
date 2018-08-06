@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserprofileComponent implements OnInit {
 
+  test = ['AAAAA', 'BBBBB', 'CCCCCC', 'AAAAA', 'BBBBB', 'CCCCCC', 'AAAAA', 'BBBBB', 'CCCCCC', 'AAAAA', 'BBBBB', 'CCCCCC'];
+
   href = '';
 
   // Retrieve user's data from local storage
@@ -53,4 +55,9 @@ export class UserprofileComponent implements OnInit {
         console.log(err);
       });
   }
+
+  onScroll() {
+    console.log("Scroll...");
+  }
+
 }
