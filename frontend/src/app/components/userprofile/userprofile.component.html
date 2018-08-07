@@ -11,7 +11,7 @@
     <app-post userName="{{profileFirstName}}" userSurname="{{profileSurname}}" content={{x.content}}></app-post>
   </div>
   <div *ngIf="loadMoreButton" class="load-button-container">
-    <button class="btn btn-secondary load-button" type="button" (click)="loadMorePosts()">Load More Posts</button>
+    <button class="btn btn-secondary load-button" type="button" (click)="getPosts()">Load More Posts</button>
   </div>
 </div>
 
