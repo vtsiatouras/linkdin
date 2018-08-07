@@ -46,7 +46,7 @@ const appRoutes: Routes = [
     FormsModule,
     FontAwesomeModule,
     InfiniteScrollModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, { useHash: true })
   ],
   providers: [AuthGuard, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]

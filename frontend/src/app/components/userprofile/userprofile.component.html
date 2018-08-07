@@ -3,12 +3,12 @@
   <div class="profile-info row text-center">
     <img class="rounded-circle profile-image" src="{{profileImage}}">
     <div class="user-name">
-      {{ firstName }} {{ lastName }}
+      {{ profileFirstName }} {{ profileSurname }}
     </div>
   </div>
 
   <div *ngFor="let x of test">
-    <app-post></app-post>
+    <app-post userName="helloName" userSurname="testSurname"></app-post>
     <!-- {{x.name}} -->
   </div>
   <div class="load-button-container">
