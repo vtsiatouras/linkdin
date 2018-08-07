@@ -7,18 +7,12 @@
     </div>
   </div>
 
-  <div *ngFor="let x of test">
-    <app-post userName="helloName" userSurname="testSurname"></app-post>
-    <!-- {{x.name}} -->
+  <div *ngFor="let x of posts">
+    <app-post userName="{{profileFirstName}}" userSurname="{{profileSurname}}" content={{x.content}}></app-post>
   </div>
-  <div class="load-button-container">
+  <div *ngIf="loadMoreButton" class="load-button-container">
     <button class="btn btn-secondary load-button" type="button" (click)="loadMorePosts()">Load More Posts</button>
   </div>
 </div>
-
-<!-- <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
-  <li *ngFor="let x of test">{{x}}</li>
-</div> -->
-
 
 <app-footer></app-footer>
