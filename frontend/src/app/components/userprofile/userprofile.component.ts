@@ -28,37 +28,33 @@ export class UserprofileComponent implements OnInit {
   profileUserID;
 
   // Posts variables
+  totalPosts = 0;
+  showedPosts = 0;
+  loadMoreButton = false;
   page = 0;
   limitPosts = 5;
+  posts = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
-  ) {
-    console.log("requested profile!")
-  }
+  ) { }
 
   ngOnInit() {
-
     this.route.params.subscribe((params) => {
       this.profileUserID = +params['user_id'];
       this.loadProfile();
     });
-
   }
 
   loadProfile() {
-
     this.href = this.router.url;
     const url = this.href.split('/');
     const urlUserID = url[2];
     this.profileUserID = urlUserID;
-    console.log(urlUserID);
-
     const userAttrs = { userToken: this.userToken, email: this.email };
     const requestProfile = { userID: this.userID, profileUserID: this.profileUserID };
-
     const req = this.http.post('http://localhost:8080/api/user', {
       userAttrs,
       requestProfile
@@ -66,10 +62,9 @@ export class UserprofileComponent implements OnInit {
       const obj = JSON.parse(data);
       this.profileImage = 'data:image/jpeg;base64,' + obj.profileImage;
       const userObj = JSON.parse(obj.user);
-      console.log(userObj);
       this.profileFirstName = userObj.firstName;
       this.profileSurname = userObj.lastName;
-      console.log(obj);
+      this.getPosts();
       // Todo call getPosts() to retrieve the 5 most recent posts
     },
       (err: HttpErrorResponse) => {
@@ -84,7 +79,25 @@ export class UserprofileComponent implements OnInit {
       pageRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       console.log(data);
-      // Todo call getPosts() to retrieve the 5 most recent posts
+      const obj = JSON.parse(data);
+      this.totalPosts = obj.totalElements;
+      if (this.totalPosts > 0) {
+        const numberOfPosts = obj.numberOfElements;
+        this.showedPosts = this.showedPosts + numberOfPosts;
+        console.log("total posts" + this.totalPosts);
+        console.log("showed posts" + this.showedPosts);
+        if (this.totalPosts > this.showedPosts) {
+          this.loadMoreButton = true;
+        } else {
+          this.loadMoreButton = false;
+        }
+        console.log(this.loadMoreButton);
+        for (var i = 0; i < numberOfPosts; i++) {
+          this.posts.push(obj.content[i]);
+        }
+      } else {
+        this.posts = null;
+      }
     },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -96,7 +109,6 @@ export class UserprofileComponent implements OnInit {
     // const newVal = this.test.length + 1;
     this.test.push(this.test.length + 1, this.test.length + 2, this.test.length + 3, this.test.length + 4, this.test.length + 5);
     this.getPosts();
-    // Todo call getPosts() to retrieve next 5 posts
   }
 
   // onScroll() {
