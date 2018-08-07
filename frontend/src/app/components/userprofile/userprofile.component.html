@@ -6,10 +6,19 @@
       {{ firstName }} {{ lastName }}
     </div>
   </div>
+
+  <div *ngFor="let x of test">
+    <app-post></app-post>
+    <!-- {{x.name}} -->
+  </div>
+  <div class="load-button-container">
+    <button class="btn btn-secondary load-button" type="button" (click)="loadMorePosts()">Load More Posts</button>
+  </div>
 </div>
 
-<div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+<!-- <div class="search-results" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
   <li *ngFor="let x of test">{{x}}</li>
-</div>
+</div> -->
+
 
 <app-footer></app-footer>

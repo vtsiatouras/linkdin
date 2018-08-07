@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserprofileComponent implements OnInit {
 
-  test = ['AAAAA', 'BBBBB', 'CCCCCC', 'AAAAA', 'BBBBB', 'CCCCCC', 'AAAAA', 'BBBBB', 'CCCCCC', 'AAAAA', 'BBBBB', 'CCCCCC'];
+  test = [1, 2, 3, 4, 5];
 
   href = '';
 
@@ -60,4 +60,10 @@ export class UserprofileComponent implements OnInit {
     console.log("Scroll...");
   }
 
+
+  loadMorePosts() {
+    console.log('add!');
+    // const newVal = this.test.length + 1;
+    this.test.push(this.test.length + 1, this.test.length + 2, this.test.length + 3, this.test.length + 4, this.test.length + 5);
+  }
 }
