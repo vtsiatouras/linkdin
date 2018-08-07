@@ -45,7 +45,7 @@ public class PostService {
 
     public Page<Post> getUserPosts(int userID, int pageNumber, int limit) {
 //        return postRepository.findAll(new PageRequest(pageNumber, limit));
-        return postRepository.findByuserId(new PageRequest(pageNumber, limit), userID);
+        return postRepository.findByuserIdOrderByTimestampDesc(new PageRequest(pageNumber, limit), userID);
     }
 
     // WIP
