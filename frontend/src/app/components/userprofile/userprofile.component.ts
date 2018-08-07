@@ -44,6 +44,13 @@ export class UserprofileComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.profileUserID = +params['user_id'];
+      // Posts variables
+      this.totalPosts = 0;
+      this.showedPosts = 0;
+      this.loadMoreButton = false;
+      this.page = 0;
+      this.limitPosts = 5;
+      this.posts = [];
       this.loadProfile();
     });
   }
@@ -65,7 +72,6 @@ export class UserprofileComponent implements OnInit {
       this.profileFirstName = userObj.firstName;
       this.profileSurname = userObj.lastName;
       this.getPosts();
-      // Todo call getPosts() to retrieve the 5 most recent posts
     },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -84,15 +90,15 @@ export class UserprofileComponent implements OnInit {
       if (this.totalPosts > 0) {
         const numberOfPosts = obj.numberOfElements;
         this.showedPosts = this.showedPosts + numberOfPosts;
-        console.log("total posts" + this.totalPosts);
-        console.log("showed posts" + this.showedPosts);
+        console.log('total posts' + this.totalPosts);
+        console.log('showed posts' + this.showedPosts);
         if (this.totalPosts > this.showedPosts) {
           this.loadMoreButton = true;
         } else {
           this.loadMoreButton = false;
         }
         console.log(this.loadMoreButton);
-        for (var i = 0; i < numberOfPosts; i++) {
+        for (let i = 0; i < numberOfPosts; i++) {
           this.posts.push(obj.content[i]);
         }
       } else {
