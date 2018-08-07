@@ -5,6 +5,8 @@ import com.linkdin.app.model.Post;
 import com.linkdin.app.model.User;
 import com.linkdin.app.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -38,6 +40,12 @@ public class PostService {
         postRepository.save(post);
         System.err.println("post saved!");
         return true;
+    }
+
+
+    public Page<Post> getUserPosts(int userID, int pageNumber, int limit) {
+//        return postRepository.findAll(new PageRequest(pageNumber, limit));
+        return postRepository.findByuserId(new PageRequest(pageNumber, limit), userID);
     }
 
     // WIP

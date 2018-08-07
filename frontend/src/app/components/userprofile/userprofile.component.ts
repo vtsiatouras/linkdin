@@ -25,22 +25,39 @@ export class UserprofileComponent implements OnInit {
   profileSurname: string;
   profilePhoneNumber: string;
   profileImage: string;
+  profileUserID;
+
+  // Posts variables
+  page = 0;
+  limitPosts = 5;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {
+    console.log("requested profile!")
+  }
 
   ngOnInit() {
+
+    this.route.params.subscribe((params) => {
+      this.profileUserID = +params['user_id'];
+      this.loadProfile();
+    });
+
+  }
+
+  loadProfile() {
 
     this.href = this.router.url;
     const url = this.href.split('/');
     const urlUserID = url[2];
+    this.profileUserID = urlUserID;
     console.log(urlUserID);
 
     const userAttrs = { userToken: this.userToken, email: this.email };
-    const requestProfile = { userID: this.userID, profileUserID: urlUserID };
+    const requestProfile = { userID: this.userID, profileUserID: this.profileUserID };
 
     const req = this.http.post('http://localhost:8080/api/user', {
       userAttrs,
@@ -48,22 +65,42 @@ export class UserprofileComponent implements OnInit {
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
       this.profileImage = 'data:image/jpeg;base64,' + obj.profileImage;
-      this.profileFirstName = obj.user.firstName;
+      const userObj = JSON.parse(obj.user);
+      console.log(userObj);
+      this.profileFirstName = userObj.firstName;
+      this.profileSurname = userObj.lastName;
       console.log(obj);
+      // Todo call getPosts() to retrieve the 5 most recent posts
     },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
   }
 
-  onScroll() {
-    console.log("Scroll...");
+  getPosts() {
+    const pageRequest = { profileUserID: this.profileUserID, pageNumber: this.page, limit: this.limitPosts };
+    this.page++;
+    const req = this.http.post('http://localhost:8080/api/getprofileposts', {
+      pageRequest
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      console.log(data);
+      // Todo call getPosts() to retrieve the 5 most recent posts
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
   }
-
 
   loadMorePosts() {
     console.log('add!');
     // const newVal = this.test.length + 1;
     this.test.push(this.test.length + 1, this.test.length + 2, this.test.length + 3, this.test.length + 4, this.test.length + 5);
+    this.getPosts();
+    // Todo call getPosts() to retrieve next 5 posts
   }
+
+  // onScroll() {
+  //   console.log("Scroll...");
+  // }
+
 }
