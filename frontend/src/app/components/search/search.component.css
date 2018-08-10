@@ -1,8 +1,9 @@
 .search-bar {
-  width: 80%;
+  width: 300px;
   display: flex;
   flex-grow: 1;
   justify-content: center;
+  z-index: -1;
 }
 
 .input-group.search-box {
@@ -25,4 +26,9 @@
   -webkit-box-shadow: none;
   box-shadow: none;
   border: none;
+}
+
+.dropdown-menu-center {
+  left: -248px;
+  width: 300px;
 }

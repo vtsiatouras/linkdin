@@ -8,14 +8,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController
 public class AuthCheckController {
 
     @PostMapping(path = "/authcheck")
-    public ResponseEntity<String> authCheck(@RequestBody UserAttributes userAttributes, HttpSession session) {
+    public ResponseEntity<String> authCheck(@RequestBody UserAttributes userAttributes, HttpServletRequest request) {
 
+        HttpSession session = request.getSession(false);
         if (session == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
@@ -23,7 +25,9 @@ public class AuthCheckController {
         if (userAttributes.userToken == null || userAttributes.email == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-
+        if(session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME) == null){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         if (session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME).equals(userAttributes.email) &&
                 session.getAttribute("userToken").equals(userAttributes.userToken)) {
             System.err.println("user is authenticated!");

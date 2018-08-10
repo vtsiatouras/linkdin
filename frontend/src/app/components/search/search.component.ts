@@ -8,10 +8,15 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 })
 export class SearchComponent implements OnInit {
   faSearch = faSearch;
+  showResults = false;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  search() {
+    this.showResults = true;
   }
 
 }
