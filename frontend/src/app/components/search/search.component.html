@@ -2,9 +2,17 @@
   <div class="input-group">
     <input class="form-control search" type="text" placeholder="Search" aria-label="Search">
     <span class="input-group-btn">
-      <button class="btn btn-info btn-lg search-button" type="button">
-        <fa-icon [icon]="faSearch"></fa-icon>
-      </button>
+      <div class="dropdown">
+        <button class="btn btn-info btn-lg search-button" type="button" (click)="search()" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <fa-icon [icon]="faSearch"></fa-icon>
+        </button>
+        <!-- Add here 5 top results with a button to show more -->
+        <div *ngIf="showResults" class="dropdown-menu dropdown-menu-center" id="menu">
+          <button class="dropdown-item">Result1</button>
+          <button class="dropdown-item">Result2</button>
+        </div>
+      </div>
     </span>
   </div>
 </div>

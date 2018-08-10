@@ -34,9 +34,7 @@
   display: inline-block;
 }
 
-.search-bar {
-  /* justify-content: center; */
-}
+
 
 .nav.nav-center {
   display: inline-block;
@@ -45,6 +43,16 @@
   text-align: center;
 }
 
+.spacer{
+  margin-left: 90px;
+}
+
+@media screen and (max-width: 1000px) {
+  .spacer{
+    margin-left: -90px;
+  }
+  
+}
 /* .search-bar{
   width: 40%;
   display: flex;
