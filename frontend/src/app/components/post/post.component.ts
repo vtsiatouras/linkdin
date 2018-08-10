@@ -14,6 +14,7 @@ export class PostComponent implements OnInit {
 
   @Input() userName: string;
   @Input() userSurname: string;
+  @Input() date: Date;
   @Input() content: string;
 
   constructor() { }
