@@ -34,11 +34,18 @@
   display: inline-block;
 }
 
-.input-group.search-box {
-  align-content: center;
+.search-bar {
+  /* justify-content: center; */
 }
 
-.search-bar{
+.nav.nav-center {
+  display: inline-block;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+/* .search-bar{
   width: 40%;
   display: flex;
   flex-grow: 1;
@@ -52,7 +59,7 @@
 .search-button {
   background-color: #006394;
   border: none;
-}
+} */
 
 .btn.search-button:hover,
 .btn.search-button:active {
