@@ -8,7 +8,7 @@
   </div>
 
   <div *ngFor="let x of posts">
-    <app-post userName="{{profileFirstName}}" userSurname="{{profileSurname}}" content={{x.content}}></app-post>
+    <app-post userName="{{profileFirstName}}" userSurname="{{profileSurname}}" date="{{x.timestamp| date:'d MMMM y, h:mm a'}}" content="{{x.content}}"></app-post>
   </div>
   <div *ngIf="loadMoreButton" class="load-button-container">
     <button class="btn btn-secondary load-button" type="button" (click)="getPosts()">Load More Posts</button>
