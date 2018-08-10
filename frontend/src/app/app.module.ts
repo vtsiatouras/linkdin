@@ -18,6 +18,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
 import { PostComponent } from './components/post/post.component';
 import { NewpostComponent } from './components/newpost/newpost.component';
+import { SearchComponent } from './components/search/search.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     NavbarComponent,
     UserprofileComponent,
     PostComponent,
-    NewpostComponent
+    NewpostComponent,
+    SearchComponent
   ],
   imports: [
     HttpClientModule,

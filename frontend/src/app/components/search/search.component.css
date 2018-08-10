@@ -1,0 +1,28 @@
+.search-bar {
+  width: 80%;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.input-group.search-box {
+  align-content: center;
+}
+
+.search-bar .input-group {
+  width: 100%;
+}
+
+.search-button {
+  background-color: #006394;
+  border: none;
+}
+
+.btn.search-button:hover,
+.btn.search-button:active {
+  background-color: #00334d;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
