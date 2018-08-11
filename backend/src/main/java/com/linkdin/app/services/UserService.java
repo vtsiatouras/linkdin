@@ -1,11 +1,10 @@
 package com.linkdin.app.services;
 
-import com.linkdin.app.dto.UserSearchResult;
+import com.linkdin.app.dto.SearchResults;
+import com.linkdin.app.dto.UserBasicInfo;
 import com.linkdin.app.model.User;
 import com.linkdin.app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -53,16 +52,20 @@ public class UserService {
         repository.save(user);
     }
 
-    public List searchUsers(String queryName) {
+    public SearchResults searchUsers(String queryName) {
         List<User> list = repository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(queryName, queryName);
-        ArrayList<UserSearchResult> returnList = new ArrayList<UserSearchResult>();
+        ArrayList<UserBasicInfo> resultList = new ArrayList<UserBasicInfo>();
         for (User element : list) {
-            UserSearchResult userSearchResult = new UserSearchResult();
+            UserBasicInfo userSearchResult = new UserBasicInfo();
             userSearchResult.id = Integer.toString(element.getId());
             userSearchResult.name = element.getName();
             userSearchResult.surname = element.getSurname();
-            returnList.add(userSearchResult);
+            resultList.add(userSearchResult);
         }
-        return returnList;
+        String totalResults = Integer.toString(resultList.size());
+        SearchResults searchResults = new SearchResults();
+        searchResults.list = resultList;
+        searchResults.numberOfResults = totalResults;
+        return searchResults;
     }
 }

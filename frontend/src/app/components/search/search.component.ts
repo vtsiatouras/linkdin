@@ -16,6 +16,8 @@ export class SearchComponent implements OnInit {
 
   faSearch = faSearch;
   showResults = false;
+  totalResults = 0;
+  results = [];
   userQuery: string;
 
   constructor(
@@ -28,18 +30,32 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
+    this.results = [];
     this.showResults = true;
-    const userAttrs = { userToken: this.userToken, email: this.email };
-    const searchData = { searchQuery: this.userQuery };
-    const req = this.http.post('http://localhost:8080/api/searchusers', {
+    if (this.userQuery != null) {
+      const userAttrs = { userToken: this.userToken, email: this.email };
+      const searchData = { searchQuery: this.userQuery };
+      const req = this.http.post('http://localhost:8080/api/searchusers', {
         userAttrs,
         searchData
       }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
         console.log(data);
+        const obj = JSON.parse(data);
+        this.totalResults = obj.numberOfResults;
+        if (this.totalResults > 0) {
+          for (let i = 0; i < this.totalResults; i++) {
+            this.results.push(obj.list[i]);
+          }
+          console.log(this.results);
+        }
       },
         (err: HttpErrorResponse) => {
           console.log(err);
         });
+    } else {
+      this.results = [];
+      this.totalResults = 0;
+    }
   }
 
 }
