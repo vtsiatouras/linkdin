@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.WebMvcRegistrationsAdapter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -23,6 +24,16 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+
+    @Bean
+    public DefaultCookieSerializer defaultCookieSerializer(){
+        DefaultCookieSerializer defaultCookieSerializer = new DefaultCookieSerializer();
+        defaultCookieSerializer.setCookieName("linkDIn_session");
+        defaultCookieSerializer.setCookieMaxAge(1800);
+        defaultCookieSerializer.setUseHttpOnlyCookie(true);
+//        defaultCookieSerializer.setUseSecureCookie(true);
+        return defaultCookieSerializer;
     }
 
     @Bean
@@ -56,7 +67,6 @@ public class Application {
                                     mapping.getHeadersCondition(), mapping.getConsumesCondition(),
                                     mapping.getProducesCondition(), mapping.getCustomCondition());
                         }
-
                         super.registerHandlerMethod(handler, method, mapping);
                     }
                 };
