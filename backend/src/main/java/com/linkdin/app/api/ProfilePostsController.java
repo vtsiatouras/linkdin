@@ -21,6 +21,7 @@ public class ProfilePostsController {
     @Autowired
     PostService postService;
 
+    // TODO authCheck
     // TODO later check if the profile belongs to friend to show all posts
     // if it is not show only public posts
     @PostMapping(path = "/getprofileposts")
@@ -35,7 +36,6 @@ public class ProfilePostsController {
             int limit = Integer.parseInt(profilePostsPageRequest.limit);
             Page page = postService.getUserPosts(userID, pageNumber, limit);
             return new ResponseEntity<Object>(page, HttpStatus.OK);
-//            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
