@@ -31,7 +31,7 @@ public class SearchController {
             SearchAttributes searchAttributes = objectMapper.readValue(searchObj.toString(), SearchAttributes.class);
             SearchResults result = userService.searchUsers(searchAttributes.searchQuery);
             return new ResponseEntity<Object>(result, HttpStatus.OK);
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }

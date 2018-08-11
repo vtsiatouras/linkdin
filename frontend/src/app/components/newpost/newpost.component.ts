@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class NewpostComponent implements OnInit {
 
-  email = localStorage.getItem('email');
+  userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');
 
   postContent: string;
@@ -29,17 +29,18 @@ export class NewpostComponent implements OnInit {
 
   sharePost() {
     if (this.postContent != null) {
+      // TODO clean the below
       console.log(this.postContent);
       console.log(this.isPublic);
 
-      const userAttrs = { userToken: this.userToken, email: this.email };
+      const userIdentifiers = { userToken: this.userToken, id: this.userId };
       const postData = { postContent: this.postContent, isAd: this.isAd, isPublic: this.isPublic };
 
-
       const req = this.http.post('http://localhost:8080/api/newpost', {
-        userAttrs,
+        userIdentifiers,
         postData
       }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+        // Reset fields
         this.postContent = '';
         this.isAd = false;
         this.isPublic = false;
@@ -48,6 +49,5 @@ export class NewpostComponent implements OnInit {
           console.log(err);
         });
     }
-
   }
 }

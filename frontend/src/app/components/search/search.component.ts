@@ -11,11 +11,11 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 })
 export class SearchComponent implements OnInit {
 
-  email = localStorage.getItem('email');
+  userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');
 
   faSearch = faSearch;
-  showResults = false;
+  showResults = true;
   totalResults = 0;
   results = [];
   userQuery: string;
@@ -31,12 +31,11 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.results = [];
-    this.showResults = true;
     if (this.userQuery != null) {
-      const userAttrs = { userToken: this.userToken, email: this.email };
+      const userIdentifiers = { userToken: this.userToken, id: this.userId };
       const searchData = { searchQuery: this.userQuery };
       const req = this.http.post('http://localhost:8080/api/searchusers', {
-        userAttrs,
+        userIdentifiers,
         searchData
       }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
         console.log(data);
@@ -46,6 +45,7 @@ export class SearchComponent implements OnInit {
           for (let i = 0; i < this.totalResults; i++) {
             this.results.push(obj.list[i]);
           }
+          // this.showResults = true;
           console.log(this.results);
         }
       },
@@ -55,6 +55,7 @@ export class SearchComponent implements OnInit {
     } else {
       this.results = [];
       this.totalResults = 0;
+      // this.showResults = false;
     }
   }
 
