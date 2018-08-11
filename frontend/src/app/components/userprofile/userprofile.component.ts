@@ -9,8 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UserprofileComponent implements OnInit {
 
-  test = [1, 2, 3, 4, 5];
-
   href = '';
 
   // Retrieve user's data from local storage
@@ -18,7 +16,7 @@ export class UserprofileComponent implements OnInit {
   userToken = localStorage.getItem('userToken');
   firstName = localStorage.getItem('firstName');
   lastName = localStorage.getItem('lastName');
-  userID = localStorage.getItem('userID');
+  userId = localStorage.getItem('userID');
 
   // Variables for requested user's profile
   profileFirstName: string;
@@ -60,10 +58,11 @@ export class UserprofileComponent implements OnInit {
     const url = this.href.split('/');
     const urlUserID = url[2];
     this.profileUserID = urlUserID;
-    const userAttrs = { userToken: this.userToken, email: this.email };
-    const requestProfile = { userID: this.userID, profileUserID: this.profileUserID };
+
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const requestProfile = { userID: this.userId, profileUserID: this.profileUserID };
     const req = this.http.post('http://localhost:8080/api/user', {
-      userAttrs,
+      userIdentifiers,
       requestProfile
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
@@ -109,16 +108,4 @@ export class UserprofileComponent implements OnInit {
         console.log(err);
       });
   }
-
-  loadMorePosts() {
-    console.log('add!');
-    // const newVal = this.test.length + 1;
-    this.test.push(this.test.length + 1, this.test.length + 2, this.test.length + 3, this.test.length + 4, this.test.length + 5);
-    this.getPosts();
-  }
-
-  // onScroll() {
-  //   console.log("Scroll...");
-  // }
-
 }

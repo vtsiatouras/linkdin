@@ -2,7 +2,6 @@ package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ProfilePostsPageRequest;
-import com.linkdin.app.dto.UserAttributes;
 import com.linkdin.app.services.PostService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

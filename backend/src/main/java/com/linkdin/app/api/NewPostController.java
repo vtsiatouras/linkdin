@@ -2,7 +2,7 @@ package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.NewPostData;
-import com.linkdin.app.dto.UserAttributes;
+import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.User;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
@@ -32,17 +32,17 @@ public class NewPostController {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonNewPost);
         try {
-            JSONObject userObj = obj.getJSONObject("userAttrs");
+            JSONObject userObj = obj.getJSONObject("userIdentifiers");
             JSONObject postObj = obj.getJSONObject("postData");
-            UserAttributes userAttributes = objectMapper.readValue(userObj.toString(), UserAttributes.class);
+            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
             NewPostData newPostData = objectMapper.readValue(postObj.toString(), NewPostData.class);
 
             // Authenticate user
-            if (!authRequestService.authenticateRequest(userAttributes, session)) {
+            if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            User user = userService.returnUser(userAttributes.email);
+            User user = userService.returnUserByID(Integer.parseInt(userIdentifiers.id));
             if (!postService.createPost(newPostData, user)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }

@@ -2,7 +2,7 @@ package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ProfileRequest;
-import com.linkdin.app.dto.UserAttributes;
+import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.User;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.ImageStorageService;
@@ -35,16 +35,16 @@ public class UserController {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonProfileRequest);
         try {
-            JSONObject userObj = obj.getJSONObject("userAttrs");
+            JSONObject userObj = obj.getJSONObject("userIdentifiers");
             JSONObject profileObj = obj.getJSONObject("requestProfile");
-            UserAttributes userAttributes = objectMapper.readValue(userObj.toString(), UserAttributes.class);
+            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
             ProfileRequest profileRequest = objectMapper.readValue(profileObj.toString(), ProfileRequest.class);
 
             // TODO check if the requested profile is user's that send the request
             // TODO check if the requested profile is not user's friend
 
             // Authenticate user
-            if (!authRequestService.authenticateRequest(userAttributes, session)) {
+            if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 

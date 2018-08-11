@@ -17,14 +17,14 @@ export class AuthenticationService {
 
   isAuthenticated(): Observable<boolean> {
     const userToken = localStorage.getItem('userToken');
-    const email = localStorage.getItem('email');
+    const id = localStorage.getItem('userID');
     // If there is a user token
     if (userToken) {
       // Check the server if the session belongs to online user
       // If not the server will send UNAUTHORIZED
       return this.http.post('http://localhost:8080/api/authcheck', {
         userToken: userToken,
-        email: email
+        id: id
       }, { responseType: 'text', withCredentials: true }).mapTo(true)
         .catch(err => (Observable.of(false)));
       // Else cannot be exist a valid session
@@ -32,21 +32,4 @@ export class AuthenticationService {
       return Observable.of(false);
     }
   }
-
-  // TODO to parakatw mallon den xreiazetai (kata 99%)
-  authenticatedRedirect() {
-    const usrToken = localStorage.getItem('userToken');
-    if (usrToken) {
-      console.log('tok: ', usrToken);
-      const req = this.http.post('http://localhost:8080/api/authcheck', {
-        userTok: usrToken
-      }, { responseType: 'text', withCredentials: true }).subscribe(
-        (response) => { this.router.navigate(['/home']); },
-        (err) => { console.log(err); }
-      );
-    } else {
-      console.log('no tokens');
-    }
-  }
-
 }
