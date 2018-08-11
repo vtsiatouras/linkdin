@@ -2,6 +2,7 @@ package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.SearchAttributes;
+import com.linkdin.app.dto.SearchResults;
 import com.linkdin.app.services.UserService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,8 @@ public class SearchController {
         try {
             JSONObject searchObj = obj.getJSONObject("searchData");
             SearchAttributes searchAttributes = objectMapper.readValue(searchObj.toString(), SearchAttributes.class);
-            List results = userService.searchUsers(searchAttributes.searchQuery);
-            System.err.println(results);
-            return new ResponseEntity<Object>(results, HttpStatus.OK);
+            SearchResults result = userService.searchUsers(searchAttributes.searchQuery);
+            return new ResponseEntity<Object>(result, HttpStatus.OK);
         }catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
