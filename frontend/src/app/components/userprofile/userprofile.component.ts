@@ -16,7 +16,7 @@ export class UserprofileComponent implements OnInit {
 
   faUserPlus = faUserPlus;
   faUserClock = faUserClock;
-  faUserCheck = faUserCheck
+  faUserCheck = faUserCheck;
   requestConnectButton = true;
   connectPendingButton = true;
   connectedButton = true;

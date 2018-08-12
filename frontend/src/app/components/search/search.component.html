@@ -11,7 +11,9 @@
           <div *ngIf="totalResults > 0">
             <div *ngFor="let x of results; let i = index">
               <div *ngIf="i < showedResults">
-                <a class="dropdown-item" [routerLink]="['/users', x.id]"> {{ x.name }} {{ x.surname }} </a>
+                <a class="dropdown-item" [routerLink]="['/users', x.id]">
+                  <img class="rounded-circle profile-image" src="{{x.image}}">
+                   {{ x.name }} {{ x.surname }} </a>
               </div>
             </div>
             <div *ngIf="showedResults < totalResults">

@@ -55,6 +55,11 @@
   color: #ffffff;
 }
 
+.profile-image {
+  height: 50px;
+  width: 50px;
+}
+
 .border {
   margin-top: 15px;
   border-top: 1px solid #000000;
