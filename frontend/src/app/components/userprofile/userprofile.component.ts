@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUserClock } from '@fortawesome/free-solid-svg-icons';
+import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-userprofile',
@@ -10,6 +13,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UserprofileComponent implements OnInit {
 
   href = '';
+
+  faUserPlus = faUserPlus;
+  faUserClock = faUserClock;
+  faUserCheck = faUserCheck
+  requestConnectButton = true;
+  connectPendingButton = true;
+  connectedButton = true;
 
   // Retrieve user's data from local storage
   email = localStorage.getItem('email');
@@ -110,4 +120,9 @@ export class UserprofileComponent implements OnInit {
         console.log(err);
       });
   }
+
+  sendConnectRequest() {
+    this.requestConnectButton = false;
+  }
+
 }
