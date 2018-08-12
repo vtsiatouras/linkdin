@@ -58,13 +58,10 @@ public class UserController {
 
             System.err.println(jsonUser);
 
-            String imagePathName = "user_images/" + user.getProfilePicture();
-            File userImg = new File(imagePathName);
-            byte[] imageBytes = Files.readAllBytes(userImg.toPath());
-            String base64String = Base64.encodeBase64String(imageBytes);
+            String image = imageStorageService.getImage(user.getProfilePicture());
             String responseObject = new JSONObject()
                     .put("user", jsonUser)
-                    .put("profileImage", base64String)
+                    .put("profileImage", image)
                     .toString();
 
             return new ResponseEntity<Object>(responseObject, HttpStatus.OK);

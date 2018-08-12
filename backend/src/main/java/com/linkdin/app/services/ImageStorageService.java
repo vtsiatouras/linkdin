@@ -1,5 +1,6 @@
 package com.linkdin.app.services;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -54,8 +56,16 @@ public class ImageStorageService {
         }
     }
 
-    public File retrieveImage(String imageName) {
-        return null;
+    public String getImage(String imageName) {
+        String imagePathName = "user_images/" + imageName;
+        File userImg = new File(imagePathName);
+        try {
+            byte[] imageBytes = Files.readAllBytes(userImg.toPath());
+            return Base64.encodeBase64String(imageBytes);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
 }
