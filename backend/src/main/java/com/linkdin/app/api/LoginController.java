@@ -55,6 +55,7 @@ public class LoginController {
             HttpSession session = request.getSession(true);
             session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, id);
             session.setAttribute("userToken", userToken);
+            session.setMaxInactiveInterval(86400 * 30);
             return ResponseEntity.ok(jsonString);
         } else {
             System.err.println("bad creds");
