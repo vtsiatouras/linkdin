@@ -15,7 +15,10 @@ export class SearchComponent implements OnInit {
   userToken = localStorage.getItem('userToken');
 
   faSearch = faSearch;
+
   totalResults = 0;
+  limitResults = 2;
+  showedResults = 0;
   results = [];
   userQuery: string;
 
@@ -30,6 +33,8 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.results = [];
+    this.totalResults = 0;
+    this.showedResults = 0;
     console.log(this.userQuery);
     if (this.userQuery) {
       const userIdentifiers = { userToken: this.userToken, id: this.userId };
@@ -42,6 +47,12 @@ export class SearchComponent implements OnInit {
         const obj = JSON.parse(data);
         this.totalResults = obj.numberOfResults;
         if (this.totalResults > 0) {
+          if (this.totalResults > this.limitResults) {
+            this.showedResults = this.limitResults;
+          } else {
+            this.showedResults = this.totalResults;
+          }
+          console.log(this.showedResults);
           for (let i = 0; i < this.totalResults; i++) {
             this.results.push(obj.list[i]);
           }
@@ -54,8 +65,12 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  redirectToSearchedProfile(profileId) {
-    this.router.navigate(['/users', profileId]);
+  showMoreResults() {
+    if (this.showedResults + this.limitResults > this.totalResults) {
+      this.showedResults = this.totalResults
+    } else {
+      this.showedResults = this.showedResults + this.limitResults;
+    }
   }
 
 }
