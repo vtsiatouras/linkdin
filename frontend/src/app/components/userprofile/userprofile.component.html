@@ -7,8 +7,28 @@
     </div>
   </div>
 
+  <div *ngIf="requestConnectButton" class="connect-buttons-container">
+    <button class="btn btn-secondary request-connect-button" type="button" (click)="sendConnectRequest()">
+      <fa-icon [icon]="faUserPlus"></fa-icon>
+      Connect
+    </button>
+  </div>
+  <div *ngIf="connectPendingButton" class="connect-buttons-container">
+    <button class="btn btn-outline-primary connect-pending-button" type="button" disabled>
+      <fa-icon [icon]="faUserClock"></fa-icon>
+      Connect Request Pending
+    </button>
+  </div>
+  <div *ngIf="connectedButton" class="connect-buttons-container">
+    <button class="btn btn-outline-primary connected-button" type="button" disabled>
+      <fa-icon [icon]="faUserCheck"></fa-icon>
+      Connected
+    </button>
+  </div>
+
   <div *ngFor="let x of posts">
-    <app-post userName="{{profileFirstName}}" userSurname="{{profileSurname}}" date="{{x.timestamp| date:'d MMMM y, h:mm a'}}" content="{{x.content}}"></app-post>
+    <app-post userName="{{profileFirstName}}" userSurname="{{profileSurname}}" date="{{x.timestamp| date:'d MMMM y, h:mm a'}}"
+      content="{{x.content}}"></app-post>
   </div>
   <div *ngIf="loadMoreButton" class="load-button-container">
     <button class="btn btn-secondary load-button" type="button" (click)="getPosts()">Load More Posts</button>
