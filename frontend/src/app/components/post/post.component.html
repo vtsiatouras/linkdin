@@ -1,6 +1,9 @@
 <div class="post-box">
   <div class="post-details">
-    <span class="user-name"> {{ userName }} {{ userSurname }} </span>
+    <span class='user-identifiers'>
+      <img class="rounded-circle profile-image" src="{{userImage}}">
+      <span class="user-name"> {{ userName }} {{ userSurname }} </span>
+    </span>
     <span class="timestamp"> {{ date }} </span>
   </div>
   <div class="post-content"> {{ content }} </div>

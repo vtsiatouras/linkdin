@@ -20,6 +20,7 @@ export class SearchComponent implements OnInit {
   limitResults = 2;
   showedResults = 0;
   results = [];
+
   userQuery: string;
 
   constructor(
@@ -55,6 +56,7 @@ export class SearchComponent implements OnInit {
           console.log(this.showedResults);
           for (let i = 0; i < this.totalResults; i++) {
             this.results.push(obj.list[i]);
+            this.results[i].image = 'data:image/jpeg;base64,' + this.results[i].image;
           }
           console.log(this.results);
         }
@@ -67,7 +69,7 @@ export class SearchComponent implements OnInit {
 
   showMoreResults() {
     if (this.showedResults + this.limitResults > this.totalResults) {
-      this.showedResults = this.totalResults
+      this.showedResults = this.totalResults;
     } else {
       this.showedResults = this.showedResults + this.limitResults;
     }
