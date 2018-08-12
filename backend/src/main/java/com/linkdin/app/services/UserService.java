@@ -15,6 +15,9 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private ImageStorageService imageStorageService;
+
     public boolean emailExist(String email) {
         User user = repository.findByEmail(email);
         if (user != null) {
@@ -60,6 +63,7 @@ public class UserService {
             userSearchResult.id = Integer.toString(element.getId());
             userSearchResult.name = element.getName();
             userSearchResult.surname = element.getSurname();
+            userSearchResult.image = imageStorageService.getImage(element.getProfilePicture());
             resultList.add(userSearchResult);
         }
         String totalResults = Integer.toString(resultList.size());
