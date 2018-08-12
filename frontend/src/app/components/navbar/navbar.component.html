@@ -8,22 +8,21 @@
     <div class="spacer col-6 col-md-4 justify-content-md-center"> 
       <app-search></app-search>
     </div>
-
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <button class="btn btn-secondary no-background-button navbar-right" type="button" (click)="redirectToHome()">
+        <a class="btn btn-secondary no-background-button navbar-right" type="button" [routerLink]="['/home']">
           Home Page
-        </button>
-        <button class="btn btn-secondary no-background-button navbar-right" type="button">
+        </a>
+        <a class="btn btn-secondary no-background-button navbar-right" type="button" [routerLink]="['/home']">
           Network
-        </button>
-        <button class="btn btn-secondary no-background-button navbar-right" type="button">
+        </a>
+        <a class="btn btn-secondary no-background-button navbar-right" type="button" [routerLink]="['/home']">
           Job Adverts
-        </button>
+        </a>
         <li class="divider"></li>
         <ul class="navbar-nav text-center">
           <div class="btn-group-justified" role="group" aria-label="First group">
@@ -37,15 +36,16 @@
         </ul>
         <ul class="navbar-nav text-center">
           <div class="btn-group-justified" role="group" aria-label="Second group">
-            <button class="btn btn-secondary no-background-button" type="button" (click)="redirectToProfile()">
+            <a class="btn btn-secondary no-background-button" type="button" [routerLink]="['/users', userID]">
               {{ firstName }} {{ lastName }}
-            </button>
+            </a>
             <div class="nav-item dropdown">
               <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <fa-icon [icon]="faCaretDown"></fa-icon>
               </button>
               <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item">Settings</button>
+                <!-- TODO make settings a instead of button -->
+                <button class="dropdown-item">Settings</button> 
                 <button class="dropdown-item" (click)="logoutUser()">Logout</button>
               </div>
             </div>

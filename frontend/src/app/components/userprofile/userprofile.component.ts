@@ -78,9 +78,11 @@ export class UserprofileComponent implements OnInit {
   }
 
   getPosts() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const pageRequest = { profileUserID: this.profileUserID, pageNumber: this.page, limit: this.limitPosts };
     this.page++;
     const req = this.http.post('http://localhost:8080/api/getprofileposts', {
+      userIdentifiers,
       pageRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       console.log(data);

@@ -32,19 +32,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
-  clickLogo() {
-    console.log('logo clicked');
-    this.router.navigate(['/home']);
-  }
-
-  redirectToHome() {
-    this.router.navigate(['/home']);
-  }
-
-  redirectToProfile() {
-    this.router.navigate(['/users', this.userID]);
-  }
-
   logoutUser() {
     console.log('logout');
     localStorage.clear();
