@@ -40,6 +40,42 @@
   left: -248px;
   width: 300px;
   height: auto;
-  max-height: 200px;
+  max-height: 300px;
   overflow-x: hidden;
+}
+
+.dropdown-item {
+  font-size: 13pt;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.dropdown-item:hover {
+  background-color: #006394;
+  color: #ffffff;
+}
+
+.border {
+  margin-top: 15px;
+  border-top: 1px solid #000000;
+}
+
+.show-more-button-container {
+  text-align: center;
+}
+
+.show-more-button {
+  margin-top: 5px;
+  background-color: transparent;
+  color: #006394;
+  border: none;
+}
+
+.btn.show-more-button:hover,
+.btn.show-more-button:focus,
+.btn.show-more-button:active {
+  background-color: transparent;
+  color: #00334d;
+  border: none;
+  outline: none !important;
 }

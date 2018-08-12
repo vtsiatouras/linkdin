@@ -7,11 +7,18 @@
           aria-haspopup="true" aria-expanded="false">
           <fa-icon [icon]="faSearch"></fa-icon>
         </button>
-        <!-- Add here 5 top results with a button to show more -->
         <div class="dropdown-menu dropdown-menu-center" id="menu">
           <div *ngIf="totalResults > 0">
-            <div *ngFor="let x of results">
-              <button class="dropdown-item" (click)="redirectToSearchedProfile(x.id)"> {{ x.name }} {{ x.surname }} </button>
+            <div *ngFor="let x of results; let i = index">
+              <div *ngIf="i < showedResults">
+                <a class="dropdown-item" [routerLink]="['/users', x.id]"> {{ x.name }} {{ x.surname }} </a>
+              </div>
+            </div>
+            <div *ngIf="showedResults < totalResults">
+              <div class="border"></div>
+              <div class="show-more-button-container">
+                <label class="btn btn-secondary show-more-button" type="button" (click)="$event.stopPropagation(); showMoreResults()">Load More</label>
+              </div>
             </div>
           </div>
           <div *ngIf="totalResults == 0">

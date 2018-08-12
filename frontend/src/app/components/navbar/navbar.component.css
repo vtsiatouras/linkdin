@@ -53,21 +53,6 @@
   }
   
 }
-/* .search-bar{
-  width: 40%;
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
-}
-
-.search-bar .input-group{
-  width: 60%;
-}
-
-.search-button {
-  background-color: #006394;
-  border: none;
-} */
 
 .btn.search-button:hover,
 .btn.search-button:active {

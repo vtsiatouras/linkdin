@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    // TODO add limit to 30-50 results
     List<User> findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(String userName, String userSurname);
     User findByEmail(String userEmail);
     User findById(Integer userID);
