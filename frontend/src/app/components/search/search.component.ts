@@ -15,7 +15,6 @@ export class SearchComponent implements OnInit {
   userToken = localStorage.getItem('userToken');
 
   faSearch = faSearch;
-  showResults = true;
   totalResults = 0;
   results = [];
   userQuery: string;
@@ -31,7 +30,8 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.results = [];
-    if (this.userQuery != null) {
+    console.log(this.userQuery);
+    if (this.userQuery) {
       const userIdentifiers = { userToken: this.userToken, id: this.userId };
       const searchData = { searchQuery: this.userQuery };
       const req = this.http.post('http://localhost:8080/api/searchusers', {
@@ -45,18 +45,17 @@ export class SearchComponent implements OnInit {
           for (let i = 0; i < this.totalResults; i++) {
             this.results.push(obj.list[i]);
           }
-          // this.showResults = true;
           console.log(this.results);
         }
       },
         (err: HttpErrorResponse) => {
           console.log(err);
         });
-    } else {
-      this.results = [];
-      this.totalResults = 0;
-      // this.showResults = false;
     }
+  }
+
+  redirectToSearchedProfile(profileId) {
+    this.router.navigate(['/users', profileId]);
   }
 
 }

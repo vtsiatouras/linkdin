@@ -28,7 +28,7 @@ export class NewpostComponent implements OnInit {
   }
 
   sharePost() {
-    if (this.postContent != null) {
+    if (this.postContent) {
       // TODO clean the below
       console.log(this.postContent);
       console.log(this.isPublic);

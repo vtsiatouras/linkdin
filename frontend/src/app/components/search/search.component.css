@@ -28,7 +28,18 @@
   border: none;
 }
 
+.btn.search-button:disabled {
+  background-color: #006394;
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+}
+
 .dropdown-menu-center {
   left: -248px;
   width: 300px;
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
 }
