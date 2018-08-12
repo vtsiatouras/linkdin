@@ -51,7 +51,6 @@ public class LoginController {
                     .put("email", email)
                     .toString();
 
-//            System.err.println(jsonString);
             // Create a new session and add the security context.
             HttpSession session = request.getSession(true);
             session.setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, id);

@@ -3,6 +3,8 @@ package com.linkdin.app.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.SearchAttributes;
 import com.linkdin.app.dto.SearchResults;
+import com.linkdin.app.dto.UserIdentifiers;
+import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.UserService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +15,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @RestController
 public class SearchController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    AuthRequestService authRequestService;
 
-    // TODO run authcheck
     @PostMapping(path = "/searchusers")
     public ResponseEntity<Object> user(@RequestBody String jsonSearchRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonSearchRequest);
         try {
+            JSONObject userObj = obj.getJSONObject("userIdentifiers");
             JSONObject searchObj = obj.getJSONObject("searchData");
+            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
             SearchAttributes searchAttributes = objectMapper.readValue(searchObj.toString(), SearchAttributes.class);
+
+            // Authenticate user
+            if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
             SearchResults result = userService.searchUsers(searchAttributes.searchQuery);
             return new ResponseEntity<Object>(result, HttpStatus.OK);
         } catch (Exception ex) {

@@ -2,6 +2,8 @@ package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ProfilePostsPageRequest;
+import com.linkdin.app.dto.UserIdentifiers;
+import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,9 @@ public class ProfilePostsController {
 
     @Autowired
     PostService postService;
+    @Autowired
+    AuthRequestService authRequestService;
 
-    // TODO authCheck
     // TODO later check if the profile belongs to friend to show all posts
     // if it is not show only public posts
     @PostMapping(path = "/getprofileposts")
@@ -28,8 +31,16 @@ public class ProfilePostsController {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonPostsRequest);
         try {
+            JSONObject userObj = obj.getJSONObject("userIdentifiers");
             JSONObject pageRequest = obj.getJSONObject("pageRequest");
+            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
             ProfilePostsPageRequest profilePostsPageRequest = objectMapper.readValue(pageRequest.toString(), ProfilePostsPageRequest.class);
+
+            // Authenticate user
+            if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
             int userID = Integer.parseInt(profilePostsPageRequest.profileUserID);
             int pageNumber = Integer.parseInt(profilePostsPageRequest.pageNumber);
             int limit = Integer.parseInt(profilePostsPageRequest.limit);
@@ -39,6 +50,5 @@ public class ProfilePostsController {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-
     }
 }
