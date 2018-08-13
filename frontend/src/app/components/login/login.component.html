@@ -14,7 +14,7 @@
       <div *ngIf="pass_form.errors && (pass_form.dirty || pass_form.touched)" class="alert-error"></div>
       <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
     </form>
-    <a [routerLink]="['/register']" class="register">
+    <a class="btn btn-secondary register" [routerLink]="['/register']">
       New to linkDIn? Register now!
     </a>
   </div>
