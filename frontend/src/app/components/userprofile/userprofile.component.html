@@ -27,7 +27,7 @@
   </div>
 
   <div *ngFor="let x of posts">
-    <app-post userIdPost="{{profileUserID}}" date="{{x.timestamp| date:'d MMMM y, h:mm a'}}"
+    <app-post userIdPost="{{profileUserID}}" isAd="{{x.isAdvertisment}}" isPublic="{{x.isPublic}}" date="{{x.timestamp| date:'d MMMM y, h:mm a'}}"
       content="{{x.content}}"></app-post>
   </div>
   <div *ngIf="loadMoreButton" class="load-button-container">

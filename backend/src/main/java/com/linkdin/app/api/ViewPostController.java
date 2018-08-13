@@ -1,12 +1,10 @@
 package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkdin.app.dto.UserBasicInfo;
 import com.linkdin.app.dto.UserIdentifiers;
-import com.linkdin.app.model.User;
+import com.linkdin.app.model.Post;
 import com.linkdin.app.services.AuthRequestService;
-import com.linkdin.app.services.ImageStorageService;
-import com.linkdin.app.services.UserService;
+import com.linkdin.app.services.PostService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,37 +16,40 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class GetUserBasicInfo {
+public class ViewPostController {
 
     @Autowired
-    UserService userService;
-    @Autowired
-    ImageStorageService imageStorageService;
+    PostService postService;
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/getuserbasicinfo")
-    public ResponseEntity<Object> userBasicInfo(@RequestBody String jsonRequestUserInfo, HttpSession session) {
+    @PostMapping(path = "/getpost")
+    public ResponseEntity<Object> userBasicInfo(@RequestBody String jsonRequestPost, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonRequestUserInfo);
+        JSONObject obj = new JSONObject(jsonRequestPost);
+        System.err.println(obj);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject userInfoRequest = obj.getJSONObject("userInfoRequest");
+            JSONObject postRequest = obj.getJSONObject("postRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userId = userInfoRequest.getString("userIdPost");
+            String postID = postRequest.getString("postID");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            UserBasicInfo userBasicInfo = new UserBasicInfo();
-            User user = userService.returnUserByID(Integer.parseInt(userId));
-            userBasicInfo.id = Integer.toString(user.getId());
-            userBasicInfo.name = user.getName();
-            userBasicInfo.surname = user.getSurname();
-            userBasicInfo.image = imageStorageService.getImage(user.getProfilePicture());
-            return new ResponseEntity<Object>(userBasicInfo, HttpStatus.OK);
+            // TODO!!
+            // In case that the post is private, check if the user that requested the post
+            // is friend with the post's author
+            // If the post is public just send it
+            // TODO CHECK IN OTHER CONTROLLERS FOR NULL RETURNS!!!
+            Post post = postService.returnPostByID(Integer.parseInt(postID));
+            if (post != null) {
+                return new ResponseEntity<Object>(post, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

@@ -1,10 +1,21 @@
 <div class="post-box">
   <div class="post-details">
-    <span class='user-identifiers'>
+    <a class="btn user-identifiers" [routerLink]="['/users', userIdPost]">  
       <img class="rounded-circle profile-image" src="{{userImage}}">
       <span class="user-name"> {{ userName }} {{ userSurname }} </span>
-    </span>
+    </a>
     <span class="timestamp"> {{ date }} </span>
+    <div class="post-attributes">
+      <span *ngIf="isAd == 1">
+        <fa-icon [icon]="faBriefcase"></fa-icon>
+      </span>
+      <span *ngIf="isPublic == 1">
+        <fa-icon [icon]="faGlobeAfrica"></fa-icon>
+      </span>
+      <span *ngIf="isPublic == 0">
+        <fa-icon [icon]="faUsers"></fa-icon>
+      </span>
+    </div>
   </div>
   <div class="post-content"> {{ content }} </div>
   <hr>
