@@ -17,7 +17,7 @@ export class SearchComponent implements OnInit {
   faSearch = faSearch;
 
   totalResults = 0;
-  limitResults = 2;
+  limitResults = 5;
   showedResults = 0;
   results = [];
 

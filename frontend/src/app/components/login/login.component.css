@@ -135,20 +135,23 @@
   background-color: #006394;
 }
 
-.register {
+.btn.register {
   text-align: center;
+  font-size: 14px;
+  border: none;
+  background-color: transparent;
   color: rgb(104, 145, 162);
 }
 
-.register:hover,
-.register:active,
-.register:focus {
+.btn.register:hover,
+.btn.register:active,
+.btn.register:focus {
+  background-color: transparent;
   color: #006394;
 }
 
 .alert {
   width: 276px;
-  /*padding: 20px 25px 20px;*/
   margin: 0 auto 25px;
   margin-top: 50px;
 }
