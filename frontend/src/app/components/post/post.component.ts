@@ -3,6 +3,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { faGlobeAfrica } from '@fortawesome/free-solid-svg-icons';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-post',
@@ -11,6 +14,9 @@ import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
 })
 export class PostComponent implements OnInit {
 
+  faBriefcase = faBriefcase;
+  faGlobeAfrica = faGlobeAfrica;
+  faUsers = faUsers;
   faStar = faStar;
   faCommentAlt = faCommentAlt;
 
@@ -22,6 +28,8 @@ export class PostComponent implements OnInit {
   userImage: string;
   @Input() userIdPost: string;
   @Input() date: Date;
+  @Input() isAd: any;
+  @Input() isPublic: any;
   @Input() content: string;
 
   constructor(
@@ -31,6 +39,12 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getUserIdentifiers();
+  }
+
+  getUserIdentifiers() {
+    console.log(this.userIdPost);
+    console.log(this.date);
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const userInfoRequest = { userIdPost: this.userIdPost };
     const req = this.http.post('http://localhost:8080/api/getuserbasicinfo', {

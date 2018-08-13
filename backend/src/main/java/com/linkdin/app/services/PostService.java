@@ -42,19 +42,21 @@ public class PostService {
         return true;
     }
 
+    public Post returnPostByID(int postID) {
+        Post post = postRepository.findById(postID);
+        if (post != null) {
+            return post;
+        }
+        return null;
+    }
 
     public Page<Post> getUserPosts(int userID, int pageNumber, int limit) {
 //        return postRepository.findAll(new PageRequest(pageNumber, limit));
         return postRepository.findByuserIdOrderByTimestampDesc(new PageRequest(pageNumber, limit), userID);
     }
 
-    // WIP
-    public List getAllUsersPosts() {
-        return null;
-    }
-
-    public List getAllUsersPublicPosts() {
-        return null;
+    public Page<Post> getUsersPublicPosts(int userID, int pageNumber, int limit) {
+        return postRepository.findByuserIdAndIsPublicOrderByTimestampDesc(new PageRequest(pageNumber, limit), userID, (byte) 1);
     }
 
     public List getNetworkPosts() {

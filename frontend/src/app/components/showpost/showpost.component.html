@@ -1,0 +1,8 @@
+<app-navbar></app-navbar>
+<div class="post">
+  <div *ngIf="renderPostComponent">
+    <app-post userIdPost="{{userIDPost}}" isAd="{{isAd}}" isPublic="{{isPublic}}" date="{{timestamp | date:'d MMMM y, h:mm a'}}"
+      content="{{content}}"></app-post>
+  </div>
+</div>
+<app-footer></app-footer>

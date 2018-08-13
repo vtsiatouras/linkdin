@@ -45,6 +45,9 @@ public class ProfilePostsController {
             int pageNumber = Integer.parseInt(profilePostsPageRequest.pageNumber);
             int limit = Integer.parseInt(profilePostsPageRequest.limit);
             Page page = postService.getUserPosts(userID, pageNumber, limit);
+            // TODO otan mpoun filies na ginetai check kai se periptwsh pou den einai filoi na eleu8erwsw to
+            // parakatw call (na gurnaei mono ta public posts) (exei dokimastei kai epistrefei swsta ta public posts)
+//            Page page = postService.getUsersPublicPosts(userID, pageNumber, limit);
             return new ResponseEntity<Object>(page, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();

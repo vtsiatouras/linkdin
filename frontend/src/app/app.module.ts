@@ -19,13 +19,16 @@ import { UserprofileComponent } from './components/userprofile/userprofile.compo
 import { PostComponent } from './components/post/post.component';
 import { NewpostComponent } from './components/newpost/newpost.component';
 import { SearchComponent } from './components/search/search.component';
+import { ShowpostComponent } from './components/showpost/showpost.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }, // For Logged in users ONLY
-  { path: 'users/:user_id', component: UserprofileComponent, canActivate: [AuthGuard] }
+  // For Logged in users ONLY
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'users/:user_id', component: UserprofileComponent, canActivate: [AuthGuard] },
+  { path: 'posts/:post_id', component: ShowpostComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -40,7 +43,8 @@ const appRoutes: Routes = [
     UserprofileComponent,
     PostComponent,
     NewpostComponent,
-    SearchComponent
+    SearchComponent,
+    ShowpostComponent
   ],
   imports: [
     HttpClientModule,

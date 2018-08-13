@@ -12,8 +12,6 @@ import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 })
 export class UserprofileComponent implements OnInit {
 
-  href = '';
-
   faUserPlus = faUserPlus;
   faUserClock = faUserClock;
   faUserCheck = faUserCheck;
@@ -64,11 +62,6 @@ export class UserprofileComponent implements OnInit {
   }
 
   loadProfile() {
-    this.href = this.router.url;
-    const url = this.href.split('/');
-    const urlUserID = url[2];
-    this.profileUserID = urlUserID;
-
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const requestProfile = { userID: this.userId, profileUserID: this.profileUserID };
     const req = this.http.post('http://localhost:8080/api/user', {
@@ -108,7 +101,7 @@ export class UserprofileComponent implements OnInit {
         } else {
           this.loadMoreButton = false;
         }
-        console.log(this.loadMoreButton);
+        // console.log(this.loadMoreButton);
         for (let i = 0; i < numberOfPosts; i++) {
           this.posts.push(obj.content[i]);
         }
