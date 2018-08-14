@@ -10,12 +10,19 @@
   align-content: center;
 }
 
+.form-control.search {
+  outline: none !important;
+  box-shadow: none;
+}
+
 .search-bar .input-group {
   width: 100%;
 }
 
 .search-button {
   background-color: #006394;
+  outline: none !important;
+  box-shadow: none;
   border: none;
 }
 
@@ -24,6 +31,7 @@
   background-color: #00334d;
   border-color: inherit;
   -webkit-box-shadow: none;
+  outline: none !important;
   box-shadow: none;
   border: none;
 }
@@ -69,7 +77,7 @@
   text-align: center;
 }
 
-.show-more-button {
+.btn.show-more-button {
   margin-top: 5px;
   background-color: transparent;
   color: #006394;
@@ -83,4 +91,5 @@
   color: #00334d;
   border: none;
   outline: none !important;
+  box-shadow: none;
 }

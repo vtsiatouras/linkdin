@@ -9,8 +9,14 @@
   border-color: #949393;
 }
 
+.post-details {
+  font-size: 0;
+}
+
 .btn.user-identifiers {
   border: none;
+  outline: none !important;
+  box-shadow: none;
   color: #006394;
   background-color: transparent;
 }
@@ -28,13 +34,16 @@
 }
 
 .user-name {
-  padding: 3px;
+  padding-left: 5px;
   font-size: 15pt;
   font-weight: bold;
 }
 
-.timestamp {
-  margin-left: 3px;
+.btn.timestamp {
+  border: none;
+  outline: none !important;
+  box-shadow: none;
+  color: #00334d;
   font-size: 11pt;
   font-weight: lighter;
 }
@@ -45,10 +54,17 @@
 }
 
 .post-attributes {
+  display: block;
   float: right;
+  font-size: 0;
+}
+
+.icon-post {
+  padding: 3px;
   font-size: 16pt;
   color: #00334d85;
 }
+
 
 .post-controls {
   text-align: center;
