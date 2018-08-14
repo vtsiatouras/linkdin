@@ -4,16 +4,16 @@
       <img class="rounded-circle profile-image" src="{{userImage}}">
       <span class="user-name"> {{ userName }} {{ userSurname }} </span>
     </a>
-    <span class="timestamp"> {{ date }} </span>
+    <a class="btn timestamp" [routerLink]="['/posts', postId]"> {{ date }} </a>
     <div class="post-attributes">
       <span *ngIf="isAd == 1">
-        <fa-icon [icon]="faBriefcase"></fa-icon>
+        <fa-icon class="icon-post" [icon]="faBriefcase"></fa-icon>
       </span>
       <span *ngIf="isPublic == 1">
-        <fa-icon [icon]="faGlobeAfrica"></fa-icon>
+        <fa-icon class="icon-post" [icon]="faGlobeAfrica"></fa-icon>
       </span>
       <span *ngIf="isPublic == 0">
-        <fa-icon [icon]="faUsers"></fa-icon>
+        <fa-icon class="icon-post" [icon]="faUsers"></fa-icon>
       </span>
     </div>
   </div>

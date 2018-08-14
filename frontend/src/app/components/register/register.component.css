@@ -6,10 +6,14 @@
  * General styles
  */
 
+.register-container {
+  overflow: hidden;
+}
+
 .background-img {
   background-size: cover;
   background-repeat: no-repeat;
-  height: auto;
+  height: 100%;
   width: 100%;
   left: 0;
   top: 0;
@@ -31,6 +35,7 @@
 .card-container.card {
   max-width: 350px;
   padding: 40px 40px;
+  margin-bottom: 140px;
   top: 2em;
 }
 
@@ -51,8 +56,7 @@
   background-color: #F7F7F7;
   /* just in case there no content*/
   padding: 20px 25px 20px;
-  margin: 0 auto 125px;
-  margin-top: 50px;
+  margin: 50px auto 100px;
   /* shadows and rounded borders */
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -115,7 +119,12 @@
 
 .upload-image {
   margin-top: 10px;
-  width: 228px;
+}
+
+@supports (-moz-appearance:none) {
+  .upload-image {
+    width: 225px;
+  }
 }
 
 .upload-button {
@@ -193,5 +202,5 @@
 
 .alert {
   width: 276px;
-  margin: -70px auto 90px auto;
+  margin: -50px auto 90px;
 }

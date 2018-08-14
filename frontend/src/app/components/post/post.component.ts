@@ -26,6 +26,7 @@ export class PostComponent implements OnInit {
   userName: string;
   userSurname: string;
   userImage: string;
+  @Input() postId: string;
   @Input() userIdPost: string;
   @Input() date: Date;
   @Input() isAd: any;
@@ -39,7 +40,23 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getUserIdentifiers();
+    // this.getUserIdentifiers();
+    console.log(this.userIdPost);
+    console.log(this.date);
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const userInfoRequest = { userIdPost: this.userIdPost };
+    const req = this.http.post('http://localhost:8080/api/getuserbasicinfo', {
+      userIdentifiers,
+      userInfoRequest
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      this.userName = obj.name;
+      this.userSurname = obj.surname;
+      this.userImage = 'data:image/jpeg;base64,' + obj.image;
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
   }
 
   getUserIdentifiers() {

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
   <div class="container-fluid">
     <div class="logo">
-      <a [routerLink]="['/home']">
+      <a class="logo-link" [routerLink]="['/home']">
         <img id="logo-img" class="navbar-brand logo" src="../../../assets/images/linkDIn_light.png" />
       </a>
     </div>
@@ -14,13 +14,13 @@
     </button>
     <div class="navbar-collapse collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <a class="btn btn-secondary no-background-button navbar-right" type="button" [routerLink]="['/home']">
+        <a class="btn btn-secondary no-background-button navbar-right" role="button" [routerLink]="['/home']">
           Home Page
         </a>
-        <a class="btn btn-secondary no-background-button navbar-right" type="button" [routerLink]="['/home']">
+        <a class="btn btn-secondary no-background-button navbar-right" role="button" [routerLink]="['/home']">
           Network
         </a>
-        <a class="btn btn-secondary no-background-button navbar-right" type="button" [routerLink]="['/home']">
+        <a class="btn btn-secondary no-background-button navbar-right" role="button" [routerLink]="['/home']">
           Job Adverts
         </a>
         <li class="divider"></li>
@@ -36,7 +36,7 @@
         </ul>
         <ul class="navbar-nav text-center">
           <div class="btn-group-justified" role="group" aria-label="Second group">
-            <a class="btn btn-secondary no-background-button" type="button" [routerLink]="['/users', userID]">
+            <a class="btn btn-secondary no-background-button" role="button" [routerLink]="['/users', userID]">
               {{ firstName }} {{ lastName }}
             </a>
             <div class="nav-item dropdown">

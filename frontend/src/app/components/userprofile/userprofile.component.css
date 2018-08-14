@@ -87,9 +87,12 @@
   -webkit-border-radius: 3px;
   border-radius: 3px;
   border: none;
+  outline: none;
 }
 
-.load-button:hover,
-.load-button:active {
+.btn.load-button:hover,
+.btn.load-button:active {
   background-color: #006394;
+  outline: none !important;
+  box-shadow: none ;
 }

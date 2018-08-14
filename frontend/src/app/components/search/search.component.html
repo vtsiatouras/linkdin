@@ -1,6 +1,6 @@
 <div class="search-bar">
   <div class="input-group">
-    <input class="form-control search" type="text" placeholder="Search" aria-label="Search Users" [(ngModel)]="userQuery">
+    <input class="form-control search" type="text" placeholder="Search Users" aria-label="Search Users" [(ngModel)]="userQuery">
     <span class="input-group-btn">
       <div class="dropdown">
         <button [disabled]="!userQuery" class="btn btn-info btn-lg search-button" type="button" (click)="search()" data-toggle="dropdown"
@@ -12,14 +12,13 @@
             <div *ngFor="let x of results; let i = index">
               <div *ngIf="i < showedResults">
                 <a class="dropdown-item" [routerLink]="['/users', x.id]">
-                  <img class="rounded-circle profile-image" src="{{x.image}}">
-                   {{ x.name }} {{ x.surname }} </a>
+                  <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }} </a>
               </div>
             </div>
             <div *ngIf="showedResults < totalResults">
               <div class="border"></div>
               <div class="show-more-button-container">
-                <label class="btn btn-secondary show-more-button" type="button" (click)="$event.stopPropagation(); showMoreResults()">Load More</label>
+                <button class="btn btn-secondary show-more-button" role="button" type="button" (click)="$event.stopPropagation(); showMoreResults()">Load More</button>
               </div>
             </div>
           </div>
