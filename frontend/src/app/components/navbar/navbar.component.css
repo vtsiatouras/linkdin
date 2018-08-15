@@ -14,14 +14,15 @@
 
 .no-background-button {
   display: inline-block;
+  outline: none !important;
+  box-shadow: none;
   border: none;
   background: none;
   margin-right: 10px;
 }
 
 .btn.no-background-button:hover,
-.btn.no-background-button:active,
-.btn.no-background-button:focus {
+.btn.no-background-button:active {
   background-color: #006394;
   border-color: inherit;
   -webkit-box-shadow: none;
@@ -56,15 +57,6 @@
   }
 }
 
-.btn.search-button:hover,
-.btn.search-button:active {
-  background-color: #00334d;
-  border-color: inherit;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: none;
-}
-
 .divider {
   margin-right: 10px;
   border-right: 2px solid #ffffff;
@@ -82,46 +74,14 @@
   background: none;
 }
 
-.btn.btn-secondary.notifications {
+.btn.btn-secondary.icon-button {
   border: none;
   background: none;
 }
 
-.btn.btn-secondary.notifications.focus,
-.btn.btn-secondary.notifications:focus,
-.btn.btn-secondary.notifications:hover {
-  border: none;
-  background: none;
-  color: #006394;
-  border-color: inherit;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.btn.btn-secondary.messages {
-  border: none;
-  background: none;
-}
-
-.btn.btn-secondary.messages.focus,
-.btn.btn-secondary.messages:focus,
-.btn.btn-secondary.messages:hover {
-  border: none;
-  background: none;
-  color: #006394;
-  border-color: inherit;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.btn.btn-secondary.dropdown-toggle {
-  border: none;
-  background: none;
-}
-
-.btn.btn-secondary.dropdown-toggle.focus,
-.btn.btn-secondary.dropdown-toggle:focus,
-.btn.btn-secondary.dropdown-toggle:hover {
+.btn.btn-secondary.icon-button.focus,
+.btn.btn-secondary.icon-button:focus,
+.btn.btn-secondary.icon-button:hover {
   border: none;
   background: none;
   color: #006394;

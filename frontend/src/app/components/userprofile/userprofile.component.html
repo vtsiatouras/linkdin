@@ -14,13 +14,13 @@
     </button>
   </div>
   <div *ngIf="connectPendingButton" class="connect-buttons-container">
-    <button class="btn btn-outline-primary connect-pending-button" type="button" disabled>
+    <button class="btn btn-outline-primary disabled-connect-button" type="button" disabled>
       <fa-icon [icon]="faUserClock"></fa-icon>
       Connect Request Pending
     </button>
   </div>
   <div *ngIf="connectedButton" class="connect-buttons-container">
-    <button class="btn btn-outline-primary connected-button" type="button" disabled>
+    <button class="btn btn-outline-primary disabled-connect-button" type="button" disabled>
       <fa-icon [icon]="faUserCheck"></fa-icon>
       Connected
     </button>

@@ -32,7 +32,7 @@
   font-weight: 700;
   font-size: 18px;
   height: 40px;
-  width: 140px;
+  width: auto;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -44,28 +44,14 @@
   background-color: #006394;
 }
 
-.connect-pending-button {
+.disabled-connect-button {
   color: rgb(104, 145, 162);
   opacity: 1;
   padding: 5px;
   font-weight: 700;
   font-size: 18px;
   height: 40px;
-  width: 300px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border: 1px solid rgb(104, 145, 162);
-  border-radius: 3px;
-}
-
-.connected-button {
-  color: rgb(104, 145, 162);
-  opacity: 1;
-  padding: 5px;
-  font-weight: 700;
-  font-size: 18px;
-  height: 40px;
-  width: 160px;
+  width: auto;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border: 1px solid rgb(104, 145, 162);
@@ -94,5 +80,5 @@
 .btn.load-button:active {
   background-color: #006394;
   outline: none !important;
-  box-shadow: none ;
+  box-shadow: none;
 }
