@@ -62,6 +62,13 @@ export class UserprofileComponent implements OnInit {
   }
 
   loadProfile() {
+    if (this.userId == this.profileUserID) {
+      this.requestConnectButton = false;
+      this.connectPendingButton = false;
+      this.connectedButton = false;
+    } else {
+      this.checkConnectStatus();
+    }
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const requestProfile = { userID: this.userId, profileUserID: this.profileUserID };
     const req = this.http.post('http://localhost:8080/api/user', {
@@ -73,6 +80,7 @@ export class UserprofileComponent implements OnInit {
       const userObj = JSON.parse(obj.user);
       this.profileFirstName = userObj.firstName;
       this.profileSurname = userObj.lastName;
+
       this.getPosts();
     },
       (err: HttpErrorResponse) => {
@@ -107,6 +115,36 @@ export class UserprofileComponent implements OnInit {
         }
       } else {
         this.posts = null;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  checkConnectStatus() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const targetProfile = { profileUserID: this.profileUserID.toString() };
+    const req = this.http.post('http://localhost:8080/api/connectstatus', {
+      userIdentifiers,
+      targetProfile
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      if (obj.friends == "0") {
+        this.requestConnectButton = true;
+        this.connectPendingButton = false;
+        this.connectedButton = false;
+      } else {
+        if (obj.peding == "1") {
+          this.requestConnectButton = false;
+          this.connectPendingButton = true;
+          this.connectedButton = false;
+        } else {
+          // They are connected
+          this.requestConnectButton = false;
+          this.connectPendingButton = false;
+          this.connectedButton = true;
+        }
       }
     },
       (err: HttpErrorResponse) => {
