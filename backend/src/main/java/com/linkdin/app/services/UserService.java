@@ -13,13 +13,13 @@ import java.util.List;
 @Service
 public class UserService {
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
 
     @Autowired
     private ImageStorageService imageStorageService;
 
     public boolean emailExist(String email) {
-        User user = repository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
         if (user != null) {
             return true;
         }
@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public User returnUser(String email) {
-        User user = repository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
         if (user != null) {
             return user;
         }
@@ -35,7 +35,7 @@ public class UserService {
     }
 
     public User returnUserByID(Integer id) {
-        User user = repository.findById(id);
+        User user = userRepository.findById(id);
         if (user != null) {
             return user;
         }
@@ -44,7 +44,7 @@ public class UserService {
 
     public boolean authenticate(String email, String password) {
         System.err.println(email);
-        User user = repository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
         if (user != null && user.getPassword().equals(password)) { // TODO hash klp
             return true;
         }
@@ -52,11 +52,11 @@ public class UserService {
     }
 
     public void storeUser(User user) {
-        repository.save(user);
+        userRepository.save(user);
     }
 
     public SearchResults searchUsers(String queryName) {
-        List<User> list = repository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(queryName, queryName);
+        List<User> list = userRepository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(queryName, queryName);
         ArrayList<UserBasicInfo> resultList = new ArrayList<UserBasicInfo>();
         for (User element : list) {
             UserBasicInfo userSearchResult = new UserBasicInfo();

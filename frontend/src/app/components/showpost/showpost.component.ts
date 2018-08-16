@@ -30,24 +30,6 @@ export class ShowpostComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.postID = +params['post_id'];
       this.getPost();
-
-      // const userIdentifiers = { userToken: this.userToken, id: this.userId };
-      // const postRequest = { postID: this.postID.toString() };
-      // const req = this.http.post('http://localhost:8080/api/getpost', {
-      //   userIdentifiers,
-      //   postRequest
-      // }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      //   const obj = JSON.parse(data);
-      //   this.userIDPost = obj.userId;
-      //   this.isAd = obj.isAdvertisment;
-      //   this.isPublic = obj.isPublic;
-      //   this.timestamp = obj.timestamp;
-      //   this.content = obj.content;
-      //   console.log(obj);
-      // },
-      //   (err: HttpErrorResponse) => {
-      //     console.log(err);
-      //   });
     });
   }
 
