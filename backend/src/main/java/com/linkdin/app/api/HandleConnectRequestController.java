@@ -17,49 +17,35 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class FriendStatusController {
-
+public class HandleConnectRequestController {
     @Autowired
     UserNetworkService userNetworkService;
 
     @Autowired
     AuthRequestService authRequestService;
-
-    @PostMapping(path = "/connectstatus")
-    public ResponseEntity<Object> ConnectStatus(@RequestBody String jsonConnectStatus, HttpSession session) {
+    @PostMapping(path = "/handleconnectrequest")
+    public ResponseEntity<Object> HandleConnect(@RequestBody String jsonConnectRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonConnectStatus);
+        JSONObject obj = new JSONObject(jsonConnectRequest);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject targetProfile = obj.getJSONObject("targetProfile");
-            System.err.println(targetProfile);
+            JSONObject connectRequest = obj.getJSONObject("connectRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userTargetProfileID = targetProfile.getString("profileUserID");
+            String userTargetProfileID = connectRequest.getString("profileUserID");
+            String accepted = connectRequest.getString("accepted");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            UserNetwork userNetwork = userNetworkService.returnConnection(userIdentifiers.id, userTargetProfileID);
-            JSONObject response = new JSONObject();
-            ConnectionAttributes connectionAttributes = new ConnectionAttributes();
+            if(accepted.equals("1")) {
+                userNetworkService.acceptFriendRequest(userTargetProfileID, userIdentifiers.id);
+            } else {
+                userNetworkService.declineFriendRequest(userTargetProfileID, userIdentifiers.id);
+            }
 
-            // If they are not friends
-            if(userNetwork == null) {
-                connectionAttributes.friends = "0";
-                connectionAttributes.pending = "0";
-            }
-            else {
-                connectionAttributes.friends = "1";
-                // If they are already friends
-                if (userNetwork.getIsAccepted() == 1) {
-                    connectionAttributes.pending = "0";
-                } else {
-                    connectionAttributes.pending = "1";
-                }
-            }
-            return new ResponseEntity<Object>(connectionAttributes, HttpStatus.OK);
+            return new ResponseEntity<Object>(HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

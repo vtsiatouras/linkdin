@@ -1,6 +1,6 @@
 package com.linkdin.app.services;
 
-import com.linkdin.app.dto.SearchResults;
+import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserBasicInfo;
 import com.linkdin.app.model.User;
 import com.linkdin.app.repositories.UserRepository;
@@ -55,7 +55,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public SearchResults searchUsers(String queryName) {
+    public ListUsers searchUsers(String queryName) {
         List<User> list = userRepository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(queryName, queryName);
         ArrayList<UserBasicInfo> resultList = new ArrayList<UserBasicInfo>();
         for (User element : list) {
@@ -67,9 +67,9 @@ public class UserService {
             resultList.add(userSearchResult);
         }
         String totalResults = Integer.toString(resultList.size());
-        SearchResults searchResults = new SearchResults();
-        searchResults.list = resultList;
-        searchResults.numberOfResults = totalResults;
-        return searchResults;
+        ListUsers listUsers = new ListUsers();
+        listUsers.list = resultList;
+        listUsers.numberOfResults = totalResults;
+        return listUsers;
     }
 }

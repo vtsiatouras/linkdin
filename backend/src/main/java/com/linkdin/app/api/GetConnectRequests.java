@@ -1,6 +1,7 @@
 package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.UserNetworkService;
@@ -15,32 +16,29 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class FriendRequestController {
-
+public class GetConnectRequests {
     @Autowired
     UserNetworkService userNetworkService;
 
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/sendconnect")
-    public ResponseEntity<Object> SendConnect(@RequestBody String jsonConnectRequest, HttpSession session) {
+    @PostMapping(path = "/getconnectrequests")
+    public ResponseEntity<Object> GetRequests(@RequestBody String jsonGetRequests, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonConnectRequest);
+        JSONObject obj = new JSONObject(jsonGetRequests);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject friendRequest = obj.getJSONObject("friendRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userRequestID = friendRequest.getString("userRequestID");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            userNetworkService.sendFriendRequest(userIdentifiers.id, userRequestID);
+            ListUsers pendingConnectResults = userNetworkService.getPendingRequests(userIdentifiers.id);
 
-            return new ResponseEntity<Object>(HttpStatus.OK);
+            return new ResponseEntity<Object>(pendingConnectResults, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

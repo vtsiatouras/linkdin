@@ -15,9 +15,9 @@ export class UserprofileComponent implements OnInit {
   faUserPlus = faUserPlus;
   faUserClock = faUserClock;
   faUserCheck = faUserCheck;
-  requestConnectButton = true;
-  connectPendingButton = true;
-  connectedButton = true;
+  requestConnectButton = false;
+  connectPendingButton = false;
+  connectedButton = false;
 
   // Retrieve user's data from local storage
   email = localStorage.getItem('email');
@@ -62,7 +62,8 @@ export class UserprofileComponent implements OnInit {
   }
 
   loadProfile() {
-    if (this.userId == this.profileUserID) {
+    //todo fix this shit
+    if (this.userId === this.profileUserID.toString()) {
       this.requestConnectButton = false;
       this.connectPendingButton = false;
       this.connectedButton = false;
@@ -130,12 +131,13 @@ export class UserprofileComponent implements OnInit {
       targetProfile
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
-      if (obj.friends == "0") {
+      console.log(data);
+      if (obj.friends === '0') {
         this.requestConnectButton = true;
         this.connectPendingButton = false;
         this.connectedButton = false;
       } else {
-        if (obj.peding == "1") {
+        if (obj.pending === '1') {
           this.requestConnectButton = false;
           this.connectPendingButton = true;
           this.connectedButton = false;
@@ -153,7 +155,17 @@ export class UserprofileComponent implements OnInit {
   }
 
   sendConnectRequest() {
-    this.requestConnectButton = false;
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const friendRequest = { userRequestID: this.profileUserID.toString() };
+    const req = this.http.post('http://localhost:8080/api/sendconnect', {
+      userIdentifiers,
+      friendRequest
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      this.checkConnectStatus();
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
   }
 
 }

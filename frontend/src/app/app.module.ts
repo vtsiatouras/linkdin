@@ -20,6 +20,8 @@ import { PostComponent } from './components/post/post.component';
 import { NewpostComponent } from './components/newpost/newpost.component';
 import { SearchComponent } from './components/search/search.component';
 import { ShowpostComponent } from './components/showpost/showpost.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { UsernetworkComponent } from './components/usernetwork/usernetwork.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -44,7 +46,9 @@ const appRoutes: Routes = [
     PostComponent,
     NewpostComponent,
     SearchComponent,
-    ShowpostComponent
+    ShowpostComponent,
+    NotificationsComponent,
+    UsernetworkComponent
   ],
   imports: [
     HttpClientModule,
