@@ -62,7 +62,6 @@ export class UserprofileComponent implements OnInit {
   }
 
   loadProfile() {
-    //todo fix this shit
     if (this.userId === this.profileUserID.toString()) {
       this.requestConnectButton = false;
       this.connectPendingButton = false;
