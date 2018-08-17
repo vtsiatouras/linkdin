@@ -1,10 +1,9 @@
 package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.services.AuthRequestService;
-import com.linkdin.app.services.UserService;
+import com.linkdin.app.services.UserNetworkService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,30 +15,32 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class SearchController {
+public class SendConnectRequestController {
 
     @Autowired
-    UserService userService;
+    UserNetworkService userNetworkService;
+
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/searchusers")
-    public ResponseEntity<Object> user(@RequestBody String jsonSearchRequest, HttpSession session) {
+    @PostMapping(path = "/sendconnect")
+    public ResponseEntity<Object> SendConnect(@RequestBody String jsonConnectRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonSearchRequest);
+        JSONObject obj = new JSONObject(jsonConnectRequest);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject searchObj = obj.getJSONObject("searchData");
+            JSONObject friendRequest = obj.getJSONObject("friendRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String searchQuery = searchObj.getString("searchQuery");
+            String userRequestID = friendRequest.getString("userRequestID");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            ListUsers result = userService.searchUsers(searchQuery);
-            return new ResponseEntity<Object>(result, HttpStatus.OK);
+            userNetworkService.sendFriendRequest(userIdentifiers.id, userRequestID);
+
+            return new ResponseEntity<Object>(HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

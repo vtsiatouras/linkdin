@@ -1,0 +1,27 @@
+<div class="dropdown">
+  <button type="button" class="btn btn-secondary icon-button" (click)="getPendingConnectRequests()" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    <fa-icon [icon]="faBell"></fa-icon>
+  </button>
+  <div class="dropdown-menu dropdown-menu-right" id="menu">
+    <div *ngFor="let x of pendingRequests; let i = index">
+      <div *ngIf="totalPendingRequests > 0">
+        <div class="dropdown-item">
+          <a class="btn btn-secondary profile" [routerLink]="['/users', x.id]">
+            <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }} </a>
+          <button class="btn btn-secondary check-button" (click)="acceptConnectRequest(i)">
+            <fa-icon [icon]="faCheck"></fa-icon>
+          </button>
+          <button class="btn btn-secondary ignore-button" (click)="declineConnectRequest(i)">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="totalPendingRequests == 0">
+      <div class="dropdown-item">No Connect Requests!</div>
+    </div>
+    <div class="border"></div>
+    <div class="dropdown-item">No Notifications!</div>
+  </div>
+</div>
