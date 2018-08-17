@@ -1,6 +1,7 @@
 package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.UserNetworkService;
@@ -15,32 +16,31 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class SendConnectRequestController {
-
+public class GetConnectedUsersController {
     @Autowired
     UserNetworkService userNetworkService;
 
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/sendconnect")
-    public ResponseEntity<Object> SendConnect(@RequestBody String jsonConnectRequest, HttpSession session) {
+    @PostMapping(path = "/getconnectedusers")
+    public ResponseEntity<Object> GetConnectedUsers(@RequestBody String jsonGetRequests, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonConnectRequest);
+        JSONObject obj = new JSONObject(jsonGetRequests);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject friendRequest = obj.getJSONObject("friendRequest");
+            JSONObject profileNetwork = obj.getJSONObject("profileNetwork");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userRequestID = friendRequest.getString("userRequestID");
+            String userTargetProfileID = profileNetwork.getString("profileUserID");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            userNetworkService.sendConnectRequest(userIdentifiers.id, userRequestID);
+            ListUsers connectedUsers = userNetworkService.getConnectedUsers(userTargetProfileID);
 
-            return new ResponseEntity<Object>(HttpStatus.OK);
+            return new ResponseEntity<Object>(connectedUsers, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
