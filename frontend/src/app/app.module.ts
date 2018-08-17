@@ -28,7 +28,13 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   // For Logged in users ONLY
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'users/:user_id', component: UserprofileComponent, canActivate: [AuthGuard] },
+  {
+    path: 'users/:user_id',
+    children: [
+      { path: '', component: UserprofileComponent, canActivate: [AuthGuard] },
+      { path: 'network', component: UsernetworkComponent, canActivate: [AuthGuard] }
+    ]
+  },
   { path: 'posts/:post_id', component: ShowpostComponent, canActivate: [AuthGuard] }
 ];
 

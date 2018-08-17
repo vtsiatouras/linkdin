@@ -6,6 +6,7 @@
       {{ profileFirstName }} {{ profileSurname }}
     </div>
   </div>
+  <a class="btn btn-secondary request-connect-button" [routerLink]="['network']">Network</a>
 
   <div *ngIf="requestConnectButton" class="connect-buttons-container">
     <button class="btn btn-secondary request-connect-button" type="button" (click)="sendConnectRequest()">
@@ -25,7 +26,6 @@
       Connected
     </button>
   </div>
-
   <div *ngFor="let x of posts">
     <app-post postId="{{x.id}}" userIdPost="{{profileUserID}}" isAd="{{x.isAdvertisment}}" isPublic="{{x.isPublic}}" date="{{x.timestamp| date:'d MMMM y, h:mm a'}}"
       content="{{x.content}}"></app-post>

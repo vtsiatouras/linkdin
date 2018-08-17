@@ -1,3 +1,12 @@
-<p>
-  usernetwork works!
-</p>
+<app-navbar></app-navbar>
+<div class="network-content">
+  <div *ngIf="totalUsers > 0">
+    <div *ngFor="let x of users; let i = index">
+      <!-- {{ x.name }} {{ x.surname }} -->
+      <a class="btn" [routerLink]="['/users', x.id]">
+      <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }}
+    </a>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

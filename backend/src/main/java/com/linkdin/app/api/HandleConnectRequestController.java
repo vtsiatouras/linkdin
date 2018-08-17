@@ -1,9 +1,7 @@
 package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkdin.app.dto.ConnectionAttributes;
 import com.linkdin.app.dto.UserIdentifiers;
-import com.linkdin.app.model.UserNetwork;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.UserNetworkService;
 import org.json.JSONObject;
@@ -40,9 +38,9 @@ public class HandleConnectRequestController {
             }
 
             if(accepted.equals("1")) {
-                userNetworkService.acceptFriendRequest(userTargetProfileID, userIdentifiers.id);
+                userNetworkService.acceptConnectRequest(userTargetProfileID, userIdentifiers.id);
             } else {
-                userNetworkService.declineFriendRequest(userTargetProfileID, userIdentifiers.id);
+                userNetworkService.declineConnectRequest(userTargetProfileID, userIdentifiers.id);
             }
 
             return new ResponseEntity<Object>(HttpStatus.OK);
