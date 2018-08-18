@@ -2,10 +2,122 @@
 <div class="network-content">
   <div *ngIf="totalUsers > 0">
     <div *ngFor="let x of users; let i = index">
-      <!-- {{ x.name }} {{ x.surname }} -->
-      <a class="btn" [routerLink]="['/users', x.id]">
-      <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }}
-    </a>
+      <div class="user-element">
+        <a class="btn" [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}">
+        </a>
+        <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </a>
+        <a class="btn user-name" [routerLink]="['/users', x.id]">
+          {{ x.name }} {{ x.surname }}
+        </a>
+      </div>
+
+      <!-- TEST!!!! -->
+      <div class="user-element">
+        <a class="btn" [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}">
+        </a>
+        <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </a>
+        <a class="btn user-name" [routerLink]="['/users', x.id]">
+          {{ x.name }} {{ x.surname }}
+        </a>
+      </div>
+      <div class="user-element">
+        <a class="btn" [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}">
+        </a>
+        <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </a>
+        <a class="btn user-name" [routerLink]="['/users', x.id]">
+          {{ x.name }} {{ x.surname }}
+        </a>
+      </div>
+      <div class="user-element">
+        <a class="btn" [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}">
+        </a>
+        <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </a>
+        <a class="btn user-name" [routerLink]="['/users', x.id]">
+          {{ x.name }} {{ x.surname }}
+        </a>
+      </div>
+      <div class="user-element">
+        <a class="btn" [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}">
+        </a>
+        <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </a>
+        <a class="btn user-name" [routerLink]="['/users', x.id]">
+          {{ x.name }} {{ x.surname }}
+        </a>
+      </div>
+      <div class="user-element">
+        <a class="btn" [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}">
+        </a>
+        <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </a>
+        <a class="btn user-name" [routerLink]="['/users', x.id]">
+          {{ x.name }} {{ x.surname }}
+        </a>
+      </div>
+
+      <div class="user-element">
+        <a class="btn" [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}">
+        </a>
+        <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </a>
+        <a class="btn user-name" [routerLink]="['/users', x.id]">
+          {{ x.name }} {{ x.surname }}
+        </a>
+      </div>
+      <div class="user-element">
+        <a class="btn" [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}">
+        </a>
+        <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </a>
+        <a class="btn user-name" [routerLink]="['/users', x.id]">
+          {{ x.name }} {{ x.surname }}
+        </a>
+      </div>
+      <div class="user-element">
+        <a class="btn" [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}">
+        </a>
+        <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </a>
+        <a class="btn user-name" [routerLink]="['/users', x.id]">
+          {{ x.name }} {{ x.surname }}
+        </a>
+      </div>
+      <div class="user-element">
+        <a class="btn" [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}">
+        </a>
+        <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
+          <fa-icon [icon]="faEnvelope"></fa-icon>
+        </a>
+        <a class="btn user-name" [routerLink]="['/users', x.id]">
+          {{ x.name }} {{ x.surname }}
+        </a>
+      </div>
+
+
+      
     </div>
   </div>
 </div>

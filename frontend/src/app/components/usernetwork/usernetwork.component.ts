@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-usernetwork',
@@ -8,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./usernetwork.component.css']
 })
 export class UsernetworkComponent implements OnInit {
+
+  faEnvelope = faEnvelope;
 
   userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');

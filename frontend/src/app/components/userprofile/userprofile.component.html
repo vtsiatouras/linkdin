@@ -6,7 +6,9 @@
       {{ profileFirstName }} {{ profileSurname }}
     </div>
   </div>
-  <a class="btn btn-secondary request-connect-button" [routerLink]="['network']">Network</a>
+  <div *ngIf="networkButton" class="connect-buttons-container">
+    <a class="btn btn-secondary request-connect-button" [routerLink]="['network']">Network</a>
+  </div>
 
   <div *ngIf="requestConnectButton" class="connect-buttons-container">
     <button class="btn btn-secondary request-connect-button" type="button" (click)="sendConnectRequest()">
