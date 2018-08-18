@@ -6,7 +6,45 @@
   margin: auto;
 }
 
+.user-element {
+  display: inline-block;
+  padding: 20px 0 10px 0;
+  font-size: 0;
+}
+
+.btn.user-name {
+  position: relative;
+  font-size: 14pt;
+  margin-bottom: 50px;
+  right: 50px;
+  border: none;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn.message {
+  position:relative;
+  top: 20px;
+  left: 0px;
+  font-size: 16pt;
+  background-color: transparent;
+  color: #006394;
+  border: none;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn.message:hover,
+.btn.message:focus,
+.btn.message:active {
+  background-color: transparent;
+  color: #00334d;
+  border: none;
+  outline: none !important;
+  box-shadow: none;
+}
+
 .profile-image {
-    height: 100px;
-    width: 100px;
+  height: 90px;
+  width: 90px;
 }

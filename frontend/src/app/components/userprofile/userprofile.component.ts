@@ -18,6 +18,7 @@ export class UserprofileComponent implements OnInit {
   requestConnectButton = false;
   connectPendingButton = false;
   connectedButton = false;
+  networkButton = false;
 
   // Retrieve user's data from local storage
   email = localStorage.getItem('email');
@@ -66,6 +67,7 @@ export class UserprofileComponent implements OnInit {
       this.requestConnectButton = false;
       this.connectPendingButton = false;
       this.connectedButton = false;
+      this.networkButton = false;
     } else {
       this.checkConnectStatus();
     }
@@ -135,7 +137,10 @@ export class UserprofileComponent implements OnInit {
         this.requestConnectButton = true;
         this.connectPendingButton = false;
         this.connectedButton = false;
+        this.networkButton = false;
       } else {
+        // Show network if only you are connected to this person
+        this.networkButton = true;
         if (obj.pending === '1') {
           this.requestConnectButton = false;
           this.connectPendingButton = true;

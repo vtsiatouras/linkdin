@@ -32,6 +32,11 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  // This function is OP
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   logoutUser() {
     console.log('logout');
     localStorage.clear();
