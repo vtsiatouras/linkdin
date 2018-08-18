@@ -2,6 +2,21 @@
   display: inline;
 }
 
+.dropdown-menu {
+  margin-top: 13px;
+}
+
+.dropdown-menu:after {
+  content: '';
+  display: inline-block;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #ffffff;
+  position: absolute;
+  top: -5px;
+  right: 16px;
+}
+
 .profile-image {
   height: 50px;
   width: 50px;
