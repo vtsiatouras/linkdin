@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
@@ -45,7 +47,8 @@ export class PostComponent implements OnInit {
     console.log(this.date);
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const userInfoRequest = { userIdPost: this.userIdPost };
-    const req = this.http.post('http://localhost:8080/api/getuserbasicinfo', {
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getuserbasicinfo', {
       userIdentifiers,
       userInfoRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
@@ -64,7 +67,8 @@ export class PostComponent implements OnInit {
     console.log(this.date);
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const userInfoRequest = { userIdPost: this.userIdPost };
-    const req = this.http.post('http://localhost:8080/api/getuserbasicinfo', {
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getuserbasicinfo', {
       userIdentifiers,
       userInfoRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {

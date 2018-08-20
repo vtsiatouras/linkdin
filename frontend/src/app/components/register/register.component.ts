@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -81,8 +83,8 @@ export class RegisterComponent implements OnInit {
       formData.append('profileImage', this.fileToUpload);
 
       console.log(formData);
-
-      const req = this.http.post('http://localhost:8080/api/register',
+      const API_URL = environment.API_URL;
+      const req = this.http.post(API_URL + '/api/register',
         formData
         , { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
           this.router.navigate(['/login']); // TODO make a pop up that says "Register completed"

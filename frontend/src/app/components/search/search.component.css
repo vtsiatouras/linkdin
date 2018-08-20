@@ -6,6 +6,13 @@
   z-index: -1;
 }
 
+@media screen and (max-width: 1000px) {
+  .search-bar {
+    margin-left: 20px; 
+    width: 200px;
+  }
+}
+
 .input-group.search-box {
   align-content: center;
 }

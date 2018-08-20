@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
@@ -40,7 +42,8 @@ export class NavbarComponent implements OnInit {
   logoutUser() {
     console.log('logout');
     localStorage.clear();
-    const req = this.http.post('http://localhost:8080/api/logout', {},
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/logout', {},
       { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
         this.router.navigate(['/login']);
       },

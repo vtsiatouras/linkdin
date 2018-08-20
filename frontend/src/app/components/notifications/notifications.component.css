@@ -39,10 +39,6 @@
   box-shadow: none;
 }
 
-.dropdown-item {
-  /* right: 70px; */
-}
-
 .dropdown-item:hover,
 .dropdown-item:active,
 .dropdown-item:focus {
@@ -101,4 +97,17 @@
   margin-top: 15px;
   margin-bottom: 15px;
   border-top: 1px solid #000000;
+}
+
+@media screen and (max-width: 1000px) {
+  .dropdown-menu:after {
+    content: '';
+    display: inline-block;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    position: absolute;
+    top: -5px;
+    right: 10px;
+  }
 }

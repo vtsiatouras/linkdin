@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../../services/authentication.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +47,8 @@ export class LoginComponent implements OnInit {
       // The server will respond with a user token on success
       // and the client will redirect to user's home page
       // If the credentials have errors then the server will send UNAUTHORIZED //TODO HANDLE THIS
-      const req = this.http.post('http://localhost:8080/api/login', {
+      const API_URL = environment.API_URL;
+      const req = this.http.post(API_URL + '/api/login', {
         email: this.email,
         password: this.password
       }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {

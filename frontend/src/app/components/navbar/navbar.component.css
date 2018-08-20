@@ -51,12 +51,6 @@
   margin-left: 90px;
 }
 
-@media screen and (max-width: 1000px) {
-  .spacer {
-    margin-left: -90px;
-  }
-}
-
 .divider {
   margin-right: 10px;
   border-right: 2px solid #ffffff;
@@ -108,4 +102,20 @@
 .dropdown-menu>button:hover {
   background-color: #006394;
   color: #ffffff;
+}
+
+@media screen and (max-width: 1000px) {
+  .spacer {
+    margin-left: -90px;
+  }
+  .dropdown-menu:after {
+    content: '';
+    display: inline-block;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    position: absolute;
+    top: -5px;
+    right: 10px;
+  }
 }

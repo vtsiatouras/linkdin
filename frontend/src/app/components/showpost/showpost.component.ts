@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-showpost',
@@ -36,7 +37,8 @@ export class ShowpostComponent implements OnInit {
   getPost() {
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const postRequest = { postID: this.postID.toString() };
-    const req = this.http.post('http://localhost:8080/api/getpost', {
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getpost', {
       userIdentifiers,
       postRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
