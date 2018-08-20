@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,18 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
 
+  userId = localStorage.getItem('userID');
+  userToken = localStorage.getItem('userToken');
+
+  // Posts variables
+  renderPosts = false;
+  totalPosts = 0;
+  showedPosts = 0;
+  loadMoreButton = false;
+  page = 0;
+  limitPosts = 5;
+  posts = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -16,6 +29,50 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.totalPosts = 0;
+    this.showedPosts = 0;
+    this.loadMoreButton = false;
+    this.page = 0;
+    this.limitPosts = 5;
+    this.posts = [];
+    this.renderPosts = false;
+    this.getPosts();
+  }
+
+  getPosts() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const pageRequest = { pageNumber: this.page, limit: this.limitPosts };
+    this.page++;
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getpostsfromfriends', {
+      userIdentifiers,
+      pageRequest
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      console.log(data);
+      const obj = JSON.parse(data);
+      this.totalPosts = obj.totalElements;
+      if (this.totalPosts > 0) {
+        const numberOfPosts = obj.numberOfElements;
+        this.showedPosts = this.showedPosts + numberOfPosts;
+        console.log('total posts' + this.totalPosts);
+        console.log('showed posts' + this.showedPosts);
+        if (this.totalPosts > this.showedPosts) {
+          this.loadMoreButton = true;
+        } else {
+          this.loadMoreButton = false;
+        }
+        // console.log(this.loadMoreButton);
+        for (let i = 0; i < numberOfPosts; i++) {
+          this.posts.push(obj.content[i]);
+        }
+      } else {
+        this.posts = null;
+      }
+      this.renderPosts = true;
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
   }
 
 }

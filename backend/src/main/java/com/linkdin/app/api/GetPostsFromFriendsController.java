@@ -2,7 +2,10 @@ package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ProfilePostsPageRequest;
+import com.linkdin.app.dto.ProfileRequest;
 import com.linkdin.app.dto.UserIdentifiers;
+import com.linkdin.app.model.User;
+import com.linkdin.app.model.UserNetwork;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
 import com.linkdin.app.services.UserNetworkService;
@@ -15,55 +18,38 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.jws.Oneway;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
-public class ProfilePostsController {
+public class GetPostsFromFriendsController {
 
     @Autowired
     PostService postService;
     @Autowired
-    AuthRequestService authRequestService;
-    @Autowired
     UserNetworkService userNetworkService;
+    @Autowired
+    AuthRequestService authRequestService;
 
-    // TODO later check if the profile belongs to friend to show all posts
-    // if it is not show only public posts
-    @PostMapping(path = "/getprofileposts")
-    public ResponseEntity<Object> newPost(@RequestBody String jsonPostsRequest, HttpSession session) {
+    @PostMapping(path = "/getpostsfromfriends")
+    public ResponseEntity<Object> getPostsFromFriends(@RequestBody String jsonPostsRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonPostsRequest);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
             JSONObject pageRequest = obj.getJSONObject("pageRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            ProfilePostsPageRequest profilePostsPageRequest = objectMapper.readValue(pageRequest.toString(), ProfilePostsPageRequest.class);
-
+            int pageNumber = pageRequest.getInt("pageNumber");
+            int limit = pageRequest.getInt("limit");
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            int userID = Integer.parseInt(profilePostsPageRequest.profileUserID);
-            int pageNumber = Integer.parseInt(profilePostsPageRequest.pageNumber);
-            int limit = Integer.parseInt(profilePostsPageRequest.limit);
-            Page page;
-            // If the requested profile belongs to the user that made the request
-            if (profilePostsPageRequest.profileUserID.equals(userIdentifiers.id)) {
-                page = postService.getUserPosts(userID, pageNumber, limit);
-                return new ResponseEntity<Object>(page, HttpStatus.OK);
-            }
+            // Send requested user's profile info
+            List friendList = userNetworkService.getConnectedUsersIDsOnly(userIdentifiers.id);
+            Page page = postService.getNetworkPosts(friendList, pageNumber, limit);
 
-            // If they are connected
-            if (userNetworkService.checkIfConnected(profilePostsPageRequest.profileUserID, userIdentifiers.id)) {
-                page = postService.getUserPosts(userID, pageNumber, limit);
-            }
-            // If not return only the public posts
-            else {
-                System.err.println("PUBLIC POSTS");
-                page = postService.getUsersPublicPosts(userID, pageNumber, limit);
-            }
             return new ResponseEntity<Object>(page, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();

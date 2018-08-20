@@ -12,5 +12,6 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> findByuserIdOrderByTimestampDesc(Pageable pageable, Integer userID);
     Page<Post> findByuserIdAndIsPublicOrderByTimestampDesc(Pageable pageable, Integer userID, byte isPublic);
+    Page<Post> findByUserIdInOrderByTimestampDesc(Pageable pageable, List userIDs);
     Post findById(Integer postID);
 }
