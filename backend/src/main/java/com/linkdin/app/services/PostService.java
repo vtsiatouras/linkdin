@@ -59,8 +59,8 @@ public class PostService {
         return postRepository.findByuserIdAndIsPublicOrderByTimestampDesc(new PageRequest(pageNumber, limit), userID, (byte) 1);
     }
 
-    public List getNetworkPosts() {
-        return null;
+    public Page<Post> getNetworkPosts(List userIDs, int pageNumber, int limit) {
+        return postRepository.findByUserIdInOrderByTimestampDesc(new PageRequest(pageNumber, limit), userIDs);
     }
 
 }

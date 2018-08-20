@@ -42,29 +42,12 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.getUserIdentifiers();
-    console.log(this.userIdPost);
-    console.log(this.date);
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const userInfoRequest = { userIdPost: this.userIdPost };
-    const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getuserbasicinfo', {
-      userIdentifiers,
-      userInfoRequest
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.userName = obj.name;
-      this.userSurname = obj.surname;
-      this.userImage = 'data:image/jpeg;base64,' + obj.image;
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err);
-      });
+    this.getUserIdentifiers();
   }
 
   getUserIdentifiers() {
     console.log(this.userIdPost);
-    console.log(this.date);
+    // console.log(this.date);
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const userInfoRequest = { userIdPost: this.userIdPost };
     const API_URL = environment.API_URL;
@@ -76,6 +59,7 @@ export class PostComponent implements OnInit {
       this.userName = obj.name;
       this.userSurname = obj.surname;
       this.userImage = 'data:image/jpeg;base64,' + obj.image;
+      console.log('here');
     },
       (err: HttpErrorResponse) => {
         console.log(err);

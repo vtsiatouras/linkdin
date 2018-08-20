@@ -46,6 +46,20 @@ public class UserNetworkService {
         return results;
     }
 
+    public List getConnectedUsersIDsOnly(String userID) {
+        List<UserNetwork> allConnections = userNetworkRepository.findByUser1OrUser2AndIsAccepted(userID, userID, (byte) 1);
+        ArrayList<Integer> resultList = new ArrayList<Integer>();
+        for (UserNetwork element : allConnections) {
+            if (element.getUser1().equals(userID)) {
+                resultList.add(Integer.parseInt(element.getUser2()));
+            } else {
+                resultList.add(Integer.parseInt(element.getUser1()));
+            }
+        }
+        resultList.add(Integer.parseInt(userID));
+        return resultList;
+    }
+
     public ListUsers getPendingRequests(String userID) {
         List<UserNetwork> pendingConnections = userNetworkRepository.findByUser2AndIsAccepted(userID, (byte) 0);
         ArrayList<UserBasicInfo> tempList = new ArrayList<UserBasicInfo>();
@@ -65,6 +79,18 @@ public class UserNetworkService {
         results.list = tempList;
         results.numberOfResults = totalResults;
         return results;
+    }
+
+    public boolean checkIfConnected(String userID1, String userID2) {
+        UserNetwork userNetwork = userNetworkRepository.findByUser1AndUser2AndIsAccepted(userID1, userID2, (byte) 1);
+        if (userNetwork != null) {
+            return true;
+        }
+        userNetwork = userNetworkRepository.findByUser1AndUser2AndIsAccepted(userID2, userID1, (byte) 1);
+        if (userNetwork != null) {
+            return true;
+        }
+        return false;
     }
 
     public UserNetwork returnConnection(String userID1, String userID2) {
