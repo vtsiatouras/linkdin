@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -40,7 +41,8 @@ export class SearchComponent implements OnInit {
     if (this.userQuery) {
       const userIdentifiers = { userToken: this.userToken, id: this.userId };
       const searchData = { searchQuery: this.userQuery };
-      const req = this.http.post('http://localhost:8080/api/searchusers', {
+      const API_URL = environment.API_URL;
+      const req = this.http.post(API_URL + '/api/searchusers', {
         userIdentifiers,
         searchData
       }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {

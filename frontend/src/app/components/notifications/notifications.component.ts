@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -36,7 +37,8 @@ export class NotificationsComponent implements OnInit {
     this.pendingRequests = [];
     this.totalPendingRequests = 0;
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const req = this.http.post('http://localhost:8080/api/getconnectrequests', {
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getconnectrequests', {
       userIdentifiers,
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
@@ -58,7 +60,8 @@ export class NotificationsComponent implements OnInit {
   acceptConnectRequest(index) {
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const connectRequest = { profileUserID: this.pendingRequests[index].id, accepted: '1' };
-    const req = this.http.post('http://localhost:8080/api/handleconnectrequest', {
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/handleconnectrequest', {
       userIdentifiers,
       connectRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
@@ -71,7 +74,8 @@ export class NotificationsComponent implements OnInit {
   declineConnectRequest(index) {
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const connectRequest = { profileUserID: this.pendingRequests[index].id, accepted: '0' };
-    const req = this.http.post('http://localhost:8080/api/handleconnectrequest', {
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/handleconnectrequest', {
       userIdentifiers,
       connectRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {

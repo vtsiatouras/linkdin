@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mapTo';
 import 'rxjs/add/operator/catch';
@@ -22,7 +23,8 @@ export class AuthenticationService {
     if (userToken) {
       // Check the server if the session belongs to online user
       // If not the server will send UNAUTHORIZED
-      return this.http.post('http://localhost:8080/api/authcheck', {
+      const API_URL = environment.API_URL;
+      return this.http.post(API_URL + '/api/authcheck', {
         userToken: userToken,
         id: id
       }, { responseType: 'text', withCredentials: true }).mapTo(true)

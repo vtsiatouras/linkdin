@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -36,7 +37,8 @@ export class NewpostComponent implements OnInit {
       const userIdentifiers = { userToken: this.userToken, id: this.userId };
       const postData = { postContent: this.postContent, isAd: this.isAd, isPublic: this.isPublic };
 
-      const req = this.http.post('http://localhost:8080/api/newpost', {
+      const API_URL = environment.API_URL;
+      const req = this.http.post(API_URL + '/api/newpost', {
         userIdentifiers,
         postData
       }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {

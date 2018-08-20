@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { faUserClock } from '@fortawesome/free-solid-svg-icons';
 import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
@@ -73,7 +75,8 @@ export class UserprofileComponent implements OnInit {
     }
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const requestProfile = { userID: this.userId, profileUserID: this.profileUserID };
-    const req = this.http.post('http://localhost:8080/api/user', {
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/user', {
       userIdentifiers,
       requestProfile
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
@@ -94,7 +97,8 @@ export class UserprofileComponent implements OnInit {
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const pageRequest = { profileUserID: this.profileUserID, pageNumber: this.page, limit: this.limitPosts };
     this.page++;
-    const req = this.http.post('http://localhost:8080/api/getprofileposts', {
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getprofileposts', {
       userIdentifiers,
       pageRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
@@ -127,7 +131,8 @@ export class UserprofileComponent implements OnInit {
   checkConnectStatus() {
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const targetProfile = { profileUserID: this.profileUserID.toString() };
-    const req = this.http.post('http://localhost:8080/api/connectstatus', {
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/connectstatus', {
       userIdentifiers,
       targetProfile
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
@@ -161,7 +166,8 @@ export class UserprofileComponent implements OnInit {
   sendConnectRequest() {
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const friendRequest = { userRequestID: this.profileUserID.toString() };
-    const req = this.http.post('http://localhost:8080/api/sendconnect', {
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/sendconnect', {
       userIdentifiers,
       friendRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {

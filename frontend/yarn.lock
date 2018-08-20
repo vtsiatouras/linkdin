@@ -318,6 +318,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-touch@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/angular-touch/-/angular-touch-1.7.3.tgz#d4359ecc620b7aa06a45f26145dd21a353655459"
+
 ansi-html@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/ansi-html/-/ansi-html-0.0.7.tgz#813584021962a9e9e6fd039f940d12f56ca7859e"
