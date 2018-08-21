@@ -1,17 +1,18 @@
 package com.linkdin.app.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Objects;
 
-public class PostCommentPK implements Serializable {
+@Entity
+@Table(name = "post_interest", schema = "web_dev_db", catalog = "")
+@IdClass(PostInterestPK.class)
+public class PostInterest {
     private int id;
     private int postId;
     private int userId;
 
-    @Column(name = "id")
     @Id
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -20,8 +21,8 @@ public class PostCommentPK implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "post_id")
     @Id
+    @Column(name = "post_id")
     public int getPostId() {
         return postId;
     }
@@ -30,8 +31,8 @@ public class PostCommentPK implements Serializable {
         this.postId = postId;
     }
 
-    @Column(name = "user_id")
     @Id
+    @Column(name = "user_id")
     public int getUserId() {
         return userId;
     }
@@ -44,7 +45,7 @@ public class PostCommentPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PostCommentPK that = (PostCommentPK) o;
+        PostInterest that = (PostInterest) o;
         return id == that.id &&
                 postId == that.postId &&
                 userId == that.userId;

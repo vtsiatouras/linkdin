@@ -12,7 +12,7 @@ public class PostComment {
     private String content;
     private Timestamp commentTimestamp;
     private int postId;
-    private int postUserId;
+    private int userId;
 
     @Id
     @Column(name = "id")
@@ -55,13 +55,13 @@ public class PostComment {
     }
 
     @Id
-    @Column(name = "post_user_id")
-    public int getPostUserId() {
-        return postUserId;
+    @Column(name = "user_id")
+    public int getUserId() {
+        return userId;
     }
 
-    public void setPostUserId(int postUserId) {
-        this.postUserId = postUserId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class PostComment {
         PostComment that = (PostComment) o;
         return id == that.id &&
                 postId == that.postId &&
-                postUserId == that.postUserId &&
+                userId == that.userId &&
                 Objects.equals(content, that.content) &&
                 Objects.equals(commentTimestamp, that.commentTimestamp);
     }
@@ -79,6 +79,6 @@ public class PostComment {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, content, commentTimestamp, postId, postUserId);
+        return Objects.hash(id, content, commentTimestamp, postId, userId);
     }
 }

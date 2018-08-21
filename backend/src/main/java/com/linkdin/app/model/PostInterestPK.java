@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PostCommentPK implements Serializable {
+public class PostInterestPK implements Serializable {
     private int id;
     private int postId;
     private int userId;
@@ -44,7 +44,7 @@ public class PostCommentPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PostCommentPK that = (PostCommentPK) o;
+        PostInterestPK that = (PostInterestPK) o;
         return id == that.id &&
                 postId == that.postId &&
                 userId == that.userId;
