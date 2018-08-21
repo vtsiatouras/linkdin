@@ -22,7 +22,7 @@ public class UserNetworkService {
     ImageStorageService imageStorageService;
 
     public ListUsers getConnectedUsers(String userID) {
-        List<UserNetwork> allConnections = userNetworkRepository.findByUser1OrUser2AndIsAccepted(userID, userID, (byte) 1);
+        List<UserNetwork> allConnections = userNetworkRepository.findByUser1AndIsAcceptedOrUser2AndIsAccepted(userID, (byte) 1, userID, (byte) 1);
         ArrayList<UserBasicInfo> tempList = new ArrayList<UserBasicInfo>();
         for (UserNetwork element : allConnections) {
             String targetUserID;
@@ -47,7 +47,7 @@ public class UserNetworkService {
     }
 
     public List getConnectedUsersIDsOnly(String userID) {
-        List<UserNetwork> allConnections = userNetworkRepository.findByUser1OrUser2AndIsAccepted(userID, userID, (byte) 1);
+        List<UserNetwork> allConnections = userNetworkRepository.findByUser1AndIsAcceptedOrUser2AndIsAccepted(userID, (byte) 1, userID, (byte) 1);
         ArrayList<Integer> resultList = new ArrayList<Integer>();
         for (UserNetwork element : allConnections) {
             if (element.getUser1().equals(userID)) {

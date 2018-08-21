@@ -61,7 +61,7 @@ public class ProfilePostsController {
             }
             // If not return only the public posts
             else {
-                System.err.println("PUBLIC POSTS");
+//                System.err.println("PUBLIC POSTS");
                 page = postService.getUsersPublicPosts(userID, pageNumber, limit);
             }
             return new ResponseEntity<Object>(page, HttpStatus.OK);
