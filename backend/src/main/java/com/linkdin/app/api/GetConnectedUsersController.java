@@ -38,9 +38,20 @@ public class GetConnectedUsersController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            ListUsers connectedUsers = userNetworkService.getConnectedUsers(userTargetProfileID);
-
-            return new ResponseEntity<Object>(connectedUsers, HttpStatus.OK);
+            // If the requested network belongs to the user that made the request
+            if (userTargetProfileID.equals(userIdentifiers.id)) {
+                ListUsers connectedUsers = userNetworkService.getConnectedUsers(userTargetProfileID);
+                return new ResponseEntity<Object>(connectedUsers, HttpStatus.OK);
+            }
+            // If the network belongs to a friend
+            if (userNetworkService.checkIfConnected(userTargetProfileID, userIdentifiers.id)) {
+                ListUsers connectedUsers = userNetworkService.getConnectedUsers(userTargetProfileID);
+                return new ResponseEntity<Object>(connectedUsers, HttpStatus.OK);
+            }
+            // If not return error
+            else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

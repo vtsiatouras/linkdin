@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface UserNetworkRepository extends JpaRepository<UserNetwork, Long> {
     // Returns all connections of a user
-    List<UserNetwork> findByUser1OrUser2AndIsAccepted(String user1, String user2, byte isAccepted);
+    List<UserNetwork> findByUser1AndIsAcceptedOrUser2AndIsAccepted(String user1, byte isAccepted1, String user2, byte isAccepted2);
 
     // Returns all the pending incoming connect requests
     List<UserNetwork> findByUser2AndIsAccepted(String user2, byte isAccepted);
