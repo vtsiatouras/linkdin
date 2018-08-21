@@ -18,6 +18,12 @@ public class User {
     private String city;
     private String profession;
     private String company;
+    private String education;
+    private Byte publicPhoneNumber;
+    private Byte publicCity;
+    private Byte publicProfession;
+    private Byte publicCompany;
+    private Byte publicEducation;
     private Byte isAdmin;
 
     @Id
@@ -121,6 +127,66 @@ public class User {
     }
 
     @Basic
+    @Column(name = "education")
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    @Basic
+    @Column(name = "public_phone_number")
+    public Byte getPublicPhoneNumber() {
+        return publicPhoneNumber;
+    }
+
+    public void setPublicPhoneNumber(Byte publicPhoneNumber) {
+        this.publicPhoneNumber = publicPhoneNumber;
+    }
+
+    @Basic
+    @Column(name = "public_city")
+    public Byte getPublicCity() {
+        return publicCity;
+    }
+
+    public void setPublicCity(Byte publicCity) {
+        this.publicCity = publicCity;
+    }
+
+    @Basic
+    @Column(name = "public_profession")
+    public Byte getPublicProfession() {
+        return publicProfession;
+    }
+
+    public void setPublicProfession(Byte publicProfession) {
+        this.publicProfession = publicProfession;
+    }
+
+    @Basic
+    @Column(name = "public_company")
+    public Byte getPublicCompany() {
+        return publicCompany;
+    }
+
+    public void setPublicCompany(Byte publicCompany) {
+        this.publicCompany = publicCompany;
+    }
+
+    @Basic
+    @Column(name = "public_education")
+    public Byte getPublicEducation() {
+        return publicEducation;
+    }
+
+    public void setPublicEducation(Byte publicEducation) {
+        this.publicEducation = publicEducation;
+    }
+
+    @Basic
     @Column(name = "is_admin")
     public Byte getIsAdmin() {
         return isAdmin;
@@ -145,12 +211,18 @@ public class User {
                 Objects.equals(city, user.city) &&
                 Objects.equals(profession, user.profession) &&
                 Objects.equals(company, user.company) &&
+                Objects.equals(education, user.education) &&
+                Objects.equals(publicPhoneNumber, user.publicPhoneNumber) &&
+                Objects.equals(publicCity, user.publicCity) &&
+                Objects.equals(publicProfession, user.publicProfession) &&
+                Objects.equals(publicCompany, user.publicCompany) &&
+                Objects.equals(publicEducation, user.publicEducation) &&
                 Objects.equals(isAdmin, user.isAdmin);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, email, password, name, surname, phoneNumber, profilePicture, city, profession, company, isAdmin);
+        return Objects.hash(id, email, password, name, surname, phoneNumber, profilePicture, city, profession, company, education, publicPhoneNumber, publicCity, publicProfession, publicCompany, publicEducation, isAdmin);
     }
 }
