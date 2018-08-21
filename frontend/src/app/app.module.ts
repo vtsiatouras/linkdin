@@ -21,6 +21,7 @@ import { SearchComponent } from './components/search/search.component';
 import { ShowpostComponent } from './components/showpost/showpost.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { UsernetworkComponent } from './components/usernetwork/usernetwork.component';
+import { UsersettingsComponent } from './components/usersettings/usersettings.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
       { path: 'network', component: UsernetworkComponent, canActivate: [AuthGuard] }
     ]
   },
-  { path: 'posts/:post_id', component: ShowpostComponent, canActivate: [AuthGuard] }
+  { path: 'posts/:post_id', component: ShowpostComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: UsersettingsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -53,7 +55,8 @@ const appRoutes: Routes = [
     SearchComponent,
     ShowpostComponent,
     NotificationsComponent,
-    UsernetworkComponent
+    UsernetworkComponent,
+    UsersettingsComponent,
   ],
   imports: [
     HttpClientModule,
