@@ -1,11 +1,10 @@
 package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkdin.app.dto.UserBasicInfo;
 import com.linkdin.app.dto.UserIdentifiers;
+import com.linkdin.app.dto.UserInfo;
 import com.linkdin.app.model.User;
 import com.linkdin.app.services.AuthRequestService;
-import com.linkdin.app.services.ImageStorageService;
 import com.linkdin.app.services.UserService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class GetUserBasicInfoController {
+public class GetUserInfoController {
 
     @Autowired
     UserService userService;
     @Autowired
-    ImageStorageService imageStorageService;
-    @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/getuserbasicinfo")
-    public ResponseEntity<Object> userBasicInfo(@RequestBody String jsonRequestUserInfo, HttpSession session) {
+    @PostMapping(path = "/getuserinfo")
+    public ResponseEntity<Object> userInfo(@RequestBody String jsonRequestUserInfo, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonRequestUserInfo);
         try {
@@ -42,13 +39,22 @@ public class GetUserBasicInfoController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            UserBasicInfo userBasicInfo = new UserBasicInfo();
+            //todo check if user exists
+
+            UserInfo userInfo = new UserInfo();
             User user = userService.returnUserByID(Integer.parseInt(userId));
-            userBasicInfo.id = Integer.toString(user.getId());
-            userBasicInfo.name = user.getName();
-            userBasicInfo.surname = user.getSurname();
-            userBasicInfo.image = imageStorageService.getImage(user.getProfilePicture());
-            return new ResponseEntity<Object>(userBasicInfo, HttpStatus.OK);
+            userInfo.phoneNumber = user.getPhoneNumber();
+            userInfo.isPhonePublic = user.getPublicPhoneNumber();
+            userInfo.city = user.getCity();
+            userInfo.isCityPublic = user.getPublicCity();
+            userInfo.profession = user.getProfession();
+            userInfo.isProfessionPublic = user.getPublicProfession();
+            userInfo.company = user.getCompany();
+            userInfo.isCompanyPublic = user.getPublicCompany();
+            userInfo.education = user.getEducation();
+            userInfo.isEducationPublic = user.getPublicEducation();
+
+            return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
