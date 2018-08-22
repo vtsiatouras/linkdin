@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
+
+import { faGlobeAfrica } from '@fortawesome/free-solid-svg-icons';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-usersettings',
@@ -7,9 +13,75 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersettingsComponent implements OnInit {
 
-  constructor() { }
+  faGlobeAfrica = faGlobeAfrica;
+  faUsers = faUsers;
+
+  userId = localStorage.getItem('userID');
+  userToken = localStorage.getItem('userToken');
+
+  phoneNumber: string;
+  isPhonePublic;
+  city: string;
+  isCityPublic;
+  profession: string;
+  isProfessionPublic;
+  company: string;
+  isCompanyPublic;
+  education: string;
+  isEducationPublic;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
+    this.getUserInfo();
+  }
+
+  getUserInfo() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const userInfoRequest = { userIdInfo: this.userId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getuserinfo', {
+      userIdentifiers,
+      userInfoRequest
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      this.phoneNumber = obj.phoneNumber;
+      this.city = obj.city;
+      this.profession = obj.profession;
+      this.company = obj.company;
+      this.education = obj.education;
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  updateUserInfo() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const userInfoUpdate = {
+      phoneNumber: this.phoneNumber, city: this.city, profession: this.profession, company: this.company, education: this.education,
+      isPhonePublic: 0, isCityPublic: 0, isProfessionPublic: 0, isCompanyPublic: 0, isEducationPublic: 0
+    };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/setuserinfo', {
+      userIdentifiers,
+      userInfoUpdate
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      this.router.navigate(['/home']);
+      // const obj = JSON.parse(data);
+      // this.phoneNumber = obj.phoneNumber;
+      // this.city = obj.city;
+      // this.profession = obj.profession;
+      // this.company = obj.company;
+      // this.education = obj.education;
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
   }
 
 }

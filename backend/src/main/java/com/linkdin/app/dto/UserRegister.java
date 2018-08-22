@@ -12,7 +12,7 @@ public class UserRegister {
     public String phoneNumber;
 
     public boolean passwordCheck(UserRegister userRegister) {
-        if(userRegister.password_1.equals(userRegister.password_2)){
+        if (userRegister.password_1.equals(userRegister.password_2)) {
             return true;
         }
         return false;
@@ -25,12 +25,17 @@ public class UserRegister {
         user.setName(userRegister.firstName);
         user.setSurname(userRegister.lastName);
         user.setPhoneNumber(userRegister.phoneNumber);
+        user.setPublicPhoneNumber((byte) 0);
+        user.setPublicCity((byte) 0);
+        user.setPublicCompany((byte) 0);
+        user.setPublicEducation((byte) 0);
+        user.setPublicProfession((byte) 0);
         return user;
     }
 
     // Returns true if empty fields are found
     public boolean checkForEmptyFields(UserRegister userRegister) {
-        if(userRegister.email == null || userRegister.password_1 == null || userRegister.password_2 == null ||
+        if (userRegister.email == null || userRegister.password_1 == null || userRegister.password_2 == null ||
                 userRegister.firstName == null || userRegister.lastName == null || userRegister.phoneNumber == null) {
             return true;
         }

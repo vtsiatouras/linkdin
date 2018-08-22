@@ -145,7 +145,6 @@ export class UserprofileComponent implements OnInit {
         this.networkButton = false;
       } else {
         // Show network if only you are connected to this person
-        
         if (obj.pending === '1') {
           this.networkButton = false;
           this.requestConnectButton = false;

@@ -1,0 +1,76 @@
+.settings-content {
+  position: relative;
+  padding-top: 70px;
+  padding-bottom: 50px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.settings-title {
+  display: block;
+  text-align: center;
+  font-size: 30pt;
+  font-weight: bold;
+  color: #949393;
+}
+
+.border {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-top: 1px solid #000000;
+}
+
+.setting-label {
+  font-size: 15pt;
+  font-weight: bold;
+  padding-top: 10px;
+  color: #6d6b6b;
+}
+
+.form-control {
+  max-width: 500px;
+}
+
+.form-group {
+  display: block;
+}
+
+.profession-text {
+  resize: none;
+}
+
+.form-check-input {
+  margin-left: -1px;
+}
+
+.center-buttons {
+  text-align: center;
+}
+
+.btn {
+  margin-bottom: 15px;
+  background-repeat: no-repeat;
+  outline: none !important;
+  box-shadow: none;
+  border: none;
+  font-size: 14pt;
+  width: auto;
+}
+
+.submit-button {
+  background-color: #006394;
+}
+
+.btn.submit-button:hover,
+.btn.submit-button:active {
+  background-color: #00334d;
+}
+
+.cancel-button {
+  background-color: #bb0101;
+}
+
+.btn.cancel-button:hover,
+.btn.cancel-button:active {
+  background-color: #800000;
+}

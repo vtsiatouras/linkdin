@@ -88,6 +88,11 @@
   display: inline-block;
 }
 
+.dropdown-menu {
+  background-color: #ffffff;
+  /* color: #ffffff; */
+}
+
 .dropdown-menu:after {
   content: '';
   display: inline-block;
@@ -99,7 +104,14 @@
   right: 10px;
 }
 
-.dropdown-menu>button:hover {
+.dropdown-item {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.dropdown-item:hover,
+.dropdown-item:active,
+.dropdown-item:focus {
   background-color: #006394;
   color: #ffffff;
 }
