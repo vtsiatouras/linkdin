@@ -20,7 +20,7 @@ export class UsersettingsComponent implements OnInit {
   userToken = localStorage.getItem('userToken');
 
   phoneNumber: string;
-  isPhonePublic;
+  isPhonePublic: boolean;
   city: string;
   isCityPublic;
   profession: string;
@@ -50,10 +50,15 @@ export class UsersettingsComponent implements OnInit {
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
       this.phoneNumber = obj.phoneNumber;
+      this.isPhonePublic = !!obj.isPhonePublic;
       this.city = obj.city;
+      this.isCityPublic = !!obj.isCityPublic;
       this.profession = obj.profession;
+      this.isProfessionPublic = !!obj.isProfessionPublic;
       this.company = obj.company;
+      this.isCompanyPublic = !!obj.isCompanyPublic;
       this.education = obj.education;
+      this.isEducationPublic = !!obj.isEducationPublic;
     },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -72,12 +77,6 @@ export class UsersettingsComponent implements OnInit {
       userInfoUpdate
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       this.router.navigate(['/home']);
-      // const obj = JSON.parse(data);
-      // this.phoneNumber = obj.phoneNumber;
-      // this.city = obj.city;
-      // this.profession = obj.profession;
-      // this.company = obj.company;
-      // this.education = obj.education;
     },
       (err: HttpErrorResponse) => {
         console.log(err);
