@@ -22,11 +22,13 @@ import { ShowpostComponent } from './components/showpost/showpost.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { UsernetworkComponent } from './components/usernetwork/usernetwork.component';
 import { UsersettingsComponent } from './components/usersettings/usersettings.component';
+import { ErrorpageComponent } from './components/errorpage/errorpage.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'error', component: ErrorpageComponent },
   // For Logged in users ONLY
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   {
@@ -57,6 +59,7 @@ const appRoutes: Routes = [
     NotificationsComponent,
     UsernetworkComponent,
     UsersettingsComponent,
+    ErrorpageComponent,
   ],
   imports: [
     HttpClientModule,
