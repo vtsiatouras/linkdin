@@ -29,9 +29,9 @@ public class GetConnectedUsersController {
         JSONObject obj = new JSONObject(jsonGetRequests);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject profileNetwork = obj.getJSONObject("profileNetwork");
+            JSONObject profileNetworkObj = obj.getJSONObject("profileNetwork");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userTargetProfileID = profileNetwork.getString("profileUserID");
+            String userTargetProfileID = profileNetworkObj.getString("profileUserID");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {

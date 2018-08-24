@@ -34,9 +34,9 @@ public class GetUserInfoController {
         JSONObject obj = new JSONObject(jsonRequestUserInfo);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject userInfoRequest = obj.getJSONObject("userInfoRequest");
+            JSONObject userInfoRequestObj = obj.getJSONObject("userInfoRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userId = userInfoRequest.getString("userIdInfo");
+            String userId = userInfoRequestObj.getString("userIdInfo");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {

@@ -33,10 +33,10 @@ public class GetPostsFromFriendsController {
         JSONObject obj = new JSONObject(jsonPostsRequest);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject pageRequest = obj.getJSONObject("pageRequest");
+            JSONObject pageRequestObj = obj.getJSONObject("pageRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            int pageNumber = pageRequest.getInt("pageNumber");
-            int limit = pageRequest.getInt("limit");
+            int pageNumber = pageRequestObj.getInt("pageNumber");
+            int limit = pageRequestObj.getInt("limit");
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
