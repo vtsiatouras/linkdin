@@ -3,10 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-import { faBell } from '@fortawesome/free-solid-svg-icons';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -16,10 +12,6 @@ export class NotificationsComponent implements OnInit {
 
   userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');
-
-  faBell = faBell;
-  faCheck = faCheck;
-  faTimes = faTimes;
 
   pendingRequests = [];
   totalPendingRequests = 0;

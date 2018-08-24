@@ -8,7 +8,7 @@
             <img class="rounded-circle profile-image" src="{{x.image}}">
           </a>
           <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
-            <fa-icon [icon]="faEnvelope"></fa-icon>
+            <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
           </a>
           <a class="btn user-name" [routerLink]="['/users', x.id]">
             {{ x.name }} {{ x.surname }}

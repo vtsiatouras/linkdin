@@ -1,12 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons';
-
 
 @Component({
   selector: 'app-navbar',
@@ -14,10 +9,6 @@ import { faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  faCaretDown = faCaretDown;
-  faEnvelope = faEnvelope;
-  faAngleDoubleUp = faAngleDoubleUp;
 
   top = true;
 
@@ -33,7 +24,6 @@ export class NavbarComponent implements OnInit {
 
 
   ngOnInit() { }
-
 
   @HostListener('window:scroll')
   public onScroll() {

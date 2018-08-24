@@ -20,19 +20,19 @@
 
   <div *ngIf="requestConnectButton" class="connect-buttons-container">
     <button class="btn btn-secondary request-connect-button" type="button" (click)="sendConnectRequest()">
-      <fa-icon [icon]="faUserPlus"></fa-icon>
+      <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
       Connect
     </button>
   </div>
   <div *ngIf="connectPendingButton" class="connect-buttons-container">
     <button class="btn btn-outline-primary disabled-connect-button" type="button" disabled>
-      <fa-icon [icon]="faUserClock"></fa-icon>
+      <fa-icon [icon]="['fas', 'user-clock']"></fa-icon>
       Connect Request Pending
     </button>
   </div>
   <div *ngIf="connectedButton" class="connect-buttons-container">
     <button class="btn btn-outline-primary disabled-connect-button" type="button" disabled>
-      <fa-icon [icon]="faUserCheck"></fa-icon>
+      <fa-icon [icon]="['fas', 'user-check']"></fa-icon>
       Connected
     </button>
   </div>
