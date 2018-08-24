@@ -1,9 +1,17 @@
 <app-navbar></app-navbar>
 <div class="profile-content">
-  <div class="profile-info row text-center">
+  <div class="d-flex flex-row flex-wrap justify-content-center">
     <img class="rounded-circle profile-image" src="{{profileImage}}">
-    <div class="user-name">
-      {{ profileFirstName }} {{ profileSurname }}
+    <div class="user-info">
+      <div class="user-name">
+        {{ profileFirstName }} {{ profileSurname }}
+      </div>
+      <div class="user-personal-info row-fluid">
+        <div>Phone Number: {{ profilePhoneNumber }}</div>
+        <div>City: {{ profileCity }}</div>
+        <div>Profession: {{ profileProfession }}</div>
+        <div>Education: {{ profileEducation }}</div>
+      </div>
     </div>
   </div>
   <div *ngIf="networkButton" class="connect-buttons-container">

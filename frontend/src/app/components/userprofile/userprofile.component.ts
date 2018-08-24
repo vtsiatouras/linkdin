@@ -33,6 +33,10 @@ export class UserprofileComponent implements OnInit {
   profileFirstName: string;
   profileSurname: string;
   profilePhoneNumber: string;
+  profileCity: string;
+  profileProfession: string;
+  profileCompany: string;
+  profileEducation: string;
   profileImage: string;
   profileUserID;
 
@@ -74,7 +78,7 @@ export class UserprofileComponent implements OnInit {
       this.checkConnectStatus();
     }
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const requestProfile = { userID: this.userId, profileUserID: this.profileUserID };
+    const requestProfile = { profileUserID: this.profileUserID };
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/user', {
       userIdentifiers,
@@ -85,8 +89,33 @@ export class UserprofileComponent implements OnInit {
       const userObj = JSON.parse(obj.user);
       this.profileFirstName = userObj.firstName;
       this.profileSurname = userObj.lastName;
-
+      this.getUserInfo();
       this.getPosts();
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  getUserInfo() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const userInfoRequest = { userIdInfo: this.profileUserID.toString() };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getuserinfo', {
+      userIdentifiers,
+      userInfoRequest
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      this.profilePhoneNumber = obj.phoneNumber;
+      // this.isPhonePublic = !!obj.isPhonePublic;
+      this.profileCity = obj.city;
+      // this.isCityPublic = !!obj.isCityPublic;
+      this.profileProfession = obj.profession;
+      // this.isProfessionPublic = !!obj.isProfessionPublic;
+      this.profileCompany = obj.company;
+      // this.isCompanyPublic = !!obj.isCompanyPublic;
+      this.profileEducation = obj.education;
+      // this.isEducationPublic = !!obj.isEducationPublic;
     },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -108,8 +137,8 @@ export class UserprofileComponent implements OnInit {
       if (this.totalPosts > 0) {
         const numberOfPosts = obj.numberOfElements;
         this.showedPosts = this.showedPosts + numberOfPosts;
-        console.log('total posts' + this.totalPosts);
-        console.log('showed posts' + this.showedPosts);
+        // console.log('total posts' + this.totalPosts);
+        // console.log('showed posts' + this.showedPosts);
         if (this.totalPosts > this.showedPosts) {
           this.loadMoreButton = true;
         } else {
@@ -137,7 +166,7 @@ export class UserprofileComponent implements OnInit {
       targetProfile
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
-      console.log(data);
+      // console.log(data);
       if (obj.friends === '0') {
         this.requestConnectButton = true;
         this.connectPendingButton = false;

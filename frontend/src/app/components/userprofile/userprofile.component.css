@@ -12,13 +12,23 @@
 }
 
 .profile-image {
-  width: 200px;
-  height: 200px;
+  margin-left: 5px;
+  width: 180px;
+  height: 180px;
+}
+
+.user-info {
+  margin-top: 20px;
+  margin-left: 30px;
 }
 
 .user-name {
-  margin-top: 20px;
-  font-size: 20pt;
+  font-size: 18pt;
+}
+
+.user-personal-info {
+  font-size: 13pt;
+  font-weight: lighter;
 }
 
 .connect-buttons-container {
