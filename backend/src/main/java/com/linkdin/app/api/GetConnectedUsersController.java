@@ -24,7 +24,7 @@ public class GetConnectedUsersController {
     AuthRequestService authRequestService;
 
     @PostMapping(path = "/getconnectedusers")
-    public ResponseEntity<Object> GetConnectedUsers(@RequestBody String jsonGetRequests, HttpSession session) {
+    public ResponseEntity<Object> connectedUsers(@RequestBody String jsonGetRequests, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonGetRequests);
         try {

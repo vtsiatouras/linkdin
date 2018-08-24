@@ -24,7 +24,7 @@ public class SearchController {
     AuthRequestService authRequestService;
 
     @PostMapping(path = "/searchusers")
-    public ResponseEntity<Object> user(@RequestBody String jsonSearchRequest, HttpSession session) {
+    public ResponseEntity<Object> search(@RequestBody String jsonSearchRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonSearchRequest);
         try {

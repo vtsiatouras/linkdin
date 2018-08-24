@@ -28,10 +28,8 @@ public class ProfilePostsController {
     @Autowired
     UserNetworkService userNetworkService;
 
-    // TODO later check if the profile belongs to friend to show all posts
-    // if it is not show only public posts
     @PostMapping(path = "/getprofileposts")
-    public ResponseEntity<Object> newPost(@RequestBody String jsonPostsRequest, HttpSession session) {
+    public ResponseEntity<Object> profilePosts(@RequestBody String jsonPostsRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonPostsRequest);
         try {
@@ -54,14 +52,12 @@ public class ProfilePostsController {
                 page = postService.getUserPosts(userID, pageNumber, limit);
                 return new ResponseEntity<Object>(page, HttpStatus.OK);
             }
-
             // If they are connected
             if (userNetworkService.checkIfConnected(profilePostsPageRequest.profileUserID, userIdentifiers.id)) {
                 page = postService.getUserPosts(userID, pageNumber, limit);
             }
             // If not return only the public posts
             else {
-//                System.err.println("PUBLIC POSTS");
                 page = postService.getUsersPublicPosts(userID, pageNumber, limit);
             }
             return new ResponseEntity<Object>(page, HttpStatus.OK);

@@ -22,7 +22,7 @@ public class HandleConnectRequestController {
     @Autowired
     AuthRequestService authRequestService;
     @PostMapping(path = "/handleconnectrequest")
-    public ResponseEntity<Object> HandleConnect(@RequestBody String jsonConnectRequest, HttpSession session) {
+    public ResponseEntity<Object> handleConnect(@RequestBody String jsonConnectRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonConnectRequest);
         try {
