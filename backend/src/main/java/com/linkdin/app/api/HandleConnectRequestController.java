@@ -27,10 +27,10 @@ public class HandleConnectRequestController {
         JSONObject obj = new JSONObject(jsonConnectRequest);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject connectRequest = obj.getJSONObject("connectRequest");
+            JSONObject connectRequestObj = obj.getJSONObject("connectRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userTargetProfileID = connectRequest.getString("profileUserID");
-            String accepted = connectRequest.getString("accepted");
+            String userTargetProfileID = connectRequestObj.getString("profileUserID");
+            String accepted = connectRequestObj.getString("accepted");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {

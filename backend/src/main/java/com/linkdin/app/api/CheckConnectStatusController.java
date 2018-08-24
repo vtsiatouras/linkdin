@@ -31,9 +31,9 @@ public class CheckConnectStatusController {
         JSONObject obj = new JSONObject(jsonConnectStatus);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject targetProfile = obj.getJSONObject("targetProfile");
+            JSONObject targetProfileObj = obj.getJSONObject("targetProfile");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userTargetProfileID = targetProfile.getString("profileUserID");
+            String userTargetProfileID = targetProfileObj.getString("profileUserID");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {

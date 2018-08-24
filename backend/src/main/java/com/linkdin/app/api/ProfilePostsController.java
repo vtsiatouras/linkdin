@@ -36,9 +36,9 @@ public class ProfilePostsController {
         JSONObject obj = new JSONObject(jsonPostsRequest);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject pageRequest = obj.getJSONObject("pageRequest");
+            JSONObject pageRequestObj = obj.getJSONObject("pageRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            ProfilePostsPageRequest profilePostsPageRequest = objectMapper.readValue(pageRequest.toString(), ProfilePostsPageRequest.class);
+            ProfilePostsPageRequest profilePostsPageRequest = objectMapper.readValue(pageRequestObj.toString(), ProfilePostsPageRequest.class);
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {

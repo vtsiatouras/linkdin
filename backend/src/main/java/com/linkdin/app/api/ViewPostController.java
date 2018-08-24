@@ -33,9 +33,9 @@ public class ViewPostController {
         System.err.println(obj);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject postRequest = obj.getJSONObject("postRequest");
+            JSONObject postRequestObj = obj.getJSONObject("postRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String postID = postRequest.getString("postID");
+            String postID = postRequestObj.getString("postID");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {

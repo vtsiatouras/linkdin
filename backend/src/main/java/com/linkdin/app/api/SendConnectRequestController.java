@@ -29,9 +29,9 @@ public class SendConnectRequestController {
         JSONObject obj = new JSONObject(jsonConnectRequest);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject friendRequest = obj.getJSONObject("friendRequest");
+            JSONObject friendRequestObj = obj.getJSONObject("friendRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userRequestID = friendRequest.getString("userRequestID");
+            String userRequestID = friendRequestObj.getString("userRequestID");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {

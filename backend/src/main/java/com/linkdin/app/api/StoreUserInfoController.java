@@ -30,9 +30,9 @@ public class StoreUserInfoController {
         JSONObject obj = new JSONObject(jsonRequestUserInfo);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject userInfoRequest = obj.getJSONObject("userInfoUpdate");
+            JSONObject userInfoRequestObj = obj.getJSONObject("userInfoUpdate");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            UserInfo userInfo = objectMapper.readValue(userInfoRequest.toString(), UserInfo.class);;
+            UserInfo userInfo = objectMapper.readValue(userInfoRequestObj.toString(), UserInfo.class);;
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
