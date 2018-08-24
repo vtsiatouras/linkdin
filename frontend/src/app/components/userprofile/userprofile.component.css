@@ -37,7 +37,7 @@
 }
 
 .request-connect-button {
-  background-color: rgb(104, 145, 162);
+  background-color: #006394;
   padding: 5px;
   font-weight: 700;
   font-size: 18px;
@@ -51,7 +51,7 @@
 
 .request-connect-button:hover,
 .request-connect-button:active {
-  background-color: #006394;
+  background-color: #00334d;
 }
 
 .disabled-connect-button {

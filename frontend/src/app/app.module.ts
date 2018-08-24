@@ -9,7 +9,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './guard/auth.guard';
@@ -47,7 +46,6 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     FooterComponent,
-    HeaderComponent,
     RegisterComponent,
     HomeComponent,
     NavbarComponent,

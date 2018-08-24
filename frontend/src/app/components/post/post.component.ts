@@ -3,8 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { faCommentAlt } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { faCommentAlt } from '@fortawesome/free-regular-svg-icons';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { faGlobeAfrica } from '@fortawesome/free-solid-svg-icons';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -46,8 +46,7 @@ export class PostComponent implements OnInit {
   }
 
   getUserIdentifiers() {
-    console.log(this.userIdPost);
-    // console.log(this.date);
+    // console.log(this.userIdPost);
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const userInfoRequest = { userIdInfo: this.userIdPost };
     const API_URL = environment.API_URL;

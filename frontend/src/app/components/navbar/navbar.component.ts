@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
 
   @HostListener('window:scroll')
   public onScroll() {
-    if (window.scrollY == 0) {
+    if (window.scrollY === 0) {
       this.top = true;
     } else {
       this.top = false;
