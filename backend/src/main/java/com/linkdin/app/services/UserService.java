@@ -2,6 +2,7 @@ package com.linkdin.app.services;
 
 import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserBasicInfo;
+import com.linkdin.app.dto.UserInfo;
 import com.linkdin.app.model.User;
 import com.linkdin.app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,59 @@ public class UserService {
         listUsers.list = resultList;
         listUsers.numberOfResults = totalResults;
         return listUsers;
+    }
+
+    // Return all the information of a user (private/public)
+    public UserInfo getUserInfo(String userID) {
+        UserInfo userInfo = new UserInfo();
+        User user = returnUserByID(Integer.parseInt(userID));
+        userInfo.phoneNumber = user.getPhoneNumber();
+        userInfo.isPhonePublic = user.getPublicPhoneNumber();
+        userInfo.city = user.getCity();
+        userInfo.isCityPublic = user.getPublicCity();
+        userInfo.profession = user.getProfession();
+        userInfo.isProfessionPublic = user.getPublicProfession();
+        userInfo.company = user.getCompany();
+        userInfo.isCompanyPublic = user.getPublicCompany();
+        userInfo.education = user.getEducation();
+        userInfo.isEducationPublic = user.getPublicEducation();
+        return userInfo;
+    }
+
+    // Returns only public information
+    public UserInfo getPublicUserInfo(String userID) {
+        UserInfo userInfo = new UserInfo();
+        User user = returnUserByID(Integer.parseInt(userID));
+        userInfo.isPhonePublic = user.getPublicPhoneNumber();
+        if (userInfo.isPhonePublic == 1) {
+            userInfo.phoneNumber = user.getPhoneNumber();
+        } else {
+            userInfo.phoneNumber = "";
+        }
+        userInfo.isCityPublic = user.getPublicCity();
+        if (userInfo.isCityPublic == 1) {
+            userInfo.city = user.getCity();
+        } else {
+            userInfo.city = "";
+        }
+        userInfo.isProfessionPublic = user.getPublicProfession();
+        if (userInfo.isProfessionPublic == 1) {
+            userInfo.profession = user.getProfession();
+        } else {
+            userInfo.profession = "";
+        }
+        userInfo.isCompanyPublic = user.getPublicCompany();
+        if (userInfo.isCompanyPublic == 1) {
+            userInfo.company = user.getCompany();
+        } else {
+            userInfo.company = "";
+        }
+        userInfo.isEducationPublic = user.getPublicEducation();
+        if (userInfo.isEducationPublic == 1) {
+            userInfo.education = user.getEducation();
+        } else {
+            userInfo.education = "";
+        }
+        return userInfo;
     }
 }

@@ -52,11 +52,11 @@ public class PostService {
 
     public Page<Post> getUserPosts(int userID, int pageNumber, int limit) {
 //        return postRepository.findAll(new PageRequest(pageNumber, limit));
-        return postRepository.findByuserIdOrderByTimestampDesc(new PageRequest(pageNumber, limit), userID);
+        return postRepository.findByUserIdOrderByTimestampDesc(new PageRequest(pageNumber, limit), userID);
     }
 
     public Page<Post> getUsersPublicPosts(int userID, int pageNumber, int limit) {
-        return postRepository.findByuserIdAndIsPublicOrderByTimestampDesc(new PageRequest(pageNumber, limit), userID, (byte) 1);
+        return postRepository.findByUserIdAndIsPublicOrderByTimestampDesc(new PageRequest(pageNumber, limit), userID, (byte) 1);
     }
 
     public Page<Post> getNetworkPosts(List userIDs, int pageNumber, int limit) {

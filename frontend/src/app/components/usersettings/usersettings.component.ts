@@ -69,7 +69,8 @@ export class UsersettingsComponent implements OnInit {
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const userInfoUpdate = {
       phoneNumber: this.phoneNumber, city: this.city, profession: this.profession, company: this.company, education: this.education,
-      isPhonePublic: 0, isCityPublic: 0, isProfessionPublic: 0, isCompanyPublic: 0, isEducationPublic: 0
+      isPhonePublic: +this.isPhonePublic, isCityPublic: +this.isCityPublic, isProfessionPublic: +this.isProfessionPublic,
+      isCompanyPublic: +this.isCompanyPublic, isEducationPublic: +this.isEducationPublic
     };
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/setuserinfo', {

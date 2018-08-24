@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.dto.UserInfo;
 import com.linkdin.app.model.User;
+import com.linkdin.app.model.UserNetwork;
 import com.linkdin.app.services.AuthRequestService;
+import com.linkdin.app.services.UserNetworkService;
 import com.linkdin.app.services.UserService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class GetUserInfoController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    UserNetworkService userNetworkService;
     @Autowired
     AuthRequestService authRequestService;
 
@@ -41,20 +45,21 @@ public class GetUserInfoController {
 
             //todo check if user exists
 
-            UserInfo userInfo = new UserInfo();
-            User user = userService.returnUserByID(Integer.parseInt(userId));
-            userInfo.phoneNumber = user.getPhoneNumber();
-            userInfo.isPhonePublic = user.getPublicPhoneNumber();
-            userInfo.city = user.getCity();
-            userInfo.isCityPublic = user.getPublicCity();
-            userInfo.profession = user.getProfession();
-            userInfo.isProfessionPublic = user.getPublicProfession();
-            userInfo.company = user.getCompany();
-            userInfo.isCompanyPublic = user.getPublicCompany();
-            userInfo.education = user.getEducation();
-            userInfo.isEducationPublic = user.getPublicEducation();
-
-            return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
+            // If the requested network belongs to the user that made the request
+            if (userId.equals(userIdentifiers.id)) {
+                UserInfo userInfo = userService.getUserInfo(userId);
+                return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
+            }
+            // If the network belongs to a friend
+            if (userNetworkService.checkIfConnected(userId, userIdentifiers.id)) {
+                UserInfo userInfo = userService.getUserInfo(userId);
+                return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
+            }
+            // If not return public info
+            else {
+                UserInfo userInfo = userService.getPublicUserInfo(userId);
+                return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

@@ -1,11 +1,7 @@
 package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkdin.app.dto.ProfilePostsPageRequest;
-import com.linkdin.app.dto.ProfileRequest;
 import com.linkdin.app.dto.UserIdentifiers;
-import com.linkdin.app.model.User;
-import com.linkdin.app.model.UserNetwork;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
 import com.linkdin.app.services.UserNetworkService;
