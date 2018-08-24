@@ -23,10 +23,10 @@
     "@angular/platform-browser-dynamic": "^5.0.0",
     "@angular/router": "^5.0.0",
     "@fortawesome/angular-fontawesome": "^0.1.1",
-    "@fortawesome/fontawesome-svg-core": "^1.2.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.2",
     "@fortawesome/free-brands-svg-icons": "^5.2.0",
     "@fortawesome/free-regular-svg-icons": "^5.2.0",
-    "@fortawesome/free-solid-svg-icons": "^5.1.0",
+    "@fortawesome/free-solid-svg-icons": "^5.2.0",
     "add": "^2.0.6",
     "angular-touch": "^1.7.3",
     "bootstrap": "4.0.0-beta.2",
@@ -34,7 +34,7 @@
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "rxjs": "^5.5.2",
-    "yarn": "^1.7.0",
+    "yarn": "^1.9.4",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

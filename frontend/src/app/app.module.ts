@@ -5,6 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -22,6 +25,8 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { UsernetworkComponent } from './components/usernetwork/usernetwork.component';
 import { UsersettingsComponent } from './components/usersettings/usersettings.component';
 import { ErrorpageComponent } from './components/errorpage/errorpage.component';
+
+library.add(fas, far);
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },

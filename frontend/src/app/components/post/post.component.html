@@ -7,13 +7,13 @@
     <a class="btn timestamp" [routerLink]="['/posts', postId]"> {{ date }} </a>
     <div class="post-attributes">
       <span *ngIf="isAd == 1">
-        <fa-icon class="icon-post" [icon]="faBriefcase"></fa-icon>
+        <fa-icon class="icon-post" [icon]="['fas', 'briefcase']"></fa-icon>
       </span>
       <span *ngIf="isPublic == 1">
-        <fa-icon class="icon-post" [icon]="faGlobeAfrica"></fa-icon>
+        <fa-icon class="icon-post" [icon]="['fas', 'globe-africa']"></fa-icon>
       </span>
       <span *ngIf="isPublic == 0">
-        <fa-icon class="icon-post" [icon]="faUsers"></fa-icon>
+        <fa-icon class="icon-post" [icon]="['fas', 'users']"></fa-icon>
       </span>
     </div>
   </div>
@@ -21,12 +21,10 @@
   <hr>
   <div class="post-controls">
     <button class="btn btn-info btn-lg interact-button" type="button">
-      <fa-icon [icon]="faStar"></fa-icon>
-      Interested
+      <fa-icon [icon]="['far', 'star']"></fa-icon>
     </button>
     <button class="btn btn-info btn-lg interact-button" type="button">
-      <fa-icon [icon]="faCommentAlt"></fa-icon>
-      Comment
+      <fa-icon [icon]="['far', 'comment-alt']"></fa-icon>
     </button>
   </div>
   <hr>
@@ -36,7 +34,7 @@
       <input class="form-control" type="text" placeholder="Comment" aria-label="post-comment">
       <span class="input-group-btn">
         <button class="btn btn-info btn-lg post-comment-button" type="button">
-          <fa-icon [icon]="faCommentAlt"></fa-icon>
+          <fa-icon [icon]="['fas', 'briefcase']"></fa-icon>
         </button>
       </span>
     </div>

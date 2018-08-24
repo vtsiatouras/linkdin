@@ -3,18 +3,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-import { faGlobeAfrica } from '@fortawesome/free-solid-svg-icons';
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
-
 @Component({
   selector: 'app-usersettings',
   templateUrl: './usersettings.component.html',
   styleUrls: ['./usersettings.component.css']
 })
 export class UsersettingsComponent implements OnInit {
-
-  faGlobeAfrica = faGlobeAfrica;
-  faUsers = faUsers;
 
   userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');

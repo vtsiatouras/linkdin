@@ -3,10 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { faUserClock } from '@fortawesome/free-solid-svg-icons';
-import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
-
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
@@ -14,9 +10,6 @@ import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 })
 export class UserprofileComponent implements OnInit {
 
-  faUserPlus = faUserPlus;
-  faUserClock = faUserClock;
-  faUserCheck = faUserCheck;
   requestConnectButton = false;
   connectPendingButton = false;
   connectedButton = false;

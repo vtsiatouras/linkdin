@@ -28,7 +28,7 @@
           <div class="btn-group-justified" role="group" aria-label="First group">
             <app-notifications></app-notifications>
             <button type="button" class="btn btn-secondary icon-button">
-              <fa-icon [icon]="faEnvelope"></fa-icon>
+              <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
             </button>
           </div>
         </ul>
@@ -39,7 +39,7 @@
             </a>
             <div class="nav-item dropdown">
               <button type="button" class="btn btn-secondary icon-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <fa-icon [icon]="faCaretDown"></fa-icon>
+                <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
               </button>
               <div class="dropdown-menu dropdown-menu-right">
                 <a role="button" type="button" class="dropdown-item" [routerLink]="['/settings']">Settings</a>
@@ -54,6 +54,6 @@
 </nav>
 <div *ngIf="!top">
   <button class="btn top-button" (scroll)="onScroll()" (click)="scrollToTop()">
-    <fa-icon [icon]="faAngleDoubleUp"></fa-icon>
+    <fa-icon [icon]="['fas', 'angle-double-up']"></fa-icon>
   </button>
 </div>

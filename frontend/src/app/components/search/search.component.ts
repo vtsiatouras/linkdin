@@ -3,8 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -14,8 +12,6 @@ export class SearchComponent implements OnInit {
 
   userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');
-
-  faSearch = faSearch;
 
   totalResults = 0;
   limitResults = 5;
