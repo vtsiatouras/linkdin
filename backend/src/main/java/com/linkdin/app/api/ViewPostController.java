@@ -5,6 +5,7 @@ import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
+import com.linkdin.app.services.UserNetworkService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,8 @@ public class ViewPostController {
 
     @Autowired
     PostService postService;
+    @Autowired
+    UserNetworkService userNetworkService;
     @Autowired
     AuthRequestService authRequestService;
 
@@ -39,17 +42,28 @@ public class ViewPostController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            // TODO!!
-            // In case that the post is private, check if the user that requested the post
-            // is friend with the post's author
-            // If the post is public just send it
-            // TODO CHECK IN OTHER CONTROLLERS FOR NULL RETURNS!!!
             Post post = postService.returnPostByID(Integer.parseInt(postID));
             if (post != null) {
-                return new ResponseEntity<Object>(post, HttpStatus.OK);
+                // If post is public just send it
+                if(post.getIsPublic() == 1) {
+                    return new ResponseEntity<Object>(post, HttpStatus.OK);
+                }
+                // If the requested profile belongs to the user that made the request
+                if ((Integer.toString(post.getUserId())).equals(userIdentifiers.id)) {
+                    return new ResponseEntity<Object>(post, HttpStatus.OK);
+                }
+                // If they are connected
+                if (userNetworkService.checkIfConnected(Integer.toString(post.getUserId()), userIdentifiers.id)) {
+                    return new ResponseEntity<Object>(post, HttpStatus.OK);
+                }
+                // If not return error
+                else {
+                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+                }
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
+            // TODO CHECK IN OTHER CONTROLLERS FOR NULL RETURNS!!!
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
