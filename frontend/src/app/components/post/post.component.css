@@ -105,3 +105,21 @@
   box-shadow: none;
   border: none;
 }
+
+@media screen and (max-width: 1390px) {
+  .post-comment {
+    max-width: 800px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .post-comment {
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .post-comment {
+    max-width: 200px;
+  }
+}

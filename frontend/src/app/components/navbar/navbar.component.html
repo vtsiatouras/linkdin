@@ -34,7 +34,7 @@
         </ul>
         <ul class="navbar-nav text-center">
           <div class="btn-group-justified" role="group" aria-label="Second group">
-            <a class="btn btn-secondary no-background-button" role="button" [routerLink]="['/users', userID]" (click)="scrollToTop()">
+            <a class="btn btn-secondary no-background-button" role="button" [routerLink]="['/users', userID]">
               {{ firstName }} {{ lastName }}
             </a>
             <div class="nav-item dropdown">
@@ -52,3 +52,8 @@
     </div>
   </div>
 </nav>
+<div *ngIf="!top">
+  <button class="btn top-button" (scroll)="onScroll()" (click)="scrollToTop()">
+    <fa-icon [icon]="faAngleDoubleUp"></fa-icon>
+  </button>
+</div>
