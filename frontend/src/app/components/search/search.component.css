@@ -9,7 +9,14 @@
 @media screen and (max-width: 1000px) {
   .search-bar {
     margin-left: 20px; 
-    width: 200px;
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .search-bar {
+    margin-left: 40px; 
+    width: 150px;
   }
 }
 

@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -18,8 +17,9 @@ export class NavbarComponent implements OnInit {
 
   faCaretDown = faCaretDown;
   faEnvelope = faEnvelope;
-  faBell = faBell;
-  faSearch = faSearch;
+  faAngleDoubleUp = faAngleDoubleUp;
+
+  top = true;
 
   firstName = localStorage.getItem('firstName');
   lastName = localStorage.getItem('lastName');
@@ -28,13 +28,22 @@ export class NavbarComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
   ) { }
 
-  ngOnInit() {
+
+  ngOnInit() { }
+
+
+  @HostListener('window:scroll')
+  public onScroll() {
+    if (window.scrollY == 0) {
+      this.top = true;
+    } else {
+      this.top = false;
+    }
   }
 
-  // This function is OP
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }

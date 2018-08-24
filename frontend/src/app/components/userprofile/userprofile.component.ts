@@ -64,6 +64,7 @@ export class UserprofileComponent implements OnInit {
       this.page = 0;
       this.limitPosts = 5;
       this.posts = [];
+      window.scrollTo(0, 0);
       this.loadProfile();
     });
   }
