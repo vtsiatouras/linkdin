@@ -24,7 +24,7 @@ public class SendConnectRequestController {
     AuthRequestService authRequestService;
 
     @PostMapping(path = "/sendconnect")
-    public ResponseEntity<Object> SendConnect(@RequestBody String jsonConnectRequest, HttpSession session) {
+    public ResponseEntity<Object> sendConnect(@RequestBody String jsonConnectRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonConnectRequest);
         try {

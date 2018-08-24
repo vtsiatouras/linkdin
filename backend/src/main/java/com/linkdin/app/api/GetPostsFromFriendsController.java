@@ -28,7 +28,7 @@ public class GetPostsFromFriendsController {
     AuthRequestService authRequestService;
 
     @PostMapping(path = "/getpostsfromfriends")
-    public ResponseEntity<Object> getPostsFromFriends(@RequestBody String jsonPostsRequest, HttpSession session) {
+    public ResponseEntity<Object> postsFromFriends(@RequestBody String jsonPostsRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonPostsRequest);
         try {

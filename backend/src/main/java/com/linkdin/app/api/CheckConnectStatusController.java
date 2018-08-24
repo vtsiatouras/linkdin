@@ -26,7 +26,7 @@ public class CheckConnectStatusController {
     AuthRequestService authRequestService;
 
     @PostMapping(path = "/connectstatus")
-    public ResponseEntity<Object> ConnectStatus(@RequestBody String jsonConnectStatus, HttpSession session) {
+    public ResponseEntity<Object> connectStatus(@RequestBody String jsonConnectStatus, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonConnectStatus);
         try {
