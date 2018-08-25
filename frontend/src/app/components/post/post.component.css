@@ -69,7 +69,7 @@
 }
 
 .interact-button {
-  margin: -10px 30px -10px 30px;
+  margin: -10px 60px -10px 60px;
   color: #006394;
   background-color: Transparent;
   background-repeat: no-repeat;
@@ -106,6 +106,19 @@
   border: none;
 }
 
+.btn.interested-people-button,
+.btn.interested-people-button:active,
+.btn.interested-people-button:hover,
+.btn.interested-people-button:focus {
+  color: #00334d;
+  background: transparent;
+  border-color: inherit;
+  outline: none !important;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+}
+
 .interests-number {
   margin-top: 10px;
   font-size: 12pt;
@@ -113,8 +126,16 @@
   color: #6d6b6b;
 }
 
-.modal-body {
-  text-align: center;
+.dropdown-menu {
+  margin: 10px 0 10px 0px;
+  width: 300px;
+  height: 300px;
+}
+
+.dropdown-item {
+  width: 299px;
+  padding: 10px;
+  background: transparent;
 }
 
 @media screen and (max-width: 1390px) {

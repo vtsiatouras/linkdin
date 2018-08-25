@@ -27,7 +27,6 @@ export class PostComponent implements OnInit {
   interestedUsers = [];
   isInterested: boolean;
   numberOfInterests: any;
-  showInterestedUsers = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -107,14 +106,13 @@ export class PostComponent implements OnInit {
       const numberOfInterests = obj.numberOfResults;
       this.interestedUsers = obj.list;
       for (let i = 0; i < numberOfInterests; i++) {
-      //   this.interestedUsers.push(obj.list[i]);
         this.interestedUsers[i].image = 'data:image/jpeg;base64,' + this.interestedUsers[i].image;
       }
-      this.showInterestedUsers = true;
       console.log(this.interestedUsers);
     },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
   }
+
 }
