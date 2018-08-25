@@ -1,6 +1,8 @@
 package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.linkdin.app.dto.InterestData;
+import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.services.AuthRequestService;
@@ -19,8 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-public class GetInterestsNumberController {
-
+public class GetInterestedUsersController {
     @Autowired
     PostInterestService postInterestService;
     @Autowired
@@ -30,8 +31,8 @@ public class GetInterestsNumberController {
     @Autowired
     PostService postService;
 
-    @PostMapping(path = "/numberofinterests")
-    public ResponseEntity<Object> interestsNumber(@RequestBody String jsonInterestData, HttpSession session) {
+    @PostMapping(path = "/interestedusersinfo")
+    public ResponseEntity<Object> interestedUsers(@RequestBody String jsonInterestData, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonInterestData);
         try {
@@ -49,16 +50,12 @@ public class GetInterestsNumberController {
             if (post != null) {
                 int userIDPostOwner = post.getUserId();
 
-                // Check if the post belongs to the user that clicked interest button
-                // (no self likes plz...)
-                if (userIDPostOwner == Integer.parseInt(userIdentifiers.id)) {
-                    List users = postInterestService.getInterestedUsers(Integer.parseInt(postID));
-                    return new ResponseEntity<>(users.size(), HttpStatus.OK);
-                }
                 // Check if post belongs to connected user
-                if (userNetworkService.checkIfConnected(Integer.toString(userIDPostOwner), userIdentifiers.id)) {
-                    postInterestService.addInterest(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
-                    return new ResponseEntity<>(HttpStatus.OK);
+                // or if the post belongs to the user that clicked interest button
+                if (userNetworkService.checkIfConnected(Integer.toString(userIDPostOwner), userIdentifiers.id) ||
+                        userIDPostOwner == Integer.parseInt(userIdentifiers.id)) {
+                    ListUsers users = postInterestService.getInterestedUsersInfo(Integer.parseInt(postID));
+                    return new ResponseEntity<>(users, HttpStatus.OK);
                 } else {
                     return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
                 }

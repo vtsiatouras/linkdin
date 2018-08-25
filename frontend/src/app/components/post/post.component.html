@@ -20,13 +20,35 @@
   <div class="post-content"> {{ content }} </div>
   <hr>
   <div class="post-controls">
-    <button class="btn btn-info btn-lg interact-button" type="button">
+    <button class="btn btn-info btn-lg interact-button" type="button" (click)="interested()">
       <fa-icon [icon]="['far', 'star']"></fa-icon>
     </button>
     <button class="btn btn-info btn-lg interact-button" type="button">
       <fa-icon [icon]="['far', 'comment-alt']"></fa-icon>
     </button>
   </div>
+
+  <div *ngIf="numberOfInterests > 0" class="d-flex justify-content-center interests-number">
+    <div class="dropdown">
+      <button type="button" class="btn btn-primary" data-toggle="dropdown" (click)="getInterestedUsers()">
+        {{ numberOfInterests }} interest
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <div *ngFor="let x of interestedUsers; let i = index">
+          <a class="dropdown-item" [routerLink]="['/users', x.id]">
+            <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }}
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- <div *ngIf="numberOfInterests > 1" class="d-flex justify-content-center interests-number">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="getInterestedUsers()">
+      {{ numberOfInterests }} interests
+    </button>
+  </div> -->
+
   <hr>
   <!-- TODO add here comments components -->
   <div class="d-flex justify-content-center">

@@ -23,6 +23,12 @@ export class PostComponent implements OnInit {
   @Input() isPublic: any;
   @Input() content: string;
 
+  interestedUsersIDs = [];
+  interestedUsers = [];
+  isInterested: boolean;
+  numberOfInterests: any;
+  showInterestedUsers = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -31,10 +37,10 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.getUserIdentifiers();
+    this.getInterests();
   }
 
   getUserIdentifiers() {
-    // console.log(this.userIdPost);
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const userInfoRequest = { userIdInfo: this.userIdPost };
     const API_URL = environment.API_URL;
@@ -53,4 +59,62 @@ export class PostComponent implements OnInit {
       });
   }
 
+  interested() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const interest = { postID: this.postId, isInterested: '1' };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/interest', {
+      userIdentifiers,
+      interest
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      this.getInterests();
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+
+  getInterests() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const interestedUsers = { postID: this.postId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/interestsdata', {
+      userIdentifiers,
+      interestedUsers
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      this.numberOfInterests = obj.numberOfInterestedUsers;
+      this.isInterested = obj.isUserInterested;
+      this.interestedUsersIDs = obj.interestedUsers;
+      console.log(this.numberOfInterests);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  getInterestedUsers() {
+    this.interestedUsers = [];
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const interestedUsers = { postID: this.postId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/interestedusersinfo', {
+      userIdentifiers,
+      interestedUsers
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      const numberOfInterests = obj.numberOfResults;
+      this.interestedUsers = obj.list;
+      for (let i = 0; i < numberOfInterests; i++) {
+      //   this.interestedUsers.push(obj.list[i]);
+        this.interestedUsers[i].image = 'data:image/jpeg;base64,' + this.interestedUsers[i].image;
+      }
+      this.showInterestedUsers = true;
+      console.log(this.interestedUsers);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
 }
