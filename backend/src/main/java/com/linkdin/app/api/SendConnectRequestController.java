@@ -38,7 +38,7 @@ public class SendConnectRequestController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            userNetworkService.sendConnectRequest(userIdentifiers.id, userRequestID);
+            userNetworkService.sendConnectRequest(Integer.parseInt(userIdentifiers.id), Integer.parseInt(userRequestID));
 
             return new ResponseEntity<Object>(HttpStatus.OK);
         } catch (Exception ex) {

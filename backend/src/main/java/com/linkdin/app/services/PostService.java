@@ -20,7 +20,6 @@ public class PostService {
     PostRepository postRepository;
 
     public boolean createPost(NewPostData newPostData, User user) {
-        // TODO set public flag to database
         Post post = new Post();
         post.setContent(newPostData.postContent);
         if (newPostData.isAd) {
@@ -51,7 +50,6 @@ public class PostService {
     }
 
     public Page<Post> getUserPosts(int userID, int pageNumber, int limit) {
-//        return postRepository.findAll(new PageRequest(pageNumber, limit));
         return postRepository.findByUserIdOrderByTimestampDesc(new PageRequest(pageNumber, limit), userID);
     }
 

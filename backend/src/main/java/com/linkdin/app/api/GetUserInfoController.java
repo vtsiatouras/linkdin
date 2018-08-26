@@ -51,7 +51,7 @@ public class GetUserInfoController {
                 return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
             }
             // If the requested info belongs to a friend
-            if (userNetworkService.checkIfConnected(userId, userIdentifiers.id)) {
+            if (userNetworkService.checkIfConnected(Integer.parseInt(userId), Integer.parseInt(userIdentifiers.id))) {
                 UserInfo userInfo = userService.getUserInfo(userId);
                 return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
             }

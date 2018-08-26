@@ -43,7 +43,7 @@ public class GetPostsFromFriendsController {
             }
 
             // Send requested user's profile info
-            List friendList = userNetworkService.getConnectedUsersIDsOnly(userIdentifiers.id);
+            List friendList = userNetworkService.getConnectedUsersIDsOnly(Integer.parseInt(userIdentifiers.id));
             Page page = postService.getNetworkPosts(friendList, pageNumber, limit);
 
             return new ResponseEntity<Object>(page, HttpStatus.OK);

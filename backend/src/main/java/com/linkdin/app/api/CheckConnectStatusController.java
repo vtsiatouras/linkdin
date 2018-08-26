@@ -40,15 +40,14 @@ public class CheckConnectStatusController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            UserNetwork userNetwork = userNetworkService.returnConnection(userIdentifiers.id, userTargetProfileID);
+            UserNetwork userNetwork = userNetworkService.returnConnection(Integer.parseInt(userIdentifiers.id), Integer.parseInt(userTargetProfileID));
             ConnectionAttributes connectionAttributes = new ConnectionAttributes();
 
             // If they are not friends
-            if(userNetwork == null) {
+            if (userNetwork == null) {
                 connectionAttributes.friends = "0";
                 connectionAttributes.pending = "0";
-            }
-            else {
+            } else {
                 connectionAttributes.friends = "1";
                 // If they are friends
                 if (userNetwork.getIsAccepted() == 1) {

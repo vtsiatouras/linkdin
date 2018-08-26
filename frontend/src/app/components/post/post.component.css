@@ -110,20 +110,16 @@
 .btn.interested-people-button:active,
 .btn.interested-people-button:hover,
 .btn.interested-people-button:focus {
-  color: #00334d;
+  margin-top: 10px;
+  font-size: 12pt;
+  font-weight: bold;
+  color: #6d6b6b;
   background: transparent;
   border-color: inherit;
   outline: none !important;
   box-shadow: none;
   border: none;
   cursor: pointer;
-}
-
-.interests-number {
-  margin-top: 10px;
-  font-size: 12pt;
-  font-weight: bold;
-  color: #6d6b6b;
 }
 
 .dropdown-menu {
@@ -136,6 +132,16 @@
   width: 299px;
   padding: 10px;
   background: transparent;
+}
+
+.comment-element {
+  margin: 10px 0 10px 0;
+}
+
+.comment-time {
+  margin-left: 50px;
+  font-size: 9pt;
+  color: #6d6b6b;
 }
 
 @media screen and (max-width: 1390px) {

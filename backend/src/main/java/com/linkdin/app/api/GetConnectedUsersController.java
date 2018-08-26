@@ -40,12 +40,12 @@ public class GetConnectedUsersController {
 
             // If the requested network belongs to the user that made the request
             if (userTargetProfileID.equals(userIdentifiers.id)) {
-                ListUsers connectedUsers = userNetworkService.getConnectedUsers(userTargetProfileID);
+                ListUsers connectedUsers = userNetworkService.getConnectedUsers(Integer.parseInt(userTargetProfileID));
                 return new ResponseEntity<Object>(connectedUsers, HttpStatus.OK);
             }
             // If the network belongs to a friend
-            if (userNetworkService.checkIfConnected(userTargetProfileID, userIdentifiers.id)) {
-                ListUsers connectedUsers = userNetworkService.getConnectedUsers(userTargetProfileID);
+            if (userNetworkService.checkIfConnected(Integer.parseInt(userTargetProfileID), Integer.parseInt(userIdentifiers.id))) {
+                ListUsers connectedUsers = userNetworkService.getConnectedUsers(Integer.parseInt(userTargetProfileID));
                 return new ResponseEntity<Object>(connectedUsers, HttpStatus.OK);
             }
             // If not return error

@@ -36,7 +36,7 @@ public class GetConnectRequestsController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            ListUsers pendingConnectResults = userNetworkService.getPendingRequests(userIdentifiers.id);
+            ListUsers pendingConnectResults = userNetworkService.getPendingRequests(Integer.parseInt(userIdentifiers.id));
 
             return new ResponseEntity<Object>(pendingConnectResults, HttpStatus.OK);
         } catch (Exception ex) {
