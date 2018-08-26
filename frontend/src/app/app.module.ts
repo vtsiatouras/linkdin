@@ -32,7 +32,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'error', component: ErrorpageComponent },
+  { path: 'error/:logout', component: ErrorpageComponent },
   // For Logged in users ONLY
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   {

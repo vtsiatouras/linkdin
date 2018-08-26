@@ -31,8 +31,8 @@ export class NewpostComponent implements OnInit {
   sharePost() {
     if (this.postContent) {
       // TODO clean the below
-      console.log(this.postContent);
-      console.log(this.isPublic);
+      // console.log(this.postContent);
+      // console.log(this.isPublic);
 
       const userIdentifiers = { userToken: this.userToken, id: this.userId };
       const postData = { postContent: this.postContent, isAd: this.isAd, isPublic: this.isPublic };
