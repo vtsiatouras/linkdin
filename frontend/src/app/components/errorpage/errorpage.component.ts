@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-errorpage',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorpageComponent implements OnInit {
 
-  constructor() { }
+  logoutUser: string;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.logoutUser = params['logout'];
+    });
+    console.log(this.logoutUser);
+    if (this.logoutUser === 'true') {
+      localStorage.clear();
+    }
   }
 
 }

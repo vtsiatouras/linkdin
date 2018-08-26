@@ -1,7 +1,10 @@
 <div class="background">
   <div class="error-container">
     <div class="logo">
-      <a class="logo-link" [routerLink]="['/']">
+      <a *ngIf="logoutUser == 'true'" class="logo-link" [routerLink]="['/']">
+        <img id="logo-img" class="navbar-brand logo" src="../../../assets/images/linkDIn_light.png" />
+      </a>
+      <a *ngIf="logoutUser == 'false'" class="logo-link" [routerLink]="['/home']">
         <img id="logo-img" class="navbar-brand logo" src="../../../assets/images/linkDIn_light.png" />
       </a>
     </div>

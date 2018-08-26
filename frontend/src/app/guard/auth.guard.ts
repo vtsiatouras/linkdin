@@ -18,11 +18,6 @@ export class AuthGuard {
   }
 
   canActivate(): Observable<boolean> {
-
-    // var res = this.authService.isAuthenticated();
-    // console.log(res);
-    // return res;
-
     return this.authService.isAuthenticated();
   }
 

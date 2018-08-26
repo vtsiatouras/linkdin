@@ -28,9 +28,13 @@ export class AuthenticationService {
         userToken: userToken,
         id: id
       }, { responseType: 'text', withCredentials: true }).mapTo(true)
-        .catch(err => (Observable.of(false)));
+        .catch(err => {
+          this.router.navigate(['/error', true], { skipLocationChange: true });
+          return Observable.of(false);
+        });
       // Else cannot be exist a valid session
     } else {
+      this.router.navigate(['/error', true], { skipLocationChange: true });
       return Observable.of(false);
     }
   }
