@@ -26,13 +26,13 @@
     <button *ngIf="isInterested" class="btn btn-info btn-lg interact-button" type="button">
       <fa-icon [icon]="['fas', 'star']"></fa-icon>
     </button>
-    <button class="btn btn-info btn-lg interact-button" type="button">
+    <button class="btn btn-info btn-lg interact-button" type="button" data-toggle="comment-box" (click)="loadComments()">
       <fa-icon [icon]="['far', 'comment-alt']"></fa-icon>
     </button>
   </div>
 
   <div class="dropdown">
-    <div class="d-flex justify-content-center interests-number">
+    <div class="d-flex justify-content-center">
       <button *ngIf="numberOfInterests == 1" type="button" class="btn btn-primary interested-people-button" id="dropdownMenuButton"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="getInterestedUsers()">
         {{ numberOfInterests }} person found that post interesting
@@ -52,14 +52,37 @@
       </div>
     </div>
   </div>
-  <hr>
-  <!-- TODO add here comments components -->
   <div class="d-flex justify-content-center">
-    <div class="input-group post-comment ">
-      <input class="form-control" type="text" placeholder="Comment" aria-label="post-comment">
+    <div class="btn btn-primary interested-people-button" type="button">
+      <div *ngIf="numberOfComments == 1" (click)="loadComments()">
+        {{ numberOfComments }} comment
+      </div>
+      <div *ngIf="numberOfComments > 1" (click)="loadComments()">
+        {{ numberOfComments }} comments
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div *ngIf="showComments">
+    <div *ngFor="let x of comments">
+      <div class="comment-element">
+        <a [routerLink]="['/users', x.id]">
+          <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }}
+        </a>
+        {{ x.comment }}
+        <div class="comment-time">
+          {{ x.timestamp | date:'d MMMM y, h:mm a' }}
+        </div>
+      </div>
+      <div class="border"></div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="input-group post-comment">
+      <input class="form-control" id="comment-box" type="text" placeholder="Comment" aria-label="post-comment" [(ngModel)]="comment">
       <span class="input-group-btn">
-        <button class="btn btn-info btn-lg post-comment-button" type="button">
-          <fa-icon [icon]="['fas', 'briefcase']"></fa-icon>
+        <button class="btn btn-info btn-lg post-comment-button" type="button" (click)="postComment()">
+          Post
         </button>
       </span>
     </div>

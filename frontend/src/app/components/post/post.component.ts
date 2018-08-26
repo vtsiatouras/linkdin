@@ -23,10 +23,17 @@ export class PostComponent implements OnInit {
   @Input() isPublic: any;
   @Input() content: string;
 
+  // Interests
   interestedUsersIDs = [];
   interestedUsers = [];
   isInterested: boolean;
   numberOfInterests: any;
+
+  // Comments
+  showComments = false;
+  comment: string;
+  comments = [];
+  numberOfComments: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +44,7 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     this.getUserIdentifiers();
     this.getInterests();
+    this.getCommentsNumber();
   }
 
   getUserIdentifiers() {
@@ -73,7 +81,6 @@ export class PostComponent implements OnInit {
       });
   }
 
-
   getInterests() {
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const interestedUsers = { postID: this.postId };
@@ -109,6 +116,60 @@ export class PostComponent implements OnInit {
         this.interestedUsers[i].image = 'data:image/jpeg;base64,' + this.interestedUsers[i].image;
       }
       console.log(this.interestedUsers);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  getCommentsNumber() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const commentData = { postID: this.postId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/gettotalcomments', {
+      userIdentifiers,
+      commentData
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      this.numberOfComments = obj;
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  loadComments() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const commentData = { postID: this.postId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getcomments', {
+      userIdentifiers,
+      commentData
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      this.comments = obj;
+      for (let i = 0; i < this.comments.length; i++) {
+        this.comments[i].image = 'data:image/jpeg;base64,' + this.comments[i].image;
+      }
+      this.showComments = true;
+      console.log(obj);
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  postComment() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const commentData = { postID: this.postId, comment: this.comment };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/postcomment', {
+      userIdentifiers,
+      commentData
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      this.comment = '';
+      this.ngOnInit();
+      this.loadComments();
     },
       (err: HttpErrorResponse) => {
         console.log(err);

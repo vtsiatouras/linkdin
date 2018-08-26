@@ -53,7 +53,7 @@ public class ProfilePostsController {
                 return new ResponseEntity<Object>(page, HttpStatus.OK);
             }
             // If they are connected
-            if (userNetworkService.checkIfConnected(profilePostsPageRequest.profileUserID, userIdentifiers.id)) {
+            if (userNetworkService.checkIfConnected(Integer.parseInt(profilePostsPageRequest.profileUserID), Integer.parseInt(userIdentifiers.id))) {
                 page = postService.getUserPosts(userID, pageNumber, limit);
             }
             // If not return only the public posts

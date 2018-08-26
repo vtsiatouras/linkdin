@@ -53,7 +53,7 @@ public class ViewPostController {
                     return new ResponseEntity<Object>(post, HttpStatus.OK);
                 }
                 // If they are connected
-                if (userNetworkService.checkIfConnected(Integer.toString(post.getUserId()), userIdentifiers.id)) {
+                if (userNetworkService.checkIfConnected(post.getUserId(), Integer.parseInt(userIdentifiers.id))) {
                     return new ResponseEntity<Object>(post, HttpStatus.OK);
                 }
                 // If not return error

@@ -21,15 +21,15 @@ public class UserNetworkService {
     @Autowired
     ImageStorageService imageStorageService;
 
-    public ListUsers getConnectedUsers(String userID) {
+    public ListUsers getConnectedUsers(int userID) {
         List<UserNetwork> allConnections = userNetworkRepository.findByUser1AndIsAcceptedOrUser2AndIsAccepted(userID, (byte) 1, userID, (byte) 1);
         ArrayList<UserBasicInfo> tempList = new ArrayList<UserBasicInfo>();
         for (UserNetwork element : allConnections) {
             String targetUserID;
-            if (element.getUser1().equals(userID)) {
-                targetUserID = element.getUser2();
+            if (element.getUser1() == userID) {
+                targetUserID = Integer.toString(element.getUser2());
             } else {
-                targetUserID = element.getUser1();
+                targetUserID = Integer.toString(element.getUser1());
             }
             User targetUser = userService.returnUserByID(Integer.parseInt(targetUserID));
             UserBasicInfo targetUserInfo = new UserBasicInfo();
@@ -46,26 +46,26 @@ public class UserNetworkService {
         return results;
     }
 
-    public List getConnectedUsersIDsOnly(String userID) {
+    public List getConnectedUsersIDsOnly(int userID) {
         List<UserNetwork> allConnections = userNetworkRepository.findByUser1AndIsAcceptedOrUser2AndIsAccepted(userID, (byte) 1, userID, (byte) 1);
         ArrayList<Integer> resultList = new ArrayList<Integer>();
         for (UserNetwork element : allConnections) {
-            if (element.getUser1().equals(userID)) {
-                resultList.add(Integer.parseInt(element.getUser2()));
+            if (element.getUser1() == userID) {
+                resultList.add(element.getUser2());
             } else {
-                resultList.add(Integer.parseInt(element.getUser1()));
+                resultList.add(element.getUser1());
             }
         }
-        resultList.add(Integer.parseInt(userID));
+        resultList.add(userID);
         return resultList;
     }
 
-    public ListUsers getPendingRequests(String userID) {
+    public ListUsers getPendingRequests(int userID) {
         List<UserNetwork> pendingConnections = userNetworkRepository.findByUser2AndIsAccepted(userID, (byte) 0);
         ArrayList<UserBasicInfo> tempList = new ArrayList<UserBasicInfo>();
         for (UserNetwork element : pendingConnections) {
             String targetUserID;
-            targetUserID = element.getUser1();
+            targetUserID = Integer.toString(element.getUser1());
             User targetUser = userService.returnUserByID(Integer.parseInt(targetUserID));
             UserBasicInfo targetUserInfo = new UserBasicInfo();
             targetUserInfo.id = targetUserID;
@@ -81,7 +81,7 @@ public class UserNetworkService {
         return results;
     }
 
-    public boolean checkIfConnected(String userID1, String userID2) {
+    public boolean checkIfConnected(int userID1, int userID2) {
         UserNetwork userNetwork = userNetworkRepository.findByUser1AndUser2AndIsAccepted(userID1, userID2, (byte) 1);
         if (userNetwork != null) {
             return true;
@@ -93,7 +93,7 @@ public class UserNetworkService {
         return false;
     }
 
-    public UserNetwork returnConnection(String userID1, String userID2) {
+    public UserNetwork returnConnection(int userID1, int userID2) {
         UserNetwork userNetwork = userNetworkRepository.findByUser1AndUser2(userID1, userID2);
         if (userNetwork != null) {
             return userNetwork;
@@ -102,7 +102,7 @@ public class UserNetworkService {
         return userNetwork;
     }
 
-    public void sendConnectRequest(String senderID, String receiverID) {
+    public void sendConnectRequest(int senderID, int receiverID) {
         UserNetwork newConnection = new UserNetwork();
         newConnection.setUser1(senderID);
         newConnection.setUser2(receiverID);
@@ -110,7 +110,7 @@ public class UserNetworkService {
         userNetworkRepository.save(newConnection);
     }
 
-    public boolean acceptConnectRequest(String senderID, String receiverID) {
+    public boolean acceptConnectRequest(int senderID, int receiverID) {
         UserNetwork connection = userNetworkRepository.findByUser1AndUser2AndIsAccepted(senderID, receiverID, (byte) 0);
         if (connection != null) {
             connection.setIsAccepted((byte) 1);
@@ -121,7 +121,7 @@ public class UserNetworkService {
         }
     }
 
-    public boolean declineConnectRequest(String senderID, String receiverID) {
+    public boolean declineConnectRequest(int senderID, int receiverID) {
         UserNetwork connection = userNetworkRepository.findByUser1AndUser2AndIsAccepted(senderID, receiverID, (byte) 0);
         if (connection != null) {
             userNetworkRepository.delete(connection);

@@ -56,7 +56,7 @@ public class InterestController {
                     return new ResponseEntity<>(HttpStatus.OK);
                 }
                 // Check if post belongs to connected user
-                if (userNetworkService.checkIfConnected(Integer.toString(userIDPostOwner), userIdentifiers.id)) {
+                if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id))) {
                     postInterestService.addInterest(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
                     return new ResponseEntity<>(HttpStatus.OK);
                 } else {

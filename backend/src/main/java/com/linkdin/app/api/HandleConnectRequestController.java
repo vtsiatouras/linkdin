@@ -38,9 +38,9 @@ public class HandleConnectRequestController {
             }
 
             if(accepted.equals("1")) {
-                userNetworkService.acceptConnectRequest(userTargetProfileID, userIdentifiers.id);
+                userNetworkService.acceptConnectRequest(Integer.parseInt(userTargetProfileID), Integer.parseInt(userIdentifiers.id));
             } else {
-                userNetworkService.declineConnectRequest(userTargetProfileID, userIdentifiers.id);
+                userNetworkService.declineConnectRequest(Integer.parseInt(userTargetProfileID), Integer.parseInt(userIdentifiers.id));
             }
 
             return new ResponseEntity<Object>(HttpStatus.OK);
