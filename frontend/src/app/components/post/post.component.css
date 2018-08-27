@@ -91,19 +91,34 @@
   padding: 5px;
 }
 
+.comment-box {
+  border-radius: 3px;
+  border-color: inherit;
+  outline: none !important;
+  box-shadow: none;
+  border: solid 1px #949393;
+  height: 45px;
+}
+
 .post-comment-button {
   background-color: #006394;
   border-color: inherit;
   outline: none !important;
   box-shadow: none;
   border: none;
+  height: 45px;
 }
 
 .btn.post-comment-button:hover,
+.btn.post-comment-button:focus,
 .btn.post-comment-button:active {
   background-color: #00334d;
   box-shadow: none;
   border: none;
+}
+
+.btn.post-comment-button:disabled {
+  background-color: #006394;
 }
 
 .btn.interested-people-button,
