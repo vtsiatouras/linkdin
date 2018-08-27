@@ -42,8 +42,8 @@
                 <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
               </button>
               <div class="dropdown-menu dropdown-menu-right">
-                <a role="button" type="button" class="dropdown-item" [routerLink]="['/settings']">Settings</a>
-                <button class="dropdown-item" (click)="logoutUser()">Logout</button>
+                <a role="button" class="dropdown-item btn" [routerLink]="['/settings']">Settings</a>
+                <a role="button" class="dropdown-item btn" (click)="logoutUser()">Logout</a>
               </div>
             </div>
           </div>

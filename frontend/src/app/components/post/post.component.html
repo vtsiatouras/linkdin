@@ -53,14 +53,12 @@
     </div>
   </div>
   <div class="d-flex justify-content-center">
-    <div class="btn btn-primary interested-people-button" type="button">
-      <div *ngIf="numberOfComments == 1" (click)="loadComments()">
-        {{ numberOfComments }} comment
-      </div>
-      <div *ngIf="numberOfComments > 1" (click)="loadComments()">
-        {{ numberOfComments }} comments
-      </div>
-    </div>
+    <button class="btn btn-primary interested-people-button" role="button" type="button" *ngIf="numberOfComments == 1" (click)="loadComments()">
+      {{ numberOfComments }} comment
+    </button>
+    <button class="btn btn-primary interested-people-button" role="button" type="button" *ngIf="numberOfComments > 1" (click)="loadComments()">
+      {{ numberOfComments }} comments
+    </button>
   </div>
   <hr>
   <div *ngIf="showComments">
@@ -71,10 +69,10 @@
         </a>
         {{ x.comment }}
         <div class="comment-time">
-          {{ x.timestamp | date:'d MMMM y, h:mm a' }}
+          <label>{{ x.timestamp | date:'d MMMM y, h:mm a' }}</label>
         </div>
+        <div class="border"></div>
       </div>
-      <div class="border"></div>
     </div>
   </div>
   <div class="d-flex justify-content-center">
