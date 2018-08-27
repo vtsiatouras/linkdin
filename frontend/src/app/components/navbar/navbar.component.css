@@ -103,14 +103,16 @@
   right: 10px;
 }
 
-.dropdown-item {
+.btn.dropdown-item {
+  border-radius: O;
   background-color: #ffffff;
   color: #000000;
 }
 
-.dropdown-item:hover,
-.dropdown-item:active,
-.dropdown-item:focus {
+.btn.dropdown-item:hover,
+.btn.dropdown-item:active,
+.btn.dropdown-item:focus {
+  cursor: pointer;
   background-color: #006394;
   color: #ffffff;
 }
@@ -139,7 +141,6 @@
 .btn.top-button:active {
   border: none;
   background: #506b79;
-  ;
   border-color: inherit;
   -webkit-box-shadow: none;
   box-shadow: none;
