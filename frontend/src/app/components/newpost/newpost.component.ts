@@ -49,6 +49,7 @@ export class NewpostComponent implements OnInit {
       },
         (err: HttpErrorResponse) => {
           console.log(err);
+          this.router.navigate(['/error', false], { skipLocationChange: true });
         });
     }
   }

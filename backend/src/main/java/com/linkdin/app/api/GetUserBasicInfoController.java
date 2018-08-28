@@ -42,8 +42,12 @@ public class GetUserBasicInfoController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            UserBasicInfo userBasicInfo = new UserBasicInfo();
             User user = userService.returnUserByID(Integer.parseInt(userId));
+            if(user == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            UserBasicInfo userBasicInfo = new UserBasicInfo();
             userBasicInfo.id = Integer.toString(user.getId());
             userBasicInfo.name = user.getName();
             userBasicInfo.surname = user.getSurname();
@@ -51,7 +55,7 @@ public class GetUserBasicInfoController {
             return new ResponseEntity<Object>(userBasicInfo, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

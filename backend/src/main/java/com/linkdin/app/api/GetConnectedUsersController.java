@@ -3,8 +3,10 @@ package com.linkdin.app.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserIdentifiers;
+import com.linkdin.app.model.User;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.UserNetworkService;
+import com.linkdin.app.services.UserService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,8 @@ import javax.servlet.http.HttpSession;
 public class GetConnectedUsersController {
     @Autowired
     UserNetworkService userNetworkService;
-
+    @Autowired
+    UserService userService;
     @Autowired
     AuthRequestService authRequestService;
 
@@ -38,13 +41,15 @@ public class GetConnectedUsersController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            // If the requested network belongs to the user that made the request
-            if (userTargetProfileID.equals(userIdentifiers.id)) {
-                ListUsers connectedUsers = userNetworkService.getConnectedUsers(Integer.parseInt(userTargetProfileID));
-                return new ResponseEntity<Object>(connectedUsers, HttpStatus.OK);
+            User user = userService.returnUserByID(Integer.parseInt(userTargetProfileID));
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
+
+            // If the requested network belongs to the user that made the request OR
             // If the network belongs to a friend
-            if (userNetworkService.checkIfConnected(Integer.parseInt(userTargetProfileID), Integer.parseInt(userIdentifiers.id))) {
+            if (userTargetProfileID.equals(userIdentifiers.id) ||
+                    userNetworkService.checkIfConnected(Integer.parseInt(userTargetProfileID), Integer.parseInt(userIdentifiers.id))) {
                 ListUsers connectedUsers = userNetworkService.getConnectedUsers(Integer.parseInt(userTargetProfileID));
                 return new ResponseEntity<Object>(connectedUsers, HttpStatus.OK);
             }
@@ -54,7 +59,7 @@ public class GetConnectedUsersController {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

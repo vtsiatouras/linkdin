@@ -72,6 +72,7 @@ export class HomeComponent implements OnInit {
     },
       (err: HttpErrorResponse) => {
         console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
       });
   }
 

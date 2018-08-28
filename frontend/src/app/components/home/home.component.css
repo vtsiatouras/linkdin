@@ -21,8 +21,9 @@
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
+  outline: none !important;
+  box-shadow: none;
   border: none;
-  outline: none;
 }
 
 .btn.load-button:hover,
@@ -30,4 +31,5 @@
   background-color: #006394;
   outline: none !important;
   box-shadow: none;
+  border: none;
 }

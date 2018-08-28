@@ -42,22 +42,18 @@ public class PostCommentController {
             }
 
             Post post = postService.returnPostByID(Integer.parseInt(postID));
-            if (post != null) {
-                int userIDPostOwner = post.getUserId();
+            if (post == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
 
-                //TODO merge the below ifs, na to kanw kai stous allous controller
-                // Check if the post belongs to the user that posted the comment
-                if (userIDPostOwner == Integer.parseInt(userIdentifiers.id)) {
-                    postCommentService.addComment(comment, Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
-                    return new ResponseEntity<>(HttpStatus.OK);
-                }
-                // Check if post belongs to connected user
-                if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id))) {
-                    postCommentService.addComment(comment, Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
-                    return new ResponseEntity<>(HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-                }
+            int userIDPostOwner = post.getUserId();
+
+            // Check if the post belongs to the user that posted the comment OR
+            // Check if post belongs to connected user
+            if (userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
+                    userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id))) {
+                postCommentService.addComment(comment, Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
+                return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }

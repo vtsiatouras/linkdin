@@ -39,8 +39,6 @@ public class StoreUserInfoController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            //todo check if user exists
-
             User user = userService.returnUserByID(Integer.parseInt(userIdentifiers.id));
             user.setPhoneNumber(userInfo.phoneNumber);
             user.setPublicPhoneNumber((byte) userInfo.isPhonePublic);
