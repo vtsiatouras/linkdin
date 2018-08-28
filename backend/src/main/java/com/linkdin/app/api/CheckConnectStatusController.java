@@ -3,9 +3,11 @@ package com.linkdin.app.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ConnectionAttributes;
 import com.linkdin.app.dto.UserIdentifiers;
+import com.linkdin.app.model.User;
 import com.linkdin.app.model.UserNetwork;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.UserNetworkService;
+import com.linkdin.app.services.UserService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,8 @@ public class CheckConnectStatusController {
 
     @Autowired
     UserNetworkService userNetworkService;
-
+    @Autowired
+    UserService userService;
     @Autowired
     AuthRequestService authRequestService;
 
@@ -37,6 +40,11 @@ public class CheckConnectStatusController {
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            User user = userService.returnUserByID(Integer.parseInt(userTargetProfileID));
+            if(user == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
@@ -61,7 +69,7 @@ public class CheckConnectStatusController {
             return new ResponseEntity<Object>(connectionAttributes, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

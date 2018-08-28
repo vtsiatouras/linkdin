@@ -43,15 +43,14 @@ public class GetUserInfoController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            //todo check if user exists
-
-            // If the requested network belongs to the user that made the request
-            if (userId.equals(userIdentifiers.id)) {
-                UserInfo userInfo = userService.getUserInfo(userId);
-                return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
+            User user = userService.returnUserByID(Integer.parseInt(userId));
+            if(user == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
+            // If the requested network belongs to the user that made the request OR
             // If the requested info belongs to a friend
-            if (userNetworkService.checkIfConnected(Integer.parseInt(userId), Integer.parseInt(userIdentifiers.id))) {
+            if (userId.equals(userIdentifiers.id) ||
+                    userNetworkService.checkIfConnected(Integer.parseInt(userId), Integer.parseInt(userIdentifiers.id))) {
                 UserInfo userInfo = userService.getUserInfo(userId);
                 return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
             }
@@ -62,7 +61,7 @@ public class GetUserInfoController {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

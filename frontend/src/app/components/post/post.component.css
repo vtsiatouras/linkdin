@@ -2,10 +2,8 @@
   margin: 15px auto;
   padding: 10px;
   background-color: rgb(248, 247, 247);
-  border-style: solid;
-  border-width: 1px;
   border-radius: 5px;
-  border-color: #949393;
+  border: 1px solid #949393;
 }
 
 .post-details {
@@ -96,7 +94,7 @@
   border-color: inherit;
   outline: none !important;
   box-shadow: none;
-  border: solid 1px #949393;
+  border: 2px solid #ccc;
   height: 45px;
 }
 
@@ -106,6 +104,7 @@
   outline: none !important;
   box-shadow: none;
   border: none;
+  font-size: 13pt;
   height: 45px;
 }
 

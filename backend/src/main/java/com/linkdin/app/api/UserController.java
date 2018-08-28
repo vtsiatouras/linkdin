@@ -43,6 +43,9 @@ public class UserController {
 
             // Send requested user's profile info
             User user = userService.returnUserByID(profileUserID);
+            if(user == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
             String jsonUser = new JSONObject()
                     .put("firstName", user.getName())
                     .put("lastName", user.getSurname())

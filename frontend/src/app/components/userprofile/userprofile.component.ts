@@ -88,6 +88,7 @@ export class UserprofileComponent implements OnInit {
     },
       (err: HttpErrorResponse) => {
         console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
       });
   }
 
@@ -101,18 +102,14 @@ export class UserprofileComponent implements OnInit {
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
       this.profilePhoneNumber = obj.phoneNumber;
-      // this.isPhonePublic = !!obj.isPhonePublic;
       this.profileCity = obj.city;
-      // this.isCityPublic = !!obj.isCityPublic;
       this.profileProfession = obj.profession;
-      // this.isProfessionPublic = !!obj.isProfessionPublic;
       this.profileCompany = obj.company;
-      // this.isCompanyPublic = !!obj.isCompanyPublic;
       this.profileEducation = obj.education;
-      // this.isEducationPublic = !!obj.isEducationPublic;
     },
       (err: HttpErrorResponse) => {
         console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
       });
   }
 
@@ -130,15 +127,12 @@ export class UserprofileComponent implements OnInit {
       this.totalPosts = obj.totalElements;
       if (this.totalPosts > 0) {
         const numberOfPosts = obj.numberOfElements;
-        this.showedPosts = this.showedPosts + numberOfPosts;
-        // console.log('total posts' + this.totalPosts);
-        // console.log('showed posts' + this.showedPosts);
+        this.showedPosts = this.showedPosts + numberOfPosts;;
         if (this.totalPosts > this.showedPosts) {
           this.loadMoreButton = true;
         } else {
           this.loadMoreButton = false;
         }
-        // console.log(this.loadMoreButton);
         for (let i = 0; i < numberOfPosts; i++) {
           this.posts.push(obj.content[i]);
         }
@@ -148,6 +142,7 @@ export class UserprofileComponent implements OnInit {
     },
       (err: HttpErrorResponse) => {
         console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
       });
   }
 
@@ -184,6 +179,7 @@ export class UserprofileComponent implements OnInit {
     },
       (err: HttpErrorResponse) => {
         console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
       });
   }
 
@@ -199,6 +195,7 @@ export class UserprofileComponent implements OnInit {
     },
       (err: HttpErrorResponse) => {
         console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
       });
   }
 

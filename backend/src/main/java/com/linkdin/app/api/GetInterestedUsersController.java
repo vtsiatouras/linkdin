@@ -46,24 +46,23 @@ public class GetInterestedUsersController {
             }
 
             Post post = postService.returnPostByID(Integer.parseInt(postID));
-            if (post != null) {
-                int userIDPostOwner = post.getUserId();
+            if (post == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            int userIDPostOwner = post.getUserId();
 
-                // Check if post belongs to connected user
-                // or if the post belongs to the user that clicked interest button
-                if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
-                        userIDPostOwner == Integer.parseInt(userIdentifiers.id)) {
-                    ListUsers users = postInterestService.getInterestedUsersInfo(Integer.parseInt(postID));
-                    return new ResponseEntity<>(users, HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-                }
+            // Check if post belongs to connected user
+            // or if the post belongs to the user that clicked interest button
+            if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
+                    userIDPostOwner == Integer.parseInt(userIdentifiers.id)) {
+                ListUsers users = postInterestService.getInterestedUsersInfo(Integer.parseInt(postID));
+                return new ResponseEntity<>(users, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -49,14 +49,10 @@ public class InterestController {
             if (post != null) {
                 int userIDPostOwner = post.getUserId();
 
-                // Check if the post belongs to the user that clicked interest button
-                // (no self likes plz...)
-                if (userIDPostOwner == Integer.parseInt(userIdentifiers.id)) {
-                    postInterestService.addInterest(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
-                    return new ResponseEntity<>(HttpStatus.OK);
-                }
+                // Check if the post belongs to the user that clicked interest button OR
                 // Check if post belongs to connected user
-                if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id))) {
+                if (userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
+                        userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id))) {
                     postInterestService.addInterest(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
                     return new ResponseEntity<>(HttpStatus.OK);
                 } else {
@@ -67,7 +63,7 @@ public class InterestController {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

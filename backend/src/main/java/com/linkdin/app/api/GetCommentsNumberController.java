@@ -45,28 +45,23 @@ public class GetCommentsNumberController {
             }
 
             Post post = postService.returnPostByID(Integer.parseInt(postID));
-            if (post != null) {
-                int userIDPostOwner = post.getUserId();
+            if (post == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+            int userIDPostOwner = post.getUserId();
 
-                //TODO merge the below ifs, na to kanw kai stous allous controller
-                // Check if the post belongs to the user that posted the comment
-                if (userIDPostOwner == Integer.parseInt(userIdentifiers.id)) {
-                    List list = postCommentService.getComments(Integer.parseInt(postID));
-                    return new ResponseEntity<>(list.size(), HttpStatus.OK);
-                }
-                // Check if post belongs to connected user
-                if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id))) {
-                    List list = postCommentService.getComments(Integer.parseInt(postID));
-                    return new ResponseEntity<>(list.size(), HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-                }
+            // Check if post belongs to connected user OR
+            // Check if the post belongs to the user that posted the comment
+            if (userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
+                    userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id))) {
+                List list = postCommentService.getComments(Integer.parseInt(postID));
+                return new ResponseEntity<>(list.size(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

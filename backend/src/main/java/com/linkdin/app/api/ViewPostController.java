@@ -43,30 +43,24 @@ public class ViewPostController {
             }
 
             Post post = postService.returnPostByID(Integer.parseInt(postID));
-            if (post != null) {
-                // If post is public just send it
-                if(post.getIsPublic() == 1) {
-                    return new ResponseEntity<Object>(post, HttpStatus.OK);
-                }
-                // If the requested profile belongs to the user that made the request
-                if ((Integer.toString(post.getUserId())).equals(userIdentifiers.id)) {
-                    return new ResponseEntity<Object>(post, HttpStatus.OK);
-                }
-                // If they are connected
-                if (userNetworkService.checkIfConnected(post.getUserId(), Integer.parseInt(userIdentifiers.id))) {
-                    return new ResponseEntity<Object>(post, HttpStatus.OK);
-                }
-                // If not return error
-                else {
-                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-                }
-            } else {
+            if (post == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
-            // TODO CHECK IN OTHER CONTROLLERS FOR NULL RETURNS!!!
+            // If post is public OR
+            // If the requested profile belongs to the user that made the request OR
+            // If they are connected
+            if (post.getIsPublic() == 1 ||
+                    (Integer.toString(post.getUserId())).equals(userIdentifiers.id) ||
+                    userNetworkService.checkIfConnected(post.getUserId(), Integer.parseInt(userIdentifiers.id))) {
+                return new ResponseEntity<Object>(post, HttpStatus.OK);
+            }
+            // If not return error
+            else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
