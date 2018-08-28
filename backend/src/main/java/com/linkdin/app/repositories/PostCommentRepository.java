@@ -10,4 +10,5 @@ import java.util.List;
 public interface PostCommentRepository extends JpaRepository<PostComment, Long> {
     //    PostComment findByPostIdAndUserId(int postID, int userID);
     List<PostComment> findAllByPostIdOrderByCommentTimestamp(int postID);
+    int countAllByPostId(int PostID);
 }

@@ -10,4 +10,5 @@ import java.util.List;
 public interface PostInterestRepository extends JpaRepository<PostInterest, Long> {
     PostInterest findByPostIdAndUserId(int postID, int userID);
     List<PostInterest> findAllByPostId(int postID);
+    int countAllByPostId(int postID);
 }

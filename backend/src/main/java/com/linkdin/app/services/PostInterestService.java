@@ -49,13 +49,8 @@ public class PostInterestService {
         }
     }
 
-    public List getInterestedUsers(int postID) {
-        ArrayList usersIDs = new ArrayList();
-        List<PostInterest> interests = postInterestRepository.findAllByPostId(postID);
-        for (PostInterest element : interests) {
-            usersIDs.add(element.getUserId());
-        }
-        return usersIDs;
+    public int getInterestsNumber(int postID) {
+        return postInterestRepository.countAllByPostId(postID);
     }
 
     public ListUsers getInterestedUsersInfo(int postID) {

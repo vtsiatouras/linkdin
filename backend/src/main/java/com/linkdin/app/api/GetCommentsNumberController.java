@@ -54,8 +54,8 @@ public class GetCommentsNumberController {
             // Check if the post belongs to the user that posted the comment
             if (userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
                     userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id))) {
-                List list = postCommentService.getComments(Integer.parseInt(postID));
-                return new ResponseEntity<>(list.size(), HttpStatus.OK);
+                int commentsNumber = postCommentService.getCommentsNumber(Integer.parseInt(postID));
+                return new ResponseEntity<>(commentsNumber, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }

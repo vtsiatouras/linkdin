@@ -35,9 +35,9 @@ public class PostCommentService {
     }
 
     public List getComments(int postID) {
-        List<PostComment> interests = postCommentRepository.findAllByPostIdOrderByCommentTimestamp(postID);
+        List<PostComment> comments = postCommentRepository.findAllByPostIdOrderByCommentTimestamp(postID);
         ArrayList<CommentData> commentList = new ArrayList<CommentData>();
-        for (PostComment element : interests) {
+        for (PostComment element : comments) {
             int targetUserID = element.getUserId();
             User targetUser = userService.returnUserByID(targetUserID);
             CommentData commentData= new CommentData();
@@ -50,5 +50,9 @@ public class PostCommentService {
             commentList.add(commentData);
         }
         return commentList;
+    }
+
+    public int getCommentsNumber(int postID) {
+        return postCommentRepository.countAllByPostId(postID);
     }
 }
