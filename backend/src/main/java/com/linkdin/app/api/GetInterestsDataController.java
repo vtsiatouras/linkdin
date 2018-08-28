@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -56,10 +57,8 @@ public class GetInterestsDataController {
             // or if the post belongs to the user that clicked interest button
             if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
                     userIDPostOwner == Integer.parseInt(userIdentifiers.id)) {
-                List users = postInterestService.getInterestedUsers(Integer.parseInt(postID));
                 InterestData interestData = new InterestData();
-                interestData.interestedUsers = users;
-                interestData.numberOfInterestedUsers = users.size();
+                interestData.numberOfInterestedUsers = postInterestService.getInterestsNumber(Integer.parseInt(postID));
                 interestData.isUserInterested = postInterestService.checkIfInterested(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
                 return new ResponseEntity<>(interestData, HttpStatus.OK);
             } else {

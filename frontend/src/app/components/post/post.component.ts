@@ -36,7 +36,6 @@ export class PostComponent implements OnInit {
   @Input() content: string;
 
   // Interests
-  interestedUsersIDs = [];
   interestedUsers = [];
   isInterested: boolean;
   numberOfInterests: any;
@@ -102,9 +101,8 @@ export class PostComponent implements OnInit {
       interestedUsers
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
-      this.numberOfInterests = obj.numberOfInterestedUsers;
       this.isInterested = obj.isUserInterested;
-      this.interestedUsersIDs = obj.interestedUsers;
+      this.numberOfInterests = obj.numberOfInterestedUsers;
       console.log(this.numberOfInterests);
     },
       (err: HttpErrorResponse) => {
