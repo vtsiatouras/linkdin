@@ -54,7 +54,8 @@ public class GetCommentsController {
             // Check if the post belongs to the user that posted the comment OR
             // Check if post belongs to connected user
             if (userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
-                    userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id))) {
+                    userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
+                    post.getIsPublic() == 1) {
                 List list = postCommentService.getComments(Integer.parseInt(postID));
                 return new ResponseEntity<>(list, HttpStatus.OK);
             } else {

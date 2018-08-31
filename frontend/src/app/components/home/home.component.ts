@@ -21,6 +21,11 @@ export class HomeComponent implements OnInit {
   page = 0;
   limitPosts = 5;
   posts = [];
+  friendsInterests = [];
+  friendsInterestsIDs = [];
+  friendsInterestsPostsIDs = [];
+  friendsCommentsIDs = [];
+  friendsCommentsPostsIDs = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +41,36 @@ export class HomeComponent implements OnInit {
     this.limitPosts = 5;
     this.posts = [];
     this.renderPosts = false;
+    this.friendsInterestsIDs = [];
+    this.friendsInterestsPostsIDs = [];
+    this.friendsCommentsIDs = [];
+    this.friendsCommentsPostsIDs = [];
+    this.getFriendsActivity();
     this.getPosts();
+  }
+
+  getFriendsActivity() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getfriendsactivity', {
+      userIdentifiers,
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      console.log(data);
+      const obj = JSON.parse(data);
+      this.friendsInterests = obj;
+      for (let i = 0; i < obj[0].length; i++) {
+        this.friendsInterestsIDs.push(obj[0][i][0]);
+        this.friendsInterestsPostsIDs.push(obj[0][i][1]);
+      }
+      for (let i = 0; i < obj[1].length; i++) {
+        this.friendsCommentsIDs.push(obj[1][i][0]);
+        this.friendsCommentsPostsIDs.push(obj[1][i][1]);
+      }
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
+      });
   }
 
   getPosts() {

@@ -127,7 +127,7 @@ export class UserprofileComponent implements OnInit {
       this.totalPosts = obj.totalElements;
       if (this.totalPosts > 0) {
         const numberOfPosts = obj.numberOfElements;
-        this.showedPosts = this.showedPosts + numberOfPosts;;
+        this.showedPosts = this.showedPosts + numberOfPosts;
         if (this.totalPosts > this.showedPosts) {
           this.loadMoreButton = true;
         } else {

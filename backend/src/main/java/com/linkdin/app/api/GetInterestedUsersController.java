@@ -54,7 +54,8 @@ public class GetInterestedUsersController {
             // Check if post belongs to connected user
             // or if the post belongs to the user that clicked interest button
             if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
-                    userIDPostOwner == Integer.parseInt(userIdentifiers.id)) {
+                    userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
+                    post.getIsPublic() == 1) {
                 ListUsers users = postInterestService.getInterestedUsersInfo(Integer.parseInt(postID));
                 return new ResponseEntity<>(users, HttpStatus.OK);
             } else {

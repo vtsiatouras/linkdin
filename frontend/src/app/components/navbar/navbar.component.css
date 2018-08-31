@@ -19,6 +19,8 @@
   border: none;
   background: none;
   margin-right: 10px;
+  max-width: 130px;
+  overflow:hidden;
 }
 
 .btn.no-background-button:hover,

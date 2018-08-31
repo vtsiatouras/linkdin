@@ -53,10 +53,12 @@ public class GetInterestsDataController {
             }
             int userIDPostOwner = post.getUserId();
 
+            // TODO MAKE THIS WORK WITH PUBLIC POSTS
             // Check if post belongs to connected user
             // or if the post belongs to the user that clicked interest button
             if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
-                    userIDPostOwner == Integer.parseInt(userIdentifiers.id)) {
+                    userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
+                    post.getIsPublic() == 1) {
                 InterestData interestData = new InterestData();
                 interestData.numberOfInterestedUsers = postInterestService.getInterestsNumber(Integer.parseInt(postID));
                 interestData.isUserInterested = postInterestService.checkIfInterested(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));

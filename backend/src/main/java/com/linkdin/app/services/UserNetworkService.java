@@ -56,7 +56,6 @@ public class UserNetworkService {
                 resultList.add(element.getUser1());
             }
         }
-        resultList.add(userID);
         return resultList;
     }
 
