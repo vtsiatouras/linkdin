@@ -7,6 +7,14 @@
   height: auto;
 }
 
+.interested-user {
+  margin: 10px 0 10px 0;
+  padding: 10px;
+  background-color: rgb(236, 232, 232);
+  border-radius: 5px;
+  border: 1px solid #949393;
+}
+
 .load-button-container {
   padding-bottom: 20px;
   text-align: center;

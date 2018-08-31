@@ -26,6 +26,7 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { UsernetworkComponent } from './components/usernetwork/usernetwork.component';
 import { UsersettingsComponent } from './components/usersettings/usersettings.component';
 import { ErrorpageComponent } from './components/errorpage/errorpage.component';
+import { UserbasicinfoComponent } from './components/userbasicinfo/userbasicinfo.component';
 
 library.add(fas, far);
 
@@ -64,6 +65,7 @@ const appRoutes: Routes = [
     UsernetworkComponent,
     UsersettingsComponent,
     ErrorpageComponent,
+    UserbasicinfoComponent,
   ],
   imports: [
     HttpClientModule,

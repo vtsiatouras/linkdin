@@ -7,7 +7,6 @@ import com.linkdin.app.services.PostService;
 import com.linkdin.app.services.UserNetworkService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-public class GetPostsFromFriendsController {
-
+public class GetFriendsActivity {
     @Autowired
     PostService postService;
     @Autowired
@@ -27,35 +25,33 @@ public class GetPostsFromFriendsController {
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/getpostsfromfriends")
+    @PostMapping(path = "/getfriendsactivity")
     public ResponseEntity<Object> postsFromFriends(@RequestBody String jsonPostsRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonPostsRequest);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject pageRequestObj = obj.getJSONObject("pageRequest");
+//            JSONObject pageRequestObj = obj.getJSONObject("pageRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            int pageNumber = pageRequestObj.getInt("pageNumber");
-            int limit = pageRequestObj.getInt("limit");
+//            int pageNumber = pageRequestObj.getInt("pageNumber");
+//            int limit = pageRequestObj.getInt("limit");
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            // Send requested user's profile info
             List friendList = userNetworkService.getConnectedUsersIDsOnly(Integer.parseInt(userIdentifiers.id));
 
-            // If user has friends send all friendly posts
+            // Return results if only the user has friends
             if (friendList.size() > 0) {
-                Page list = postService.getNetworkPostsAndFriendInterestPosts(friendList, Integer.parseInt(userIdentifiers.id), pageNumber, limit);
-                return new ResponseEntity<Object>(list, HttpStatus.OK);
+                List interestsList = postService.getInterestingPostsAndFriendsIDs(friendList, Integer.parseInt(userIdentifiers.id));
+                List commentsList = postService.getCommentedPostsAndFriendsIDs(friendList, Integer.parseInt(userIdentifiers.id));
+                List result[] = {interestsList, commentsList};
+                return new ResponseEntity<Object>(result, HttpStatus.OK);
             }
-            // Else send only his own posts
             else {
-                Page list = postService.getUserPosts(Integer.parseInt(userIdentifiers.id), pageNumber, limit);
-                return new ResponseEntity<Object>(list, HttpStatus.OK);
+                return new ResponseEntity<Object>(HttpStatus.OK);
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
