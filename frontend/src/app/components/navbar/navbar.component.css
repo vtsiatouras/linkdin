@@ -58,6 +58,10 @@
   border-right: 2px solid #ffffff;
 }
 
+.btn-group-justified.button-group {
+  display: inline-block;
+}
+
 .btn-group.user-buttons {
   margin: 0;
   float: none;

@@ -5,7 +5,7 @@
         <img id="logo-img" class="navbar-brand logo" src="../../../assets/images/linkDIn_light.png" />
       </a>
     </div>
-    <div class="spacer col-6 col-md-4 justify-content-md-center">
+    <div class="navbar-nav nav-item mr-4 ml-5">
       <app-search></app-search>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -14,40 +14,42 @@
     </button>
     <div class="navbar-collapse collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <a class="btn btn-secondary no-background-button navbar-right" role="button" [routerLink]="['/home']">
-          Home Page
-        </a>
-        <a class="btn btn-secondary no-background-button navbar-right" role="button" [routerLink]="['/users',userID,'network']">
-          Network
-        </a>
-        <a class="btn btn-secondary no-background-button navbar-right" role="button" [routerLink]="['/home']">
-          Job Adverts
-        </a>
+        <li class="nav-item text-center">
+          <a class="btn btn-secondary no-background-button navbar-btn" role="button" [routerLink]="['/home']">
+            Home Page
+          </a>
+        </li>
+        <li class="nav-item text-center">
+          <a class="btn btn-secondary no-background-button navbar-btn" role="button" [routerLink]="['/users',userID,'network']">
+            Network
+          </a>
+        </li>
+        <li class="nav-item text-center">
+          <a class="btn btn-secondary no-background-button navbar-btn" role="button" [routerLink]="['/home']">
+            Job Adverts
+          </a>
+        </li>
         <li class="divider"></li>
-        <ul class="navbar-nav text-center">
-          <div class="btn-group-justified" role="group" aria-label="First group">
-            <app-notifications></app-notifications>
-            <button type="button" class="btn btn-secondary icon-button">
-              <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+        <li class="nav-item text-center">
+          <app-notifications></app-notifications>
+          <button type="button" class="btn btn-secondary icon-button navbar-btn">
+            <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
+          </button>
+        </li>
+        <li class="nav-item text-center">
+          <a class="btn btn-secondary navbar-btn no-background-button" role="button" [routerLink]="['/users', userID]">
+            {{ firstName }} {{ lastName }}
+          </a>
+          <div class="nav-item dropdown">
+            <button type="button" class="btn btn-secondary icon-button navbar-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
             </button>
-          </div>
-        </ul>
-        <ul class="navbar-nav text-center">
-          <div class="btn-group-justified" role="group" aria-label="Second group">
-            <a class="btn btn-secondary no-background-button" role="button" [routerLink]="['/users', userID]">
-              {{ firstName }} {{ lastName }}
-            </a>
-            <div class="nav-item dropdown">
-              <button type="button" class="btn btn-secondary icon-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
-              </button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a role="button" class="dropdown-item btn" [routerLink]="['/settings']">Settings</a>
-                <a role="button" class="dropdown-item btn" (click)="logoutUser()">Logout</a>
-              </div>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a role="button" class="dropdown-item btn" [routerLink]="['/settings']">Settings</a>
+              <a role="button" class="dropdown-item btn" (click)="logoutUser()">Logout</a>
             </div>
           </div>
-        </ul>
+        </li>
       </ul>
     </div>
   </div>
