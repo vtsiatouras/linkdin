@@ -4,11 +4,12 @@
   padding-bottom: 50px;
   max-width: 1200px;
   margin: auto;
+  overflow: hidden;
 }
 
 .user-element {
   display: inline-block;
-  padding: 20px 0 10px 0;
+  margin: 20px 0 10px 10px;
   font-size: 0;
 }
 
