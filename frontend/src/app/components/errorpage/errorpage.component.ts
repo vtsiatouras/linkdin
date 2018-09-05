@@ -15,6 +15,7 @@ export class ErrorpageComponent implements OnInit {
     private router: Router,
   ) { }
 
+  // TODO na stelnw subscribe server gia logout
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.logoutUser = params['logout'];

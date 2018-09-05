@@ -27,6 +27,7 @@ import { UsernetworkComponent } from './components/usernetwork/usernetwork.compo
 import { UsersettingsComponent } from './components/usersettings/usersettings.component';
 import { ErrorpageComponent } from './components/errorpage/errorpage.component';
 import { UserbasicinfoComponent } from './components/userbasicinfo/userbasicinfo.component';
+import { AdminpageComponent } from './components/adminpage/adminpage.component';
 
 library.add(fas, far);
 
@@ -66,6 +67,7 @@ const appRoutes: Routes = [
     UsersettingsComponent,
     ErrorpageComponent,
     UserbasicinfoComponent,
+    AdminpageComponent,
   ],
   imports: [
     HttpClientModule,
