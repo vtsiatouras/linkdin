@@ -38,7 +38,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT i.userId, p.id FROM Post p, PostInterest i WHERE i.userId IN :friendsID " +
             "AND p.id = i.postId " +
             "AND p.userId NOT IN :userID " +
-            "AND p.userId <> i.userId " +
+            "AND p.userId NOT IN :friendsID " +
             "AND p.isPublic = 1 " +
             "ORDER BY p.timestamp DESC ")
     List<Object[]> friendsIDsAndInterestingPostsIDS(@Param("friendsID") List friendsID, @Param("userID") int userID);
@@ -46,7 +46,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "SELECT c.userId, p.id FROM Post p, PostComment c WHERE c.userId IN :friendsID " +
             "AND p.id = c.postId " +
             "AND p.userId NOT IN :userID " +
-            "AND p.userId <> c.userId " +
+            "AND p.userId NOT IN :friendsID " +
             "AND p.isPublic = 1 " +
             "ORDER BY p.timestamp DESC ")
     List<Object[]> friendsIDsAndCommentedPostsIDS(@Param("friendsID") List friendsID, @Param("userID") int userID);
