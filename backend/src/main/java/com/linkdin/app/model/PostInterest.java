@@ -53,7 +53,6 @@ public class PostInterest {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, postId, userId);
     }
 }

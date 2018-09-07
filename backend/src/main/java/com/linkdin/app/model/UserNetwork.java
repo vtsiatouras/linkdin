@@ -65,7 +65,6 @@ public class UserNetwork {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, user1, user2, isAccepted);
     }
 }

@@ -1,17 +1,20 @@
 package com.linkdin.app.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.IdClass;
 import java.util.Objects;
 
-public class UserNetworkPK implements Serializable {
+@Entity
+@IdClass(ChatPK.class)
+public class Chat {
     private int id;
     private int user1;
     private int user2;
 
-    @Column(name = "id")
     @Id
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -20,8 +23,8 @@ public class UserNetworkPK implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "user_1")
     @Id
+    @Column(name = "user_1")
     public int getUser1() {
         return user1;
     }
@@ -30,8 +33,8 @@ public class UserNetworkPK implements Serializable {
         this.user1 = user1;
     }
 
-    @Column(name = "user_2")
     @Id
+    @Column(name = "user_2")
     public int getUser2() {
         return user2;
     }
@@ -44,10 +47,10 @@ public class UserNetworkPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserNetworkPK that = (UserNetworkPK) o;
-        return id == that.id &&
-                user1 == that.user1 &&
-                user2 == that.user2;
+        Chat chat = (Chat) o;
+        return id == chat.id &&
+                user1 == chat.user1 &&
+                user2 == chat.user2;
     }
 
     @Override
