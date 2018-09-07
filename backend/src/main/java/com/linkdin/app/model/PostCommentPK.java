@@ -52,7 +52,6 @@ public class PostCommentPK implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, postId, userId);
     }
 }

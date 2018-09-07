@@ -78,7 +78,6 @@ public class PostComment {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, content, commentTimestamp, postId, userId);
     }
 }

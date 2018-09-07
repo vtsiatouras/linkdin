@@ -89,7 +89,6 @@ public class Post {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, content, timestamp, isAdvertisment, isPublic, userId);
     }
 }
