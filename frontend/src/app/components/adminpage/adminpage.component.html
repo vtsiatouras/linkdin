@@ -2,7 +2,7 @@
 <div class="admin-container">
   <div *ngFor="let x of users">
     <div class="user-info">
-      <input type="checkbox" id="scales" name="feature" value="scales" checked/>
+      <input class="checkbox" type="checkbox" id="{{x.id}}" name="feature" value="scales" />
       <a class="btn user-identifiers" [routerLink]="['/users', x.id]">
         <img class="rounded-circle profile-image" src="{{x.image}}">
         <span class="user-name"> {{ x.name }} {{ x.surname }} </span>

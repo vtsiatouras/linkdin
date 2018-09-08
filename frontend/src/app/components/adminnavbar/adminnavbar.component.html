@@ -14,12 +14,12 @@
       <ul class="navbar-nav ml-auto">
         <ul class="navbar-nav text-center">
           <li class="nav-item">
-            <button class="btn no-background-button" type="button">
+            <button class="btn no-background-button" (click)="checkAll()"  type="button">
               Select All Users
             </button>
           </li>
           <li class="nav-item">
-            <button class="btn no-background-button" type="button">
+            <button class="btn no-background-button" (click)="exportSelected()" type="button">
               Export Selected Users
             </button>
           </li>

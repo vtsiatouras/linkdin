@@ -2,6 +2,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+// import { sendArray } from '../adminpage/adminpage.component';
 
 @Component({
   selector: 'app-adminnavbar',
@@ -15,6 +16,7 @@ export class AdminnavbarComponent implements OnInit {
   firstName = localStorage.getItem('firstName');
   lastName = localStorage.getItem('lastName');
   userID = localStorage.getItem('userID');
+  userToken = localStorage.getItem('userToken');
 
   constructor(
     private route: ActivatedRoute,
@@ -45,6 +47,40 @@ export class AdminnavbarComponent implements OnInit {
     const req = this.http.post(API_URL + '/api/logout', {},
       { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
         this.router.navigate(['/login']);
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  checkAll() {
+    const checkboxes = <HTMLInputElement[]><any>document.getElementsByClassName('checkbox');
+
+    for (let i=0; i<checkboxes.length; i++)  {
+      checkboxes[i].checked = true;
+    }
+  }
+
+  exportSelected() {
+    const checkboxes = <HTMLInputElement[]><any>document.getElementsByClassName('checkbox');
+
+    const userList = [];
+    for (let i=0; i<checkboxes.length; i++)  {
+      let id = checkboxes[i].id;
+
+      if (checkboxes[i].checked === true) {
+        userList.push(id);
+      }
+    }
+    console.log(userList);
+
+    const userIdentifiers = { userToken: this.userToken, id: this.userID };
+    const userListRequest = { usersToExport: userList };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/exportusers', {
+      userIdentifiers,
+      userListRequest
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       },
       (err: HttpErrorResponse) => {
         console.log(err);
