@@ -16,6 +16,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './guard/auth.guard';
+import { AdminGuard } from './guard/admin.guard';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
 import { PostComponent } from './components/post/post.component';
@@ -28,6 +29,7 @@ import { UsersettingsComponent } from './components/usersettings/usersettings.co
 import { ErrorpageComponent } from './components/errorpage/errorpage.component';
 import { UserbasicinfoComponent } from './components/userbasicinfo/userbasicinfo.component';
 import { AdminpageComponent } from './components/adminpage/adminpage.component';
+import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
 
 library.add(fas, far);
 
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
     ]
   },
   { path: 'posts/:post_id', component: ShowpostComponent, canActivate: [AuthGuard] },
-  { path: 'settings', component: UsersettingsComponent, canActivate: [AuthGuard] }
+  { path: 'settings', component: UsersettingsComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminpageComponent, canActivate: [AdminGuard] },
 ];
 
 @NgModule({
@@ -68,6 +71,7 @@ const appRoutes: Routes = [
     ErrorpageComponent,
     UserbasicinfoComponent,
     AdminpageComponent,
+    AdminnavbarComponent,
   ],
   imports: [
     HttpClientModule,
@@ -77,7 +81,7 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     RouterModule.forRoot(appRoutes, { useHash: true })
   ],
-  providers: [AuthGuard, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [AuthGuard, AdminGuard, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 

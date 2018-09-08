@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
       // Make a post request with users credentials
       // The server will respond with a user token on success
       // and the client will redirect to user's home page
-      // If the credentials have errors then the server will send UNAUTHORIZED //TODO HANDLE THIS
+      // If the credentials have errors then the server will send UNAUTHORIZED
       const API_URL = environment.API_URL;
       const req = this.http.post(API_URL + '/api/login', {
         email: this.email,
@@ -59,7 +59,12 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('firstName', obj.firstName);
         localStorage.setItem('lastName', obj.lastName);
         localStorage.setItem('email', obj.email);
-        this.router.navigate(['/home']);
+        console.log(obj.isAdmin);
+        if(obj.isAdmin === '1') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/home']);
+        }
       },
         (err: HttpErrorResponse) => {
           this.showAlert(err.error);

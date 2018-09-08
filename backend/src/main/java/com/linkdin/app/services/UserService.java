@@ -4,6 +4,7 @@ import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserBasicInfo;
 import com.linkdin.app.dto.UserInfo;
 import com.linkdin.app.model.User;
+import com.linkdin.app.model.UserNetwork;
 import com.linkdin.app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -127,4 +128,19 @@ public class UserService {
         }
         return userInfo;
     }
+
+    public List listAllUsers(){
+        List<User> allUsers = userRepository.findAllByIsAdmin((byte)0);
+        ArrayList<UserBasicInfo> tempList = new ArrayList<UserBasicInfo>();
+        for (User element : allUsers) {
+            UserBasicInfo targetUserInfo = new UserBasicInfo();
+            targetUserInfo.id = Integer.toString(element.getId());
+            targetUserInfo.name = element.getName();
+            targetUserInfo.surname = element.getSurname();
+            targetUserInfo.image = imageStorageService.getImage(element.getProfilePicture());
+            tempList.add(targetUserInfo);
+        }
+        return tempList;
+    }
+
 }

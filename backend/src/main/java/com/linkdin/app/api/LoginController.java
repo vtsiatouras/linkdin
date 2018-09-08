@@ -38,6 +38,7 @@ public class LoginController {
             String email = user.getEmail();
             String firstName = user.getName();
             String lastName = user.getSurname();
+            String isAdmin = Integer.toString(user.getIsAdmin());
              // Random User token
             Random rand = new Random();
             int userTokenInt = rand.nextInt(9000000) + 1000000;
@@ -49,6 +50,7 @@ public class LoginController {
                     .put("firstName", firstName)
                     .put("lastName", lastName)
                     .put("email", email)
+                    .put("isAdmin",isAdmin)
                     .toString();
 
             // Create a new session and add the security context.

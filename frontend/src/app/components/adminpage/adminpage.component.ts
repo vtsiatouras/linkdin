@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {environment} from "../../../environments/environment";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-adminpage',
@@ -7,9 +10,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminpageComponent implements OnInit {
 
-  constructor() { }
+  userId = localStorage.getItem('userID');
+  userToken = localStorage.getItem('userToken');
+
+  users = [];
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient) { }
 
   ngOnInit() {
+    this.listAllUsers();
+  }
+
+  listAllUsers() {
+    const adminIdentifiers = { userToken: this.userToken, id: this.userId };
+    // const profileNetwork = { profileUserID: this.profileUserID.toString() };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/adminlistusers', {
+      adminIdentifiers,
+      // profileNetwork
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.users = obj;
+        for (let i = 0; i < this.users.length; i++) {
+          this.users[i].image = 'data:image/jpeg;base64,' + this.users[i].image;
+        }
+
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
+      });
   }
 
 }
