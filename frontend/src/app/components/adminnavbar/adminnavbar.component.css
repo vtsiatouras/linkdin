@@ -20,7 +20,9 @@
   background: none;
   margin-right: 10px;
   max-width: 130px;
-  overflow:hidden;
+  overflow: hidden;
+  color: #ffffff;
+  cursor: default;
 }
 
 .btn.no-background-button:hover,
@@ -29,6 +31,19 @@
   border-color: inherit;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+.disabled-button {
+  display: inline-block;
+  outline: none !important;
+  box-shadow: none;
+  border: none;
+  background: none;
+  margin-right: 10px;
+  max-width: 130px;
+  overflow: hidden;
+  color: #ffffff;
+  cursor: default;
 }
 
 .logo {
@@ -48,23 +63,8 @@
   text-align: center;
 }
 
-.spacer {
-  margin-left: 90px;
-}
-
-.divider {
-  margin-right: 10px;
-  border-right: 2px solid #ffffff;
-}
-
 .btn-group-justified.button-group {
   display: inline-block;
-}
-
-.btn-group.user-buttons {
-  margin: 0;
-  float: none;
-  text-align: center;
 }
 
 .dropdown-toggle:after {
@@ -87,6 +87,11 @@
   border-color: inherit;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+.divider {
+  margin-right: 10px;
+  border-right: 2px solid #ffffff;
 }
 
 .dropdown {
@@ -152,9 +157,6 @@
 }
 
 @media screen and (max-width: 1000px) {
-  .spacer {
-    margin-left: -90px;
-  }
   .dropdown-menu:after {
     content: '';
     display: inline-block;

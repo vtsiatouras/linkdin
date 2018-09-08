@@ -46,6 +46,12 @@ public class UserController {
             if(user == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
+            // If the user profile that requested belongs to admin
+            // Return Unauthorized
+            if(user.getIsAdmin() == 1) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
             String jsonUser = new JSONObject()
                     .put("firstName", user.getName())
                     .put("lastName", user.getSurname())

@@ -15,12 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class AuthCheckController {
+public class AdminCheckController {
     @Autowired
     UserService userService;
 
-    @PostMapping(path = "/authcheck")
-    public ResponseEntity<Object> authCheck(@RequestBody UserIdentifiers userIdentifiers, HttpServletRequest request) {
+    @PostMapping(path = "/admincheck")
+    public ResponseEntity<String> adminCheck(@RequestBody UserIdentifiers userIdentifiers, HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
         if (session == null) {
@@ -35,16 +35,16 @@ public class AuthCheckController {
         }
         if (session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME).equals(userIdentifiers.id) &&
                 session.getAttribute("userToken").equals(userIdentifiers.userToken)) {
+            System.err.println("user is authenticated!");
             User user = userService.returnUserByID(Integer.parseInt(userIdentifiers.id));
-            if(user.getIsAdmin() == 0) {
+            if(user.getIsAdmin() == 1) {
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("1",HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
         } else {
             System.err.println("user is NOT authenticated!");
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
-
 }

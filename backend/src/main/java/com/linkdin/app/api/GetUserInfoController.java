@@ -47,7 +47,8 @@ public class GetUserInfoController {
             if(user == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
-            // If the requested network belongs to the user that made the request OR
+
+            // If the requested profile belongs to the user that made the request OR
             // If the requested info belongs to a friend
             if (userId.equals(userIdentifiers.id) ||
                     userNetworkService.checkIfConnected(Integer.parseInt(userId), Integer.parseInt(userIdentifiers.id))) {
