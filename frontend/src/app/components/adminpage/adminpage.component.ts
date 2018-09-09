@@ -45,4 +45,24 @@ export class AdminpageComponent implements OnInit {
       });
   }
 
+  exportUser(id) {
+    const checkboxes = <HTMLInputElement[]><any>document.getElementsByClassName('checkbox');
+
+    const userList = [];
+    userList.push(id);
+    console.log(userList);
+
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const userListRequest = { usersToExport: userList };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/exportusers', {
+      userIdentifiers,
+      userListRequest
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
 }
