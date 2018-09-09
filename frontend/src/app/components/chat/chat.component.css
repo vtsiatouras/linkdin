@@ -1,7 +1,13 @@
-.post {
+.chat-content {
     position: relative;
     padding-top: 70px;
     padding-bottom: 50px;
     max-width: 1200px;
     margin: auto;
+    height: auto;
+}
+
+.recent-chats {
+    background-color: rgb(185, 185, 185);
+    height: 86.5vh;
 }
