@@ -30,6 +30,8 @@ import { ErrorpageComponent } from './components/errorpage/errorpage.component';
 import { UserbasicinfoComponent } from './components/userbasicinfo/userbasicinfo.component';
 import { AdminpageComponent } from './components/adminpage/adminpage.component';
 import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { ChatroomComponent } from './components/chatroom/chatroom.component';
 
 library.add(fas, far);
 
@@ -49,6 +51,15 @@ const appRoutes: Routes = [
   },
   { path: 'posts/:post_id', component: ShowpostComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: UsersettingsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'chat',
+    children: [
+      { path: '', component: ChatComponent, canActivate: [AuthGuard] },
+      { path: ':chat_id', component: ChatComponent, canActivate: [AuthGuard] }
+    ]
+  },
+
+  // Administrator pages
   { path: 'admin', component: AdminpageComponent, canActivate: [AdminGuard] },
 ];
 
@@ -72,6 +83,8 @@ const appRoutes: Routes = [
     UserbasicinfoComponent,
     AdminpageComponent,
     AdminnavbarComponent,
+    ChatComponent,
+    ChatroomComponent,
   ],
   imports: [
     HttpClientModule,
