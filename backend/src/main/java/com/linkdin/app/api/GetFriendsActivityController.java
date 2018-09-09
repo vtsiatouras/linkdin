@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-public class GetFriendsActivity {
+public class GetFriendsActivityController {
     @Autowired
     PostService postService;
     @Autowired
@@ -31,10 +31,7 @@ public class GetFriendsActivity {
         JSONObject obj = new JSONObject(jsonPostsRequest);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-//            JSONObject pageRequestObj = obj.getJSONObject("pageRequest");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-//            int pageNumber = pageRequestObj.getInt("pageNumber");
-//            int limit = pageRequestObj.getInt("limit");
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
