@@ -1,51 +1,51 @@
 .network-content {
-  position: relative;
-  padding-top: 70px;
-  padding-bottom: 50px;
-  max-width: 1200px;
-  margin: auto;
-  overflow: hidden;
+    position: relative;
+    padding-top: 70px;
+    padding-bottom: 50px;
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
 }
 
 .user-element {
-  display: inline-block;
-  margin: 20px 0 10px 10px;
-  font-size: 0;
+    display: inline-block;
+    margin: 20px 0 10px 10px;
+    font-size: 0;
 }
 
 .btn.user-name {
-  position: relative;
-  font-size: 14pt;
-  margin-bottom: 50px;
-  right: 50px;
-  border: none;
-  outline: none !important;
-  box-shadow: none;
+    position: relative;
+    font-size: 14pt;
+    margin-bottom: 50px;
+    right: 50px;
+    border: none;
+    outline: none !important;
+    box-shadow: none;
 }
 
 .btn.message {
-  position:relative;
-  top: 20px;
-  left: 0px;
-  font-size: 16pt;
-  background-color: transparent;
-  color: #006394;
-  border: none;
-  outline: none !important;
-  box-shadow: none;
+    position: relative;
+    top: 20px;
+    left: 0px;
+    font-size: 16pt;
+    background-color: transparent;
+    color: #006394;
+    border: none;
+    outline: none !important;
+    box-shadow: none;
 }
 
 .btn.message:hover,
 .btn.message:focus,
 .btn.message:active {
-  background-color: transparent;
-  color: #00334d;
-  border: none;
-  outline: none !important;
-  box-shadow: none;
+    background-color: transparent;
+    color: #00334d;
+    border: none;
+    outline: none !important;
+    box-shadow: none;
 }
 
 .profile-image {
-  height: 90px;
-  width: 90px;
+    height: 90px;
+    width: 90px;
 }
