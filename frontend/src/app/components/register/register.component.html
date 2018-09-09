@@ -8,22 +8,22 @@
       <p id="profile-name" class="profile-name-card"></p>
       <form class="form-signup" #regForm="ngForm" (ngSubmit)="regForm.valid && registerUser()" novalidate>
         <input class="form-control" id="inputEmail" name="email" type="email" #email_form="ngModel" placeholder="Email address" ngModel
-          email required autofocus [(ngModel)]="email">
+          email required autofocus [(ngModel)]="email" maxlength="45">
         <div *ngIf="email_form.errors && (email_form.dirty || email_form.touched)" class="alert-error"></div>
         <input class="form-control" id="password_1" name="password_1" type="password" #pass_1_form="ngModel" placeholder="Password"
-          required [(ngModel)]="password_1">
+          required [(ngModel)]="password_1" maxlength="45">
         <div *ngIf="pass_1_form.errors && (pass_1_form.dirty || pass_1_form.touched)" class="alert-error"></div>
         <input class="form-control" id="password_2" name="password_2" type="password" #pass_2_form="ngModel" placeholder="Confirm Password"
-          pattern={{password_1}} required [(ngModel)]="password_2">
+          pattern={{password_1}} required [(ngModel)]="password_2" maxlength="45">
         <div *ngIf="pass_2_form.errors && (pass_2_form.dirty || pass_2_form.touched)" class="alert-error"></div>
         <input class="form-control" id="firstName" name="firstName" type="text" #firstname_form="ngModel" placeholder="First Name"
-          required [(ngModel)]="firstName">
+          required [(ngModel)]="firstName" maxlength="45">
         <div *ngIf="firstname_form.errors && (firstname_form.dirty || firstname_form.touched)" class="alert-error"></div>
         <input class="form-control" id="lastName" name="lastName" type="text" #lastname_form="ngModel" placeholder="Last Name" required
-          [(ngModel)]="lastName">
+          [(ngModel)]="lastName" maxlength="45">
         <div *ngIf="lastname_form.errors && (lastname_form.dirty || lastname_form.touched)" class="alert-error"></div>
         <input class="form-control" id="phoneNumber" name="phoneNumber" type="tel" #phone_form="ngModel" placeholder="Phone Number"
-          required [(ngModel)]="phoneNumber">
+          required [(ngModel)]="phoneNumber" maxlength="45">
         <div *ngIf="phone_form.errors && (phone_form.dirty || phone_form.touched)" class="alert-error"></div>
         <div class="input-group upload-image">
           <label class="input-group-btn">

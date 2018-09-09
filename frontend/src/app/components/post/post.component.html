@@ -53,10 +53,12 @@
     </div>
   </div>
   <div class="d-flex justify-content-center">
-    <button class="btn btn-primary interested-people-button" role="button" type="button" *ngIf="numberOfComments == 1" (click)="viewComments()">
+    <button class="btn btn-primary interested-people-button" role="button" type="button" *ngIf="numberOfComments == 1"
+      (click)="viewComments()">
       {{ numberOfComments }} comment
     </button>
-    <button class="btn btn-primary interested-people-button" role="button" type="button" *ngIf="numberOfComments > 1" (click)="viewComments()">
+    <button class="btn btn-primary interested-people-button" role="button" type="button" *ngIf="numberOfComments > 1"
+      (click)="viewComments()">
       {{ numberOfComments }} comments
     </button>
   </div>
@@ -77,8 +79,9 @@
   </div>
   <div class="d-flex justify-content-center">
     <div class="input-group post-comment">
-      <input class="form-control comment-box" id="comment-box" type="text" placeholder="Comment" aria-label="post-comment" [(ngModel)]="comment">
-      <span class="input-group-btn">
+      <input class="form-control comment-box" id="comment-box" type="text" placeholder="Comment" aria-label="post-comment"
+        [(ngModel)]="comment" maxlength="280">
+      <span class=" input-group-btn">
         <button *ngIf="comment" [@fadeInOut] class="btn btn-info btn-lg post-comment-button" type="button" (click)="postComment()">
           Post
         </button>
