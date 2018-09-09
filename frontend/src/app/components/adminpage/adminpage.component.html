@@ -7,7 +7,7 @@
         <img class="rounded-circle profile-image" src="{{x.image}}">
         <span class="user-name"> {{ x.name }} {{ x.surname }} </span>
       </a>
-      <button class="btn export" type="button" onclick="alert('Hello world!')">Export this user to xml</button>
+      <button class="btn export" type="button" name="{{x.id}}" (click)="exportUser(x.id)">Export this user to xml</button>
     </div>
   </div>
 </div>
