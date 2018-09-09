@@ -55,4 +55,8 @@ public class PostCommentService {
     public int getCommentsNumber(int postID) {
         return postCommentRepository.countAllByPostId(postID);
     }
+
+    public List<PostComment> getAllUserComments(int userID) {
+        return postCommentRepository.findByUserId(userID);
+    }
 }

@@ -13,12 +13,20 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
+
+    // Returns all user's posts
+    List<Post> findByUserIdOrderByTimestampAsc(Integer userID);
+
+    // Returns all user's posts with pagination
     Page<Post> findByUserIdOrderByTimestampDesc(Pageable pageable, Integer userID);
 
+    // Returns all user's public posts with pagination
     Page<Post> findByUserIdAndIsPublicOrderByTimestampDesc(Pageable pageable, Integer userID, byte isPublic);
 
+    // Returns all posts that belongs to multiple users with pagination
     Page<Post> findByUserIdInOrderByTimestampDesc(Pageable pageable, List userIDs);
 
+    // Returns a post by its own id
     Post findById(Integer postID);
 
     // Select users posts &
