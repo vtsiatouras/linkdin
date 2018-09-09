@@ -72,4 +72,8 @@ public class PostInterestService {
         results.numberOfResults = totalResults;
         return results;
     }
+
+    public List<PostInterest> getAllUserInterests(int userID) {
+        return postInterestRepository.findAllByUserId(userID);
+    }
 }

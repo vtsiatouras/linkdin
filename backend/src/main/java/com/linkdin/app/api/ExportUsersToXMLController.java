@@ -3,7 +3,12 @@ package com.linkdin.app.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.dto.UserInfo;
+import com.linkdin.app.model.Post;
+import com.linkdin.app.model.PostComment;
+import com.linkdin.app.model.PostInterest;
 import com.linkdin.app.model.User;
+import com.linkdin.app.repositories.PostCommentRepository;
+import com.linkdin.app.repositories.PostInterestRepository;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
 import com.linkdin.app.services.UserNetworkService;
@@ -13,6 +18,7 @@ import jdk.nashorn.internal.ir.ObjectNode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +49,10 @@ public class ExportUsersToXMLController {
     UserService userService;
     @Autowired
     PostService postService;
+    @Autowired
+    PostCommentRepository postCommentRepository;
+    @Autowired
+    PostInterestRepository postInterestRepository;
     @Autowired
     UserNetworkService userNetworkService;
     @Autowired
@@ -124,6 +134,66 @@ public class ExportUsersToXMLController {
                 Element professionElement = doc.createElement("profession");
                 userElement.appendChild(professionElement);
                 professionElement.appendChild(doc.createTextNode(user.getProfession()));
+
+                // Posts
+                List<Post> posts = postService.getAllUserPosts(user.getId());
+                Element postsElement = doc.createElement("posts");
+                userElement.appendChild(postsElement);
+                for (Post post: posts) {
+                    // Post
+                    Element postElement = doc.createElement("post");
+                    postsElement.appendChild(postElement);
+                    // Post attributes
+                    postElement.setAttribute("id", Integer.toString(post.getId()));
+                    postElement.setAttribute("isAd", Integer.toString(post.getIsAdvertisment()));
+                    postElement.setAttribute("isPublic", Integer.toString(post.getIsPublic()));
+                    // Post Content
+                    Element postContentElement = doc.createElement("content");
+                    postElement.appendChild(postContentElement);
+                    postContentElement.appendChild(doc.createTextNode(post.getContent()));
+                    // Post Timestamp
+                    Element postTimestampElement = doc.createElement("timestamp");
+                    postElement.appendChild(postTimestampElement);
+                    postTimestampElement.appendChild(doc.createTextNode(post.getTimestamp().toString()));
+                }
+
+                // Comments
+                List<PostComment> comments = postCommentRepository.findByUserId(user.getId());
+
+                Element commentsElement = doc.createElement("comments");
+                userElement.appendChild(commentsElement);
+
+                for (PostComment comment: comments) {
+                    // Comment
+                    Element commentElement = doc.createElement("comment");
+                    commentsElement.appendChild(commentElement);
+                    // Comment attributes
+                    commentElement.setAttribute("id", Integer.toString(comment.getId()));
+                    commentElement.setAttribute("postId", Integer.toString(comment.getPostId()));
+                    // Comment Content
+                    Element commentContentElement = doc.createElement("content");
+                    commentElement.appendChild(commentContentElement);
+                    commentContentElement.appendChild(doc.createTextNode(comment.getContent()));
+                    // Post Timestamp
+                    Element commentTimestampElement = doc.createElement("timestamp");
+                    commentElement.appendChild(commentTimestampElement);
+                    commentTimestampElement.appendChild(doc.createTextNode(comment.getCommentTimestamp().toString()));
+                }
+
+                // Interests
+                List<PostInterest> interests = postInterestRepository.findAllByUserId(user.getId());
+
+                Element interestsElement = doc.createElement("interests");
+                userElement.appendChild(interestsElement);
+
+                for (PostInterest interest: interests) {
+                    // Interest
+                    Element interestElement = doc.createElement("interest");
+                    interestsElement.appendChild(interestElement);
+                    // Interest attributes
+                    interestElement.setAttribute("id", Integer.toString(interest.getId()));
+                    interestElement.setAttribute("postId", Integer.toString(interest.getPostId()));
+                }
 
                 mainRootElement.appendChild(userElement);
             }

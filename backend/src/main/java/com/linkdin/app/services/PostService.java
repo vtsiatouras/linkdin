@@ -53,6 +53,10 @@ public class PostService {
         return null;
     }
 
+    public List<Post> getAllUserPosts(int userID) {
+        return postRepository.findByUserIdOrderByTimestampAsc(userID);
+    }
+
     public Page<Post> getUserPosts(int userID, int pageNumber, int limit) {
         return postRepository.findByUserIdOrderByTimestampDesc(new PageRequest(pageNumber, limit), userID);
     }
