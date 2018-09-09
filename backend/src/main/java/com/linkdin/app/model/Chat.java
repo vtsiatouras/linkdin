@@ -1,9 +1,6 @@
 package com.linkdin.app.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +9,7 @@ public class Chat {
     private int id;
     private int user1;
     private int user2;
+    private Byte isActive;
 
     @Id
     @Column(name = "id")
@@ -43,6 +41,16 @@ public class Chat {
         this.user2 = user2;
     }
 
+    @Basic
+    @Column(name = "isActive")
+    public Byte getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Byte isActive) {
+        this.isActive = isActive;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,11 +58,12 @@ public class Chat {
         Chat chat = (Chat) o;
         return id == chat.id &&
                 user1 == chat.user1 &&
-                user2 == chat.user2;
+                user2 == chat.user2 &&
+                Objects.equals(isActive, chat.isActive);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user1, user2);
+        return Objects.hash(id, user1, user2, isActive);
     }
 }

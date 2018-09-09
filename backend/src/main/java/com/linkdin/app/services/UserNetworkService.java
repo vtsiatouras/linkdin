@@ -20,6 +20,8 @@ public class UserNetworkService {
     UserService userService;
     @Autowired
     ImageStorageService imageStorageService;
+    @Autowired
+    ChatService chatService;
 
     public ListUsers getConnectedUsers(int userID) {
         List<UserNetwork> allConnections = userNetworkRepository.findByUser1AndIsAcceptedOrUser2AndIsAccepted(userID, (byte) 1, userID, (byte) 1);
@@ -114,6 +116,7 @@ public class UserNetworkService {
         if (connection != null) {
             connection.setIsAccepted((byte) 1);
             userNetworkRepository.save(connection);
+            chatService.createNewChat(senderID, receiverID);
             return true;
         } else {
             return false;
