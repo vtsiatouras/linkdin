@@ -2,23 +2,17 @@ package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
-import com.linkdin.app.dto.UserInfo;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.model.PostComment;
 import com.linkdin.app.model.PostInterest;
 import com.linkdin.app.model.User;
 import com.linkdin.app.repositories.PostCommentRepository;
 import com.linkdin.app.repositories.PostInterestRepository;
-import com.linkdin.app.services.AuthRequestService;
-import com.linkdin.app.services.PostService;
-import com.linkdin.app.services.UserNetworkService;
-import com.linkdin.app.services.UserService;
+import com.linkdin.app.services.*;
 
-import jdk.nashorn.internal.ir.ObjectNode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.io.StringWriter;
 import java.util.*;
 
 import java.io.File;
@@ -57,9 +52,12 @@ public class ExportUsersToXMLController {
     UserNetworkService userNetworkService;
     @Autowired
     AuthRequestService authRequestService;
+    @Autowired
+    AdminAuthRequestService adminAuthRequestService;
 
     @PostMapping(path = "/exportusers")
     public ResponseEntity<Object> exportUsers(@RequestBody String jsonUsers, HttpSession session) {
+
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonUsers);
         try {
@@ -67,6 +65,11 @@ public class ExportUsersToXMLController {
             JSONObject listObj = obj.getJSONObject("userListRequest");
 
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
+
+            //Authenticate request
+            if (!adminAuthRequestService.authenticateRequest(userIdentifiers, session)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
 
             JSONArray userList = listObj.getJSONArray("usersToExport");
             ArrayList<User> users = new ArrayList<User>(); // an arraylist to store the users to be exported
@@ -76,20 +79,15 @@ public class ExportUsersToXMLController {
                 users.add(user);
             }
 
-            exportUsersToXML(users);
-
-            // Authenticate user //todo logika den xreiazetai
-            if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-            return null;
+            String xml = exportUsersToXML(users);
+            return new ResponseEntity<>(xml, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    private void exportUsersToXML(ArrayList<User> users) {
+    private String exportUsersToXML(ArrayList<User> users) {
         DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder icBuilder;
         try {
@@ -205,21 +203,26 @@ public class ExportUsersToXMLController {
             DOMSource source = new DOMSource(doc);
             String outputDir = "./outputXML/";
             String outputFileName = "output.xml";
+            String finalPath = outputDir + outputFileName;
 
             // Create output directory if it does not exist
             new File(outputDir).mkdirs();
 
-            StreamResult sr = new StreamResult(new File(outputDir + outputFileName));
-            transformer.transform(source, sr);
+            StreamResult sr = new StreamResult(new File(finalPath));
+            StringWriter outWriter = new StringWriter();
 
-            // output DOM XML to console (temp)
-            StreamResult console = new StreamResult(System.out); // todo na fugei
-            transformer.transform(source, console); // todo kai auto
+            StreamResult resultString = new StreamResult( outWriter );
 
-            System.err.println("\nXML DOM Created Successfully..");
+            transformer.transform(source, sr); // to filesystem
+            transformer.transform(source, resultString); // to string
+
+            StringBuffer sb = outWriter.getBuffer();
+            return sb.toString();
 
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
+
     }
 }
