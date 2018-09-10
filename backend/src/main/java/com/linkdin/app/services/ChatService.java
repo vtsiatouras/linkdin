@@ -28,11 +28,11 @@ public class ChatService {
     }
 
     public List getUserActiveChats(Integer userID) {
-        return chatRepository.findAllByUser1OrUser2AndIsActive(userID, userID, (byte) 1);
+        return chatRepository.findAllByUser1AndIsActiveOrUser2AndIsActive(userID, (byte) 1, userID, (byte) 1);
     }
 
     public boolean checkChatWithUserID(Integer chatID, Integer userID) {
-        if (chatRepository.findByUser1OrUser2AndId(userID, userID, chatID) == null) {
+        if (chatRepository.findByUser1AndIdOrUser2AndId(userID, chatID, userID, chatID) == null) {
             return false;
         }
         return true;

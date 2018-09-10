@@ -1,8 +1,22 @@
 <app-navbar></app-navbar>
-<div class=chat-content>
-  <div class="column">
-    <div class="col-sm-4 recent-chats">
-      Recent Chats
+<div class="chat-content">
+  <div id="mySidenav" class="sidenav open">
+    <!-- <a class="closebtn" (click)="closeNav()">&times;</a> -->
+    <div *ngFor="let x of userIDsChats; let i = index">
+      <li>
+        <a [routerLink]="['/chat', chatIDs[i]]">
+          <app-userbasicinfo userIDInfo="{{x}}"></app-userbasicinfo>
+        </a>
+      </li>
+    </div>
+  </div>
+
+  <div id="main">
+    <!-- <button class="btn open-contacts" (click)="openNav()">
+      <fa-icon [icon]="['fas', 'angle-right']"></fa-icon>
+    </button> -->
+    <div *ngIf="showConversation">
+      <app-chatroom></app-chatroom>
     </div>
   </div>
 </div>

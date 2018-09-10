@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('lastName', obj.lastName);
         localStorage.setItem('email', obj.email);
         console.log(obj.isAdmin);
-        if(obj.isAdmin === '1') {
+        if (obj.isAdmin === '1') {
           this.router.navigate(['/admin']);
         } else {
           this.router.navigate(['/home']);

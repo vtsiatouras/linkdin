@@ -29,8 +29,8 @@ export class AuthenticationService {
         id: id
       }, { responseType: 'text', withCredentials: true }).mapTo(true)
         .catch(err => {
-          if(err.error !== '1') {
-            this.router.navigate(['/error', true], {skipLocationChange: true});
+          if (err.error !== '1') {
+            this.router.navigate(['/error', true], { skipLocationChange: true });
           }
           return Observable.of(false);
         });

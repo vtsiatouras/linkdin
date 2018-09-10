@@ -15,6 +15,24 @@
     border: 1px solid #949393;
 }
 
+.btn.no-background {
+    border: none;
+    outline: none !important;
+    box-shadow: none;
+    color: #00334d;
+    font-size: 12pt;
+    font-weight: lighter;
+    max-width: 200px;
+}
+
+.btn.no-background :hover,
+.btn.no-background :active {
+    color: #006394;
+    outline: none !important;
+    box-shadow: none;
+    border: none;
+}
+
 .load-button-container {
     padding-bottom: 20px;
     text-align: center;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {environment} from "../../../environments/environment";
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
+import {environment} from '../../../environments/environment';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-adminpage',

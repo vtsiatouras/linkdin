@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -48,15 +48,15 @@ export class AdminnavbarComponent implements OnInit {
       { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
         this.router.navigate(['/login']);
       },
-      (err: HttpErrorResponse) => {
-        console.log(err);
-      });
+        (err: HttpErrorResponse) => {
+          console.log(err);
+        });
   }
 
   checkAll() {
     const checkboxes = <HTMLInputElement[]><any>document.getElementsByClassName('checkbox');
 
-    for (let i=0; i<checkboxes.length; i++)  {
+    for (let i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = true;
     }
   }
@@ -65,8 +65,8 @@ export class AdminnavbarComponent implements OnInit {
     const checkboxes = <HTMLInputElement[]><any>document.getElementsByClassName('checkbox');
 
     const userList = [];
-    for (let i=0; i<checkboxes.length; i++)  {
-      let id = checkboxes[i].id;
+    for (let i = 0; i < checkboxes.length; i++) {
+      const id = checkboxes[i].id;
 
       if (checkboxes[i].checked === true) {
         userList.push(id);
@@ -81,7 +81,7 @@ export class AdminnavbarComponent implements OnInit {
       userIdentifiers,
       userListRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      },
+    },
       (err: HttpErrorResponse) => {
         console.log(err);
       });

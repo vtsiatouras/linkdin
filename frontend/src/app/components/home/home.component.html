@@ -5,11 +5,15 @@
     <div *ngIf="renderPosts">
       <div *ngIf="friendsInterestsPostsIDs.indexOf(x.id) !== -1 || friendsCommentsPostsIDs.indexOf(x.id) !== -1" class="interested-user">
         <div *ngIf="friendsInterestsPostsIDs.indexOf(x.id) !== -1">
-          <app-userbasicinfo [ngStyle]="{display: 'inline-block'}" userIDInfo="{{friendsInterestsIDs[friendsInterestsPostsIDs.indexOf(x.id)]}}"></app-userbasicinfo>
+          <a class="btn no-background" [routerLink]="['/users', friendsInterestsIDs[friendsInterestsPostsIDs.indexOf(x.id)]]">
+            <app-userbasicinfo [ngStyle]="{display: 'inline-block'}" userIDInfo="{{friendsInterestsIDs[friendsInterestsPostsIDs.indexOf(x.id)]}}"></app-userbasicinfo>
+          </a>
           <span>finds this post interesting</span>
         </div>
         <div *ngIf="friendsCommentsPostsIDs.indexOf(x.id) !== -1">
-          <app-userbasicinfo [ngStyle]="{display: 'inline-block'}" userIDInfo="{{friendsCommentsIDs[friendsCommentsPostsIDs.indexOf(x.id)]}}"></app-userbasicinfo>
+          <a class="btn no-background" [routerLink]="['/users', friendsCommentsIDs[friendsCommentsPostsIDs.indexOf(x.id)]]">
+            <app-userbasicinfo [ngStyle]="{display: 'inline-block'}" userIDInfo="{{friendsCommentsIDs[friendsCommentsPostsIDs.indexOf(x.id)]}}"></app-userbasicinfo>
+          </a>
           <span>commented this post</span>
         </div>
         <app-post postId="{{x.id}}" userIdPost="{{x.userId}}" isAd="{{x.isAdvertisment}}" isPublic="{{x.isPublic}}"

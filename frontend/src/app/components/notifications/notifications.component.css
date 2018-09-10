@@ -27,6 +27,7 @@
     box-shadow: none;
     border: none;
     background: none;
+    cursor: pointer;
 }
 
 .btn.btn-secondary.icon-button:focus,
