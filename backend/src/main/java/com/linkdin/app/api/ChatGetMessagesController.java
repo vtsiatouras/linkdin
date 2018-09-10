@@ -37,14 +37,15 @@ public class ChatGetMessagesController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            String chatID = chatMessageObj.getString("chatID");
+            Integer chatID = chatMessageObj.getInt("chatID");
 
-            if(!chatService.checkChatWithUserID(Integer.parseInt(chatID), Integer.parseInt(userIdentifiers.id))) {
+            if(!chatService.checkChatWithUserID(chatID, Integer.parseInt(userIdentifiers.id))) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            List list = chatService.getMessagesFromChat(Integer.parseInt(chatID));
-            return new ResponseEntity<>(list, HttpStatus.OK);
+            List list = chatService.getMessagesFromChat(chatID);
+            System.out.print(list);
+            return new ResponseEntity<Object>(list, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -1,0 +1,9 @@
+.chatroom-content {
+    position: absolute;
+    background-color: rgb(248, 247, 247);
+    border-radius: 5px;
+    padding: 10px;
+    min-width: 900px;
+    margin: 0 10px 0 10px;
+    height: calc(100vh - 110px);
+}

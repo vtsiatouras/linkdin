@@ -1,6 +1,4 @@
 <div *ngIf="render">
-  <a class="btn user-identifiers" [routerLink]="['/users', userIdPost]">
-    <img class="rounded-circle profile-image" src="{{userImage}}">
-    <span class="user-name"> {{ userName }} {{ userSurname }} </span>
-  </a>
+  <img class="rounded-circle profile-image" src="{{userImage}}">
+  <span class="user-name"> {{ userName }} {{ userSurname }} </span>
 </div>

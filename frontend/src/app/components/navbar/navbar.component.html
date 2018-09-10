@@ -32,9 +32,9 @@
         <li class="divider"></li>
         <li class="nav-item text-center">
           <app-notifications></app-notifications>
-          <button type="button" class="btn btn-secondary icon-button navbar-btn" [routerLink]="['/chat']">
+          <a role="button" class="btn btn-secondary icon-button navbar-btn" [routerLink]="['/chat']">
             <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
-          </button>
+          </a>
         </li>
         <li class="nav-item text-center">
           <a class="btn btn-secondary navbar-btn no-background-button" role="button" [routerLink]="['/users', userID]">

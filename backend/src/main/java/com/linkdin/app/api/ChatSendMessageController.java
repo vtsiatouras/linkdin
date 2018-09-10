@@ -35,15 +35,15 @@ public class ChatSendMessageController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            String chatID = chatMessageObj.getString("chatID");
+            Integer chatID = chatMessageObj.getInt("chatID");
             String message = chatMessageObj.getString("messageContent");
             String senderID = userIdentifiers.id;
 
-            if(!chatService.checkChatWithUserID(Integer.parseInt(chatID), Integer.parseInt(userIdentifiers.id))) {
+            if(!chatService.checkChatWithUserID(chatID, Integer.parseInt(userIdentifiers.id))) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            chatService.sendMessage(Integer.parseInt(chatID), Integer.parseInt(senderID), message);
+            chatService.sendMessage(chatID, Integer.parseInt(senderID), message);
 
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception ex) {
