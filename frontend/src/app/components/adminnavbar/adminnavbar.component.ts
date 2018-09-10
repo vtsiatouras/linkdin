@@ -1,7 +1,9 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {saveAs} from 'file-saver/FileSaver';
+
 // import { sendArray } from '../adminpage/adminpage.component';
 
 @Component({
@@ -22,10 +24,12 @@ export class AdminnavbarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-  ) { }
+  ) {
+  }
 
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   @HostListener('window:scroll')
   public onScroll() {
@@ -37,7 +41,7 @@ export class AdminnavbarComponent implements OnInit {
   }
 
   scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
   logoutUser() {
@@ -45,12 +49,12 @@ export class AdminnavbarComponent implements OnInit {
     localStorage.clear();
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/logout', {},
-      { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
         this.router.navigate(['/login']);
       },
-        (err: HttpErrorResponse) => {
-          console.log(err);
-        });
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
   }
 
   checkAll() {
@@ -74,17 +78,28 @@ export class AdminnavbarComponent implements OnInit {
     }
     console.log(userList);
 
-    const userIdentifiers = { userToken: this.userToken, id: this.userID };
-    const userListRequest = { usersToExport: userList };
+    if (userList.length == 0) {
+      alert("You haven't selected any users");
+      return;
+    }
+
+    const userIdentifiers = {userToken: this.userToken, id: this.userID};
+    const userListRequest = {usersToExport: userList};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/exportusers', {
       userIdentifiers,
       userListRequest
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        this.saveToFileSystem(data);
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
+  }
+
+  private saveToFileSystem(response) {
+    const data = new Blob([response], {type: 'text/plain;charset=utf-8'});
+    saveAs(data, 'users.xml');
   }
 
 }

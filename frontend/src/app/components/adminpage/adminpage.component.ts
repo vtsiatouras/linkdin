@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
+import { saveAs } from 'file-saver/FileSaver';
+
 
 @Component({
   selector: 'app-adminpage',
@@ -46,8 +48,6 @@ export class AdminpageComponent implements OnInit {
   }
 
   exportUser(id) {
-    const checkboxes = <HTMLInputElement[]><any>document.getElementsByClassName('checkbox');
-
     const userList = [];
     userList.push(id);
     console.log(userList);
@@ -59,10 +59,17 @@ export class AdminpageComponent implements OnInit {
       userIdentifiers,
       userListRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      this.saveToFileSystem(data);
       },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
+  }
+
+
+  private saveToFileSystem(response) {
+    const data = new Blob([response], { type: 'text/plain;charset=utf-8' });
+    saveAs(data, 'users.xml');
   }
 
 }
