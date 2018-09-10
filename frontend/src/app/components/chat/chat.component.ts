@@ -20,6 +20,9 @@ export class ChatComponent implements OnInit {
   activeChats = [];
   userIDsChats = [];
   chatIDs = [];
+  chatHistory = [];
+
+  message: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,8 +49,10 @@ export class ChatComponent implements OnInit {
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
       this.activeChats = obj;
+
       for (let i = 0; i < obj.length; i++) {
-        if (obj[i].user1 == this.userId) {
+        const uIDString: any = obj[i].user1.toString();
+        if (uIDString === this.userId) {
           this.userIDsChats.push(obj[i].user2);
           this.chatIDs.push(obj[i].id);
         } else {
@@ -76,7 +81,7 @@ export class ChatComponent implements OnInit {
         chatMessageContent
       }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
         const obj = JSON.parse(data);
-
+        this.chatHistory = obj;
         this.showConversation = true;
       },
         (err: HttpErrorResponse) => {
@@ -84,6 +89,24 @@ export class ChatComponent implements OnInit {
           this.router.navigate(['/error', false], { skipLocationChange: true });
         });
     });
+  }
+
+  sendMessage() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const chatMessageContent = { chatID: this.chatID, messageContent: this.message };
+    console.log(chatMessageContent);
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/sendchatmessage', {
+      userIdentifiers,
+      chatMessageContent
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      this.message = '';
+      this.loadChatRoom();
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
+      });
   }
 
 }

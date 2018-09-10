@@ -41,6 +41,38 @@
     padding-left: 20px;
 }
 
+.send-message {
+    margin: 15px 10px 10px 10px;
+    position: relative;
+    border-radius: 3px;
+    border-color: inherit;
+    outline: none !important;
+    box-shadow: none;
+    border: 2px solid #ccc;
+    height: 45px;
+}
+
+.send-message-button {
+    background-color: #006394;
+    outline: none !important;
+    box-shadow: none;
+    border: none;
+    font-size: 13pt;
+    height: auto;
+}
+
+.btn.send-message-button:hover,
+.btn.send-message-button:focus,
+.btn.send-message-button:active {
+    background-color: #00334d;
+    box-shadow: none;
+    border: none;
+}
+
+.btn.send-message-button:disabled {
+    background-color: #006394;
+}
+
 @media screen and (max-height: 450px) {
     .sidenav {
         padding-top: 15px;

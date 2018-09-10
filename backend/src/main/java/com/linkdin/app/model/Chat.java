@@ -42,7 +42,7 @@ public class Chat {
     }
 
     @Basic
-    @Column(name = "isActive")
+    @Column(name = "is_active")
     public Byte getIsActive() {
         return isActive;
     }
