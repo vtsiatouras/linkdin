@@ -31,7 +31,7 @@ import { UserbasicinfoComponent } from './components/userbasicinfo/userbasicinfo
 import { AdminpageComponent } from './components/adminpage/adminpage.component';
 import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
 import { ChatComponent } from './components/chat/chat.component';
-import { ChatroomComponent } from './components/chatroom/chatroom.component';
+import { ChathistoryComponent } from './components/chathistory/chathistory.component';
 
 library.add(fas, far);
 
@@ -84,7 +84,7 @@ const appRoutes: Routes = [
     AdminpageComponent,
     AdminnavbarComponent,
     ChatComponent,
-    ChatroomComponent,
+    ChathistoryComponent,
   ],
   imports: [
     HttpClientModule,

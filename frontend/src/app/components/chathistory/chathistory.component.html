@@ -1,0 +1,10 @@
+<div #chathistoryContent class="chathistory-content d-flex">
+  <div *ngFor="let x of chatHistory">
+    <div *ngIf="x.senderUserId == userId" class="white-bubble">
+      {{ x.messageContent }}
+    </div>
+    <div *ngIf="x.senderUserId != userId" class="blue-bubble">
+      {{ x.messageContent }}
+    </div>
+  </div>
+</div>
