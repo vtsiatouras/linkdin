@@ -78,8 +78,8 @@ export class AdminnavbarComponent implements OnInit {
     }
     console.log(userList);
 
-    if (userList.length == 0) {
-      alert("You haven't selected any users");
+    if (userList.length === 0) {
+      alert(`You haven't selected any users`);
       return;
     }
 

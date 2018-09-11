@@ -2,6 +2,7 @@ package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
+import com.linkdin.app.model.Chat;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.ChatService;
 import org.json.JSONObject;
@@ -12,43 +13,37 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @RestController
-public class ChatGetMessagesController {
+public class GetChatByUsersIdsController {
     @Autowired
     ChatService chatService;
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/getchatmessages")
-    public ResponseEntity<Object> getChatMessages(@RequestBody String jsonChatRequest, HttpSession session) {
+    @PostMapping(path = "/getchatbyusersids")
+    public ResponseEntity<Object> getChatByUsersIds(@RequestBody String jsonChatRequest, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject obj = new JSONObject(jsonChatRequest);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject chatMessageObj = obj.getJSONObject("chatMessageContent");
+            JSONObject chatObj = obj.getJSONObject("chat");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            Integer chatID = chatMessageObj.getInt("chatID");
+            String userID1 = chatObj.getString("user1");
+            String userID2 = chatObj.getString("user2");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            if(!chatService.checkChatWithUserID(chatID, Integer.parseInt(userIdentifiers.id))) {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
+            Chat chat = chatService.getChatIDByUsers(Integer.parseInt(userID1), Integer.parseInt(userID2));
 
-            List list = chatService.getMessagesFromChat(chatID);
-            System.out.print(list);
-            return new ResponseEntity<Object>(list, HttpStatus.OK);
+            return new ResponseEntity<>(chat, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
-

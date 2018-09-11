@@ -7,9 +7,7 @@
           <a class="btn" [routerLink]="['/users', x.id]">
             <img class="rounded-circle profile-image" src="{{x.image}}">
           </a>
-          <a class="btn btn-secondary message" role="button" [routerLink]="['/home']">
-            <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
-          </a>
+          <app-chatwithuser userToChat="{{x.id}}"></app-chatwithuser>
           <a class="btn user-name" [routerLink]="['/users', x.id]">
             {{ x.name }} {{ x.surname }}
           </a>
