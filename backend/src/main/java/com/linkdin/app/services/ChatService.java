@@ -27,6 +27,19 @@ public class ChatService {
         chatRepository.save(chat);
     }
 
+    public Chat getChatIDByUsers(Integer userID1, Integer userID2) {
+        Chat chat =  chatRepository.findByUser1AndUser2(userID1, userID2);
+        if(chat != null) {
+            return chat;
+        }
+        chat =  chatRepository.findByUser1AndUser2(userID2, userID1);
+        return chat;
+    }
+
+    public Chat getChatByID(Integer chatID) {
+        return chatRepository.findById(chatID);
+    }
+
     public List getUserActiveChats(Integer userID) {
         return chatRepository.findAllByUser1AndIsActiveOrUser2AndIsActive(userID, (byte) 1, userID, (byte) 1);
     }

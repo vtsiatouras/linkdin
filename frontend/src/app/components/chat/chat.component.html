@@ -16,7 +16,7 @@
       <fa-icon [icon]="['fas', 'angle-right']"></fa-icon>
     </button> -->
     <div *ngIf="showConversation">
-      <app-chathistory [chatHistory]="chatHistory"></app-chathistory>
+      <app-chathistory [chatHistory]="chatHistory" chatID="{{chatID}}"></app-chathistory>
       <div class="d-flex justify-content-center">
         <div class="input-group send-message">
           <input class="form-control send-message-box" id="comment-box" type="text" aria-label="post-comment"

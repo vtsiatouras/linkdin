@@ -16,6 +16,9 @@
   </div>
   <div *ngIf="networkButton" class="connect-buttons-container">
     <a class="btn btn-secondary request-connect-button" [routerLink]="['network']">Network</a>
+    <div>
+      <app-chatwithuser userToChat="{{profileUserID}}"></app-chatwithuser>
+    </div>
   </div>
 
   <div *ngIf="requestConnectButton" class="connect-buttons-container">
@@ -37,8 +40,8 @@
     </button>
   </div>
   <div *ngFor="let x of posts">
-    <app-post postId="{{x.id}}" userIdPost="{{profileUserID}}" isAd="{{x.isAdvertisment}}" isPublic="{{x.isPublic}}" date="{{x.timestamp| date:'d MMMM y, h:mm a'}}"
-      content="{{x.content}}"></app-post>
+    <app-post postId="{{x.id}}" userIdPost="{{profileUserID}}" isAd="{{x.isAdvertisment}}" isPublic="{{x.isPublic}}"
+      date="{{x.timestamp| date:'d MMMM y, h:mm a'}}" content="{{x.content}}"></app-post>
   </div>
   <div *ngIf="loadMoreButton" class="load-button-container">
     <button class="btn btn-secondary load-button" type="button" (click)="getPosts()">Load More Posts</button>

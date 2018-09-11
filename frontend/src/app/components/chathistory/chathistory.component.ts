@@ -13,21 +13,18 @@ export class ChathistoryComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('chathistoryContent') private myScrollContainer: ElementRef;
 
-
   userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');
-  userName = localStorage.getItem('firstName');
-  userSurname = localStorage.getItem('lastName');
-  userImage;
 
-  @Input() chatUserId;
+  @Input() chatID;
+  @Input() chatHistory = [];
+
+  chatUserId;
   chatUserName;
   chatUserSurname;
   chatImage;
 
-
-  @Input() chatHistory = [];
-
+  render = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +32,7 @@ export class ChathistoryComponent implements OnInit, AfterViewChecked {
     private http: HttpClient) { }
 
   ngOnInit() {
+    this.getChatInfo();
     this.scrollToBottom();
   }
 
@@ -48,24 +46,27 @@ export class ChathistoryComponent implements OnInit, AfterViewChecked {
     } catch (err) { }
   }
 
-  // getUserIdentifiers() {
-  //      const userIdentifiers = { userToken: this.userToken, id: this.userId };
-  //   const userInfoRequest = { userIdInfo: this.userIDInfo };
-  //   const API_URL = environment.API_URL;
-  //   const req = this.http.post(API_URL + '/api/getuserbasicinfo', {
-  //     userIdentifiers,
-  //     userInfoRequest
-  //   }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-  //     const obj = JSON.parse(data);
-  //     this.userName = obj.name;
-  //     this.userSurname = obj.surname;
-  //     this.userImage = 'data:image/jpeg;base64,' + obj.image;
-  //     this.render = true;
-  //   },
-  //     (err: HttpErrorResponse) => {
-  //       console.log(err);
-  //     });
-  // }
-
+  getChatInfo() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const chat = { chatID: this.chatID };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getchatbyid', {
+      userIdentifiers,
+      chat
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      const uIDString: any = obj.user1.toString();
+      if (uIDString === this.userId) {
+        this.chatUserId = obj.user2;
+      } else {
+        this.chatUserId = obj.user1;
+      }
+      this.render = true;
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
+      });
+  }
 
 }

@@ -48,6 +48,15 @@
     border-color: inherit;
     outline: none !important;
     box-shadow: none;
+    border: none;
+    height: 45px;
+}
+
+.send-message-box {
+    border-radius: 3px;
+    border-color: inherit;
+    outline: none !important;
+    box-shadow: none;
     border: 2px solid #ccc;
     height: 45px;
 }
