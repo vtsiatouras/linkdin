@@ -1,6 +1,7 @@
 package com.linkdin.app.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +13,7 @@ public class Notifications {
     private int postId;
     private Byte interest;
     private Byte comment;
-    private String timestamp;
+    private Timestamp timestamp;
 
     @Id
     @Column(name = "id")
@@ -76,11 +77,11 @@ public class Notifications {
 
     @Basic
     @Column(name = "timestamp")
-    public String getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 

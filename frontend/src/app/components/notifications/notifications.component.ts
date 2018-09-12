@@ -13,8 +13,13 @@ export class NotificationsComponent implements OnInit {
   userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');
 
+  notifications = [];
+  totalNotifications = 0;
+
   pendingRequests = [];
   totalPendingRequests = 0;
+
+  render = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,6 +28,31 @@ export class NotificationsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+  
+  renderNotifications () {
+    this.getNotifications();
+    this.getPendingConnectRequests();
+    this.render = true;
+  }
+
+  getNotifications() {
+    this.pendingRequests = [];
+    this.totalPendingRequests = 0;
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getnotifications', {
+      userIdentifiers,
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      console.log(obj.numberOfResults);
+      this.notifications = obj;
+      this.totalNotifications = this.notifications.length;
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
+      });
   }
 
   getPendingConnectRequests() {

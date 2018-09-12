@@ -24,6 +24,8 @@ public class PostCommentController {
     AuthRequestService authRequestService;
     @Autowired
     PostService postService;
+    @Autowired
+    NotificationsService notificationsService;
 
     @PostMapping(path = "/postcomment")
     public ResponseEntity<Object> postComment(@RequestBody String jsonCommentData, HttpSession session) {
@@ -54,6 +56,10 @@ public class PostCommentController {
                     userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
                     post.getIsPublic() == 1) {
                 postCommentService.addComment(comment, Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
+                // Don't push notification with comments/interests from the user that owns the post
+                if(userIDPostOwner != Integer.parseInt(userIdentifiers.id)) {
+                    notificationsService.createNewNotification(Integer.parseInt(userIdentifiers.id), userIDPostOwner, Integer.parseInt(postID), 2);
+                }
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
