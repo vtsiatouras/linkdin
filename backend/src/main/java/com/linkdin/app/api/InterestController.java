@@ -3,10 +3,7 @@ package com.linkdin.app.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
-import com.linkdin.app.services.AuthRequestService;
-import com.linkdin.app.services.PostInterestService;
-import com.linkdin.app.services.PostService;
-import com.linkdin.app.services.UserNetworkService;
+import com.linkdin.app.services.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +25,8 @@ public class InterestController {
     AuthRequestService authRequestService;
     @Autowired
     PostService postService;
+    @Autowired
+    NotificationsService notificationsService;
 
     @PostMapping(path = "/interest")
     public ResponseEntity<Object> interest(@RequestBody String jsonInterestData, HttpSession session) {
@@ -57,6 +56,10 @@ public class InterestController {
                     userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
                     post.getIsPublic() == 1) {
                 postInterestService.addInterest(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
+                // Don't push notification with comments/interests from the user that owns the post
+                if(userIDPostOwner != Integer.parseInt(userIdentifiers.id)) {
+                    notificationsService.createNewNotification(Integer.parseInt(userIdentifiers.id), userIDPostOwner, Integer.parseInt(postID), 1);
+                }
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

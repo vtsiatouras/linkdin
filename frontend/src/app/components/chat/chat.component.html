@@ -1,20 +1,13 @@
 <app-navbar></app-navbar>
 <div class="chat-content">
   <div id="mySidenav" class="sidenav open">
-    <!-- <a class="closebtn" (click)="closeNav()">&times;</a> -->
     <div *ngFor="let x of userIDsChats; let i = index">
-      <li>
         <a [routerLink]="['/chat', chatIDs[i]]">
           <app-userbasicinfo userIDInfo="{{x}}"></app-userbasicinfo>
         </a>
-      </li>
     </div>
   </div>
-
   <div id="main">
-    <!-- <button class="btn open-contacts" (click)="openNav()">
-      <fa-icon [icon]="['fas', 'angle-right']"></fa-icon>
-    </button> -->
     <div *ngIf="showConversation">
       <app-chathistory [chatHistory]="chatHistory" chatID="{{chatID}}"></app-chathistory>
       <div class="d-flex justify-content-center">

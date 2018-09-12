@@ -4,6 +4,8 @@
 
 .dropdown-menu {
     margin-top: 13px;
+    height: auto;
+    max-height: 500px;
 }
 
 .dropdown-menu:after {
@@ -15,6 +17,13 @@
     position: absolute;
     top: -5px;
     right: 16px;
+}
+
+.wrapper {
+    height: auto;
+    max-height: 490px;
+    overflow-x: hidden;
+    border-radius: 5px;
 }
 
 .profile-image {
@@ -38,6 +47,12 @@
     border-color: inherit;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+.dropdown-item {
+    display: table;
+    width: 350px;
+    overflow: inherit;
 }
 
 .dropdown-item:hover,
@@ -98,6 +113,17 @@
     margin-top: 15px;
     margin-bottom: 15px;
     border-top: 1px solid #000000;
+}
+
+.inline {
+    display: inline-block;
+    cursor: default;
+}
+
+.notification-time {
+    margin: 0 10px 10px 25px;
+    font-size: 9pt;
+    color: #6d6b6b;
 }
 
 @media screen and (max-width: 1000px) {
