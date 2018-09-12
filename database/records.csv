@@ -1,3 +1,0 @@
-user_id,user_email,user_password,user_name,user_surname,user_phone_number,user_profile_picture,user_city,user_profession,user_company,is_admin
-1,admin@linkDIn.com,123456789,admin1,admin,6666666666,NULL,Athens,Programmer,LinkDIn,1
-2,admin@linkDIn.com,111111111,admin2,admin,9999999999,NULL,Athens,Programmer,LinkDIn,1
