@@ -27,10 +27,9 @@ export class NotificationsComponent implements OnInit {
     private http: HttpClient
   ) { }
 
-  ngOnInit() {
-  }
-  
-  renderNotifications () {
+  ngOnInit() { }
+
+  renderNotifications() {
     this.getNotifications();
     this.getPendingConnectRequests();
     this.render = true;
