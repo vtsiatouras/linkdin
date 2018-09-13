@@ -1,0 +1,8 @@
+"id";"email";"password";"name";"surname";"phone_number";"profile_picture";"city";"profession";"company";"education";"public_phone_number";"public_city";"public_profession";"public_company";"public_education";"is_admin"
+1;"test@test";"123";"Test";"User";"12345";"qitqsmE9HRYW9KtJbAyM";"Athens";"Web Developer, Web Designer, Programmer";"Unemployed";"DIT";1;1;1;0;0;0
+2;"test@test2";"123";"Test2";"User2";"1234";"Uqe0zr6WnrWwMzblgogr";"New York";"Electrical Engineer";"Intel";"MIT";0;1;1;0;1;0
+3;"test2@test";"123";"Dummy";"User1";"1234";"fro5Oj1d7hO7RWh8TskN";"Los Angeles";"Doctor";"LA Hospital";"Harvard";0;1;1;0;1;0
+4;"test@test3";"123";"User";"Dummy";"124";"sm4uGQB04SlWxvWcB1xB";"";"";"";"";0;0;0;0;0;0
+5;"test@test13";"123";"User12";"test13";"124";"gv3FADnmXIEPXCERJhPK";"";"";"";"";0;0;0;0;0;0
+6;"test@test10";"123";"usER10";"tessst12";"123";"Fpw5QPbQCdYId6Y0PiLm";"";"";"";"";0;0;0;0;0;0
+7;"test@test14";"123";"TEST";"useer";"1234";"ZF9JXpDCsS4MGo9uEqbx";"";"";"";"";0;0;0;0;0;0
