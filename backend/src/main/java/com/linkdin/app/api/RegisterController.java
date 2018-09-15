@@ -11,6 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 // TODO remove all prints and use log system
 
 @RestController
@@ -61,11 +65,35 @@ public class RegisterController {
             // Store new user
             User user = userRegister.transformToUser(userRegister);
             user.setProfilePicture(imageName);
+            // Hash the password
+            String passwordToHash = user.getPassword();
+            String hashedPassword = hashPassword(passwordToHash);
+            user.setPassword(hashedPassword);
             userService.storeUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    static String hashPassword(String passwordToHash) {
+        String generatedPassword = "";
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] bytes = md.digest(passwordToHash.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (int i=0; i< bytes.length; i++)
+            {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            //Get complete hashed password in hex format
+            generatedPassword = sb.toString();
+            generatedPassword = generatedPassword.substring(0, 40);
+        }catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return generatedPassword;
     }
 }

@@ -1,0 +1,15 @@
+"id";"email";"password";"name";"surname";"phone_number";"profile_picture";"city";"profession";"company";"education";"public_phone_number";"public_city";"public_profession";"public_company";"public_education";"is_admin"
+1;"test@test";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"Test";"User";"12345";"qitqsmE9HRYW9KtJbAyM";"Athens";"Web Developer, Web Designer, Programmer";"Unemployed";"DIT";0;1;1;0;0;0
+2;"test@test2";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"Test2";"User2";"1234";"Uqe0zr6WnrWwMzblgogr";"New York";"Electrical Engineer";"Intel";"MIT";0;1;1;0;1;0
+3;"test2@test";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"Dummy";"User1";"1234";"fro5Oj1d7hO7RWh8TskN";"Los Angeles";"Doctor";"LA Hospital";"Harvard";0;1;1;0;1;0
+4;"test@test3";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"User";"Dummy";"124";"sm4uGQB04SlWxvWcB1xB";"";"";"";"";0;0;0;0;0;0
+5;"test@test13";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"User12";"test13";"124";"gv3FADnmXIEPXCERJhPK";"";"";"";"";0;0;0;0;0;0
+6;"test@test10";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"usER10";"tessst12";"123";"Fpw5QPbQCdYId6Y0PiLm";"";"";"";"";0;0;0;0;0;0
+7;"test@test14";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"TEST";"useer";"1234";"ZF9JXpDCsS4MGo9uEqbx";"";"";"";"";0;0;0;0;0;0
+11;"testad@testad";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"test";"ad";"123";"z8tQhjkCzyTgyiqYTyGW";"";"";"";"";0;0;0;0;0;0
+12;"test11@test11";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"123";"123";"123";"qXwH0HR1ew0kyrLLnbfe";"";"";"";"";0;0;0;0;0;0
+13;"test12@test12";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"123";"123";"123";"kcaS1Z6zlj5AdbDFPVSA";"";"THIS IS A JOB ADVERT!We";"";"";0;0;0;0;0;0
+14;"test13@test13";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"123";"123";"123";"rA43a9cUHQLT43DT8SLT";"";"";"";"";0;0;0;0;0;0
+16;"test14@test14";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"test";"hash";"123";"ZsacIqIysSgrusoNhnwy";"";"";"";"";0;0;0;0;0;0
+17;"test@hash";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"tesh";"hash";"123";"rgZWv9L6yy9yu2eMZMH9";"";"";"";"";0;0;0;0;0;0
+18;"admin@admin";"a665a45920422f9d417e4867efdc4fb8a04a1f3f";"Drunk";"Admin";"123";"rgZWv9L6yy9yu2eMZMH9";"";"";"";"";0;0;0;0;0;1

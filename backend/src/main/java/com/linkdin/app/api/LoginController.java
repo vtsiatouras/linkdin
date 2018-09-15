@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Random;
 
+import static com.linkdin.app.api.RegisterController.hashPassword;
+
 @RestController
 public class LoginController {
 
@@ -32,7 +34,8 @@ public class LoginController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         // Authenticate user
-        if (userService.authenticate(credentials.email, credentials.password)) {
+        String hashedPassword = hashPassword(credentials.password);
+        if (userService.authenticate(credentials.email, hashedPassword)) {
             User user = userService.returnUser(credentials.email);
             String id = Integer.toString(user.getId());
             String email = user.getEmail();
