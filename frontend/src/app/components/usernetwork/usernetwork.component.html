@@ -1,5 +1,8 @@
 <app-navbar></app-navbar>
 <div class="network-content">
+  <div *ngIf="totalUsers == 0" class="no-users-message">
+    No Connected Users!
+  </div>
   <div *ngIf="totalUsers > 0">
     <div class="row">
       <div *ngFor="let x of users; let i = index">

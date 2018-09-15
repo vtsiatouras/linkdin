@@ -1,27 +1,26 @@
 package com.linkdin.app.services;
 
-import com.linkdin.app.api.HandleConnectRequestController;
-import com.linkdin.app.dto.HomePagePost;
 import com.linkdin.app.dto.NewPostData;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.model.User;
+import com.linkdin.app.model.UserNetwork;
 import com.linkdin.app.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.data.jpa.repository.Query;
 
 @Service
 public class PostService {
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    UserNetworkService userNetworkService;
 
     public boolean createPost(NewPostData newPostData, User user) {
         Post post = new Post();
@@ -79,5 +78,22 @@ public class PostService {
 
     public List getCommentedPostsAndFriendsIDs(List friendsIDs, int userID) {
         return postRepository.friendsIDsAndCommentedPostsIDS(friendsIDs, userID);
+    }
+
+    public List getAllPublicAds(int userID) {
+        Date date = new java.util.Date();
+        Timestamp toMonthsAgo = new java.sql.Timestamp(date.getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(toMonthsAgo);
+        cal.add(Calendar.MONTH, -2);
+        toMonthsAgo.setTime(cal.getTime().getTime());
+        List<Post> list =  postRepository.findAllByIsAdvertismentAndTimestampGreaterThan(new PageRequest(0, 500), (byte) 1, toMonthsAgo);
+        for (Post element : list) {
+            Integer postOwnerID = element.getUserId();
+            if( element.getIsPublic() == 0 && !userNetworkService.checkIfConnected(userID, postOwnerID)) {
+                list.remove(element);
+            }
+        }
+        return list;
     }
 }
