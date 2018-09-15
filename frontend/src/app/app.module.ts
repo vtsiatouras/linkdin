@@ -33,6 +33,7 @@ import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.compo
 import { ChatComponent } from './components/chat/chat.component';
 import { ChathistoryComponent } from './components/chathistory/chathistory.component';
 import { ChatwithuserComponent } from './components/chatwithuser/chatwithuser.component';
+import { AdvertspageComponent } from './components/advertspage/advertspage.component';
 
 library.add(fas, far);
 
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
   { path: 'error/:logout', component: ErrorpageComponent },
   // For Logged in users ONLY
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'adverts', component:AdvertspageComponent, canActivate: [AuthGuard] },
   {
     path: 'users/:user_id',
     children: [
@@ -87,6 +89,7 @@ const appRoutes: Routes = [
     ChatComponent,
     ChathistoryComponent,
     ChatwithuserComponent,
+    AdvertspageComponent,
   ],
   imports: [
     HttpClientModule,

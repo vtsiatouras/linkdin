@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     // Returns all posts that belongs to multiple users with pagination
     Page<Post> findByUserIdInOrderByTimestampDesc(Pageable pageable, List userIDs);
+
+    // Returns all public adverts for given time period
+    List<Post> findAllByIsAdvertismentAndTimestampGreaterThan(Pageable pageable, byte isAdvert, Timestamp limitTimestamp);
 
     // Returns a post by its own id
     Post findById(Integer postID);

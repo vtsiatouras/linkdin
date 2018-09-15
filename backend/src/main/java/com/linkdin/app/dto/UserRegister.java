@@ -30,6 +30,7 @@ public class UserRegister {
         user.setPublicCompany((byte) 0);
         user.setPublicEducation((byte) 0);
         user.setPublicProfession((byte) 0);
+        user.setIsAdmin((byte) 0);
         return user;
     }
 
