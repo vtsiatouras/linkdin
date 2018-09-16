@@ -49,7 +49,6 @@ export class ShowpostComponent implements OnInit {
       this.timestamp = obj.timestamp;
       this.content = obj.content;
       this.renderPostComponent = true;
-      console.log(obj);
     },
       (err: HttpErrorResponse) => {
         console.log(err);

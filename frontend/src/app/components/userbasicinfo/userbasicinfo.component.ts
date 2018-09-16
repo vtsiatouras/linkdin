@@ -31,8 +31,6 @@ export class UserbasicinfoComponent implements OnInit {
   }
 
   getUserIdentifiers() {
-    console.log('getting info for post');
-    console.log(this.userIDInfo);
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const userInfoRequest = { userIdInfo: this.userIDInfo };
     const API_URL = environment.API_URL;

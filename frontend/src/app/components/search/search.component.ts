@@ -33,7 +33,6 @@ export class SearchComponent implements OnInit {
     this.results = [];
     this.totalResults = 0;
     this.showedResults = 0;
-    console.log(this.userQuery);
     if (this.userQuery) {
       const userIdentifiers = { userToken: this.userToken, id: this.userId };
       const searchData = { searchQuery: this.userQuery };
@@ -42,7 +41,6 @@ export class SearchComponent implements OnInit {
         userIdentifiers,
         searchData
       }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-        console.log(data);
         const obj = JSON.parse(data);
         this.totalResults = obj.numberOfResults;
         if (this.totalResults > 0) {
@@ -51,12 +49,10 @@ export class SearchComponent implements OnInit {
           } else {
             this.showedResults = this.totalResults;
           }
-          console.log(this.showedResults);
           for (let i = 0; i < this.totalResults; i++) {
             this.results.push(obj.list[i]);
             this.results[i].image = 'data:image/jpeg;base64,' + this.results[i].image;
           }
-          console.log(this.results);
         }
       },
         (err: HttpErrorResponse) => {

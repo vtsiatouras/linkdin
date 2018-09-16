@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     // Re initialize error flag for the alert pop up
     this.hasError = false;
     // Don't send null values
-    if (this.email === '' || this.password === '') { // TODO mporei na nai peritto auto
+    if (this.email === '' || this.password === '') {
       this.router.navigate(['/']);
     } else {
       // Make a post request with users credentials
@@ -53,13 +53,11 @@ export class LoginComponent implements OnInit {
         password: this.password
       }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
         const obj = JSON.parse(data);
-        console.log(obj);
         localStorage.setItem('userToken', obj.userToken);
         localStorage.setItem('userID', obj.userID);
         localStorage.setItem('firstName', obj.firstName);
         localStorage.setItem('lastName', obj.lastName);
         localStorage.setItem('email', obj.email);
-        console.log(obj.isAdmin);
         if (obj.isAdmin === '1') {
           this.router.navigate(['/admin']);
         } else {

@@ -47,7 +47,6 @@ export class UsernetworkComponent implements OnInit {
         this.users.push(obj.list[i]);
         this.users[i].image = 'data:image/jpeg;base64,' + this.users[i].image;
       }
-      console.log(this.totalUsers);
     },
       (err: HttpErrorResponse) => {
         console.log(err);

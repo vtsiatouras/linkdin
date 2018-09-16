@@ -55,7 +55,6 @@ export class HomeComponent implements OnInit {
     const req = this.http.post(API_URL + '/api/getfriendsactivity', {
       userIdentifiers,
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      console.log(data);
       const obj = JSON.parse(data);
       this.friendsInterests = obj;
       for (let i = 0; i < obj[0].length; i++) {
@@ -82,20 +81,16 @@ export class HomeComponent implements OnInit {
       userIdentifiers,
       pageRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      console.log(data);
       const obj = JSON.parse(data);
       this.totalPosts = obj.totalElements;
       if (this.totalPosts > 0) {
         const numberOfPosts = obj.numberOfElements;
         this.showedPosts = this.showedPosts + numberOfPosts;
-        console.log('total posts' + this.totalPosts);
-        console.log('showed posts' + this.showedPosts);
         if (this.totalPosts > this.showedPosts) {
           this.loadMoreButton = true;
         } else {
           this.loadMoreButton = false;
         }
-        // console.log(this.loadMoreButton);
         for (let i = 0; i < numberOfPosts; i++) {
           this.posts.push(obj.content[i]);
         }

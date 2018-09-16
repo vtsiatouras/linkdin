@@ -70,7 +70,6 @@ export class PostComponent implements OnInit {
       this.userName = obj.name;
       this.userSurname = obj.surname;
       this.userImage = 'data:image/jpeg;base64,' + obj.image;
-      console.log('here');
     },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -103,7 +102,6 @@ export class PostComponent implements OnInit {
       const obj = JSON.parse(data);
       this.isInterested = obj.isUserInterested;
       this.numberOfInterests = obj.numberOfInterestedUsers;
-      console.log(this.numberOfInterests);
     },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -125,7 +123,6 @@ export class PostComponent implements OnInit {
       for (let i = 0; i < numberOfInterests; i++) {
         this.interestedUsers[i].image = 'data:image/jpeg;base64,' + this.interestedUsers[i].image;
       }
-      console.log(this.interestedUsers);
     },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -170,7 +167,6 @@ export class PostComponent implements OnInit {
         this.comments[i].image = 'data:image/jpeg;base64,' + this.comments[i].image;
       }
       this.showComments = true;
-      console.log(obj);
     },
       (err: HttpErrorResponse) => {
         console.log(err);

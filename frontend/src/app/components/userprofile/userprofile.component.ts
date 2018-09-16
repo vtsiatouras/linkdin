@@ -122,7 +122,6 @@ export class UserprofileComponent implements OnInit {
       userIdentifiers,
       pageRequest
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      console.log(data);
       const obj = JSON.parse(data);
       this.totalPosts = obj.totalElements;
       if (this.totalPosts > 0) {
@@ -155,7 +154,6 @@ export class UserprofileComponent implements OnInit {
       targetProfile
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
-      // console.log(data);
       if (obj.friends === '0') {
         this.requestConnectButton = true;
         this.connectPendingButton = false;

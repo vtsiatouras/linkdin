@@ -82,7 +82,6 @@ export class RegisterComponent implements OnInit {
       const imageToString = (this.fileToUpload);
       formData.append('profileImage', this.fileToUpload);
 
-      console.log(formData);
       const API_URL = environment.API_URL;
       const req = this.http.post(API_URL + '/api/register',
         formData
