@@ -41,8 +41,6 @@ public class GetRecommendedPostsController {
     UserNetworkService userNetworkService;
     @Autowired
     AuthRequestService authRequestService;
-    @Autowired
-    AdminAuthRequestService adminAuthRequestService;
 
     // Inner class
     public class UserActivityContainer implements Comparable<UserActivityContainer> {
@@ -77,11 +75,10 @@ public class GetRecommendedPostsController {
 
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
 
-//            //Authenticate request
-//            if (!adminAuthRequestService.authenticateRequest(userIdentifiers, session)) {
-//                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//            }
-
+            //Authenticate request
+            if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
 
             Set<Integer> set = userService.getAllNotConnectedUsers(Integer.parseInt(userIdentifiers.id));
 
@@ -127,7 +124,7 @@ public class GetRecommendedPostsController {
             }
 
             // Returns all posts that belongs to multiple users with pagination
-            Page page = postRepository.findByUserIdIn(new PageRequest(0, 500), userList);
+            Page page = postRepository.findByUserIdInAndIsPublic(new PageRequest(0, 500), userList, (byte) 1);
 
             return new ResponseEntity<>(page, HttpStatus.OK);
         } catch (Exception ex) {
