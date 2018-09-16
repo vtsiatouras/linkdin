@@ -44,7 +44,6 @@ export class NotificationsComponent implements OnInit {
       userIdentifiers,
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
-      console.log(obj.numberOfResults);
       this.notifications = obj;
       this.totalNotifications = this.notifications.length;
     },
@@ -63,7 +62,6 @@ export class NotificationsComponent implements OnInit {
       userIdentifiers,
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
-      console.log(obj.numberOfResults);
       this.totalPendingRequests = obj.numberOfResults;
       if (this.totalPendingRequests > 0) {
         for (let i = 0; i < this.totalPendingRequests; i++) {
@@ -71,7 +69,6 @@ export class NotificationsComponent implements OnInit {
           this.pendingRequests[i].image = 'data:image/jpeg;base64,' + this.pendingRequests[i].image;
         }
       }
-      console.log(this.pendingRequests);
     },
       (err: HttpErrorResponse) => {
         console.log(err);

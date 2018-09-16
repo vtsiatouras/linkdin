@@ -39,7 +39,6 @@ export class NavbarComponent implements OnInit {
   }
 
   logoutUser() {
-    console.log('logout');
     localStorage.clear();
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/logout', {},

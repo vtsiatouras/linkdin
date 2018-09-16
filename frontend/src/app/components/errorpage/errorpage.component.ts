@@ -20,7 +20,6 @@ export class ErrorpageComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.logoutUser = params['logout'];
     });
-    console.log(this.logoutUser);
     if (this.logoutUser === 'true') {
       localStorage.clear();
     }
