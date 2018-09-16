@@ -34,6 +34,8 @@ import { ChatComponent } from './components/chat/chat.component';
 import { ChathistoryComponent } from './components/chathistory/chathistory.component';
 import { ChatwithuserComponent } from './components/chatwithuser/chatwithuser.component';
 import { AdvertspageComponent } from './components/advertspage/advertspage.component';
+import { FriendspostsComponent } from './components/friendsposts/friendsposts.component';
+import { RecommendedpostsComponent } from './components/recommendedposts/recommendedposts.component';
 
 library.add(fas, far);
 
@@ -90,6 +92,8 @@ const appRoutes: Routes = [
     ChathistoryComponent,
     ChatwithuserComponent,
     AdvertspageComponent,
+    FriendspostsComponent,
+    RecommendedpostsComponent,
   ],
   imports: [
     HttpClientModule,

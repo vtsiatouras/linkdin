@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,7 +48,7 @@ public class GetFriendsActivityController {
                 return new ResponseEntity<Object>(result, HttpStatus.OK);
             }
             else {
-                return new ResponseEntity<Object>(HttpStatus.OK);
+                return new ResponseEntity<Object>("null", HttpStatus.OK);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

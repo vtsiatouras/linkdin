@@ -1,32 +1,24 @@
 <app-navbar></app-navbar>
 <div class="home-content">
   <app-newpost></app-newpost>
-  <div *ngFor="let x of posts; let i = index">
-    <div *ngIf="renderPosts">
-      <div *ngIf="friendsInterestsPostsIDs.indexOf(x.id) !== -1 || friendsCommentsPostsIDs.indexOf(x.id) !== -1" class="interested-user">
-        <div *ngIf="friendsInterestsPostsIDs.indexOf(x.id) !== -1">
-          <a class="btn no-background" [routerLink]="['/users', friendsInterestsIDs[friendsInterestsPostsIDs.indexOf(x.id)]]">
-            <app-userbasicinfo [ngStyle]="{display: 'inline-block'}" userIDInfo="{{friendsInterestsIDs[friendsInterestsPostsIDs.indexOf(x.id)]}}"></app-userbasicinfo>
-          </a>
-          <span>finds this post interesting</span>
-        </div>
-        <div *ngIf="friendsCommentsPostsIDs.indexOf(x.id) !== -1">
-          <a class="btn no-background" [routerLink]="['/users', friendsCommentsIDs[friendsCommentsPostsIDs.indexOf(x.id)]]">
-            <app-userbasicinfo [ngStyle]="{display: 'inline-block'}" userIDInfo="{{friendsCommentsIDs[friendsCommentsPostsIDs.indexOf(x.id)]}}"></app-userbasicinfo>
-          </a>
-          <span>commented this post</span>
-        </div>
-        <app-post postId="{{x.id}}" userIdPost="{{x.userId}}" isAd="{{x.isAdvertisment}}" isPublic="{{x.isPublic}}"
-          date="{{x.timestamp| date:'d MMMM y, h:mm a'}}" content="{{x.content}}"></app-post>
-      </div>
-      <div *ngIf="friendsInterestsPostsIDs.indexOf(x.id) === -1 && friendsCommentsPostsIDs.indexOf(x.id) === -1">
-        <app-post postId="{{x.id}}" userIdPost="{{x.userId}}" isAd="{{x.isAdvertisment}}" isPublic="{{x.isPublic}}"
-          date="{{x.timestamp| date:'d MMMM y, h:mm a'}}" content="{{x.content}}"></app-post>
-      </div>
-    </div>
+
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary">{{ pageType }}</button>
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><button class="btn" id="selection1" (click)="changeHomeType(1)">Most Recent</button></li>
+      <li><button class="btn" id="selection2" (click)="changeHomeType(2)">Recommended for you</button></li>
+    </ul>
   </div>
-  <div *ngIf="loadMoreButton" class="load-button-container">
-    <button class="btn btn-secondary load-button" type="button" (click)="getPosts()">Load More Posts</button>
+
+  <div *ngIf="renderMostRecent">
+    <app-friendsposts></app-friendsposts>
+  </div>
+  <div *ngIf="renderRecommended">
+    <app-recommendedposts></app-recommendedposts>
   </div>
 </div>
+
 <app-footer></app-footer>

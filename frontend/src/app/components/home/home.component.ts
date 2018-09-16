@@ -13,19 +13,9 @@ export class HomeComponent implements OnInit {
   userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');
 
-  // Posts variables
-  renderPosts = false;
-  totalPosts = 0;
-  showedPosts = 0;
-  loadMoreButton = false;
-  page = 0;
-  limitPosts = 5;
-  posts = [];
-  friendsInterests = [];
-  friendsInterestsIDs = [];
-  friendsInterestsPostsIDs = [];
-  friendsCommentsIDs = [];
-  friendsCommentsPostsIDs = [];
+  pageType;
+  renderMostRecent;
+  renderRecommended;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,75 +24,23 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.totalPosts = 0;
-    this.showedPosts = 0;
-    this.loadMoreButton = false;
-    this.page = 0;
-    this.limitPosts = 5;
-    this.posts = [];
-    this.renderPosts = false;
-    this.friendsInterestsIDs = [];
-    this.friendsInterestsPostsIDs = [];
-    this.friendsCommentsIDs = [];
-    this.friendsCommentsPostsIDs = [];
-    this.getFriendsActivity();
-    this.getPosts();
+    this.pageType = 'Most Recent';
+    this.renderMostRecent = true;
+    this.renderRecommended = false;
   }
 
-  getFriendsActivity() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getfriendsactivity', {
-      userIdentifiers,
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.friendsInterests = obj;
-      for (let i = 0; i < obj[0].length; i++) {
-        this.friendsInterestsIDs.push(obj[0][i][0]);
-        this.friendsInterestsPostsIDs.push(obj[0][i][1]);
-      }
-      for (let i = 0; i < obj[1].length; i++) {
-        this.friendsCommentsIDs.push(obj[1][i][0]);
-        this.friendsCommentsPostsIDs.push(obj[1][i][1]);
-      }
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err);
-        this.router.navigate(['/error', false], { skipLocationChange: true });
-      });
+  changeHomeType(type) {
+    if (type === 1) {
+      this.pageType = 'Most Recent';
+      this.renderMostRecent = true;
+      this.renderRecommended = false;
+    }
+    if (type === 2) {
+      this.pageType = 'Recommended for you';
+      this.renderMostRecent = false;
+      this.renderRecommended = true;
+    }
   }
 
-  getPosts() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const pageRequest = { pageNumber: this.page, limit: this.limitPosts };
-    this.page++;
-    const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getpostsfromfriends', {
-      userIdentifiers,
-      pageRequest
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.totalPosts = obj.totalElements;
-      if (this.totalPosts > 0) {
-        const numberOfPosts = obj.numberOfElements;
-        this.showedPosts = this.showedPosts + numberOfPosts;
-        if (this.totalPosts > this.showedPosts) {
-          this.loadMoreButton = true;
-        } else {
-          this.loadMoreButton = false;
-        }
-        for (let i = 0; i < numberOfPosts; i++) {
-          this.posts.push(obj.content[i]);
-        }
-      } else {
-        this.posts = null;
-      }
-      this.renderPosts = true;
-    },
-      (err: HttpErrorResponse) => {
-        console.log(err);
-        this.router.navigate(['/error', false], { skipLocationChange: true });
-      });
-  }
 
 }
