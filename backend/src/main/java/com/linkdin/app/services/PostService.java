@@ -80,14 +80,24 @@ public class PostService {
         return postRepository.friendsIDsAndCommentedPostsIDS(friendsIDs, userID);
     }
 
-    public List getAllPublicAds(int userID) {
+    public List<Post> getAllPublicPosts() {
         Date date = new java.util.Date();
-        Timestamp toMonthsAgo = new java.sql.Timestamp(date.getTime());
+        Timestamp twoMonthsAgo = new java.sql.Timestamp(date.getTime());
         Calendar cal = Calendar.getInstance();
-        cal.setTime(toMonthsAgo);
+        cal.setTime(twoMonthsAgo);
         cal.add(Calendar.MONTH, -2);
-        toMonthsAgo.setTime(cal.getTime().getTime());
-        List<Post> list =  postRepository.findAllByIsAdvertismentAndTimestampGreaterThan(new PageRequest(0, 500), (byte) 1, toMonthsAgo);
+        twoMonthsAgo.setTime(cal.getTime().getTime());
+        return postRepository.findAllByIsPublicAndTimestampGreaterThan(new PageRequest(0, 500), (byte) 1, twoMonthsAgo);
+    }
+
+    public List<Post> getAllPublicAds(int userID) {
+        Date date = new java.util.Date();
+        Timestamp twoMonthsAgo = new java.sql.Timestamp(date.getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(twoMonthsAgo);
+        cal.add(Calendar.MONTH, -2);
+        twoMonthsAgo.setTime(cal.getTime().getTime());
+        List<Post> list =  postRepository.findAllByIsAdvertismentAndTimestampGreaterThan(new PageRequest(0, 500), (byte) 1, twoMonthsAgo);
         for (Post element : list) {
             Integer postOwnerID = element.getUserId();
             if( element.getIsPublic() == 0 && !userNetworkService.checkIfConnected(userID, postOwnerID)) {

@@ -24,11 +24,17 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     // Returns all user's public posts with pagination
     Page<Post> findByUserIdAndIsPublicOrderByTimestampDesc(Pageable pageable, Integer userID, byte isPublic);
 
-    // Returns all posts that belongs to multiple users with pagination
+    // Returns all posts that belongs to multiple users with pagination order by timestamp
     Page<Post> findByUserIdInOrderByTimestampDesc(Pageable pageable, List userIDs);
+
+    // Returns all posts that belongs to multiple users with pagination
+    Page<Post> findByUserIdIn(Pageable pageable, List userIDs);
 
     // Returns all public adverts for given time period
     List<Post> findAllByIsAdvertismentAndTimestampGreaterThan(Pageable pageable, byte isAdvert, Timestamp limitTimestamp);
+
+    // Returns all public posts for given time period
+    List<Post> findAllByIsPublicAndTimestampGreaterThan(Pageable pageable, byte isPublic, Timestamp limitTimestamp);
 
     // Returns a post by its own id
     Post findById(Integer postID);

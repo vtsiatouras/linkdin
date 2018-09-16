@@ -48,7 +48,7 @@ public class UserNetworkService {
         return results;
     }
 
-    public List getConnectedUsersIDsOnly(int userID) {
+    public List<Integer> getConnectedUsersIDsOnly(int userID) {
         List<UserNetwork> allConnections = userNetworkRepository.findByUser1AndIsAcceptedOrUser2AndIsAccepted(userID, (byte) 1, userID, (byte) 1);
         ArrayList<Integer> resultList = new ArrayList<Integer>();
         for (UserNetwork element : allConnections) {
