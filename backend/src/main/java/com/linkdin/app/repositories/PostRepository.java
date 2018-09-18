@@ -18,6 +18,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     // Returns all user's posts
     List<Post> findByUserIdOrderByTimestampAsc(Integer userID);
 
+    // Returns the 3 most recent posts of the user given
+    List<Post> findTop3ByUserIdOrderByTimestampDesc(Integer userID);
+
     // Returns all user's posts with pagination
     Page<Post> findByUserIdOrderByTimestampDesc(Pageable pageable, Integer userID);
 

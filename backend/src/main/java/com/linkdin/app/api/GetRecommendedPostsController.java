@@ -5,17 +5,14 @@ import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.model.PostComment;
 import com.linkdin.app.model.PostInterest;
-import com.linkdin.app.model.User;
 import com.linkdin.app.repositories.PostCommentRepository;
 import com.linkdin.app.repositories.PostInterestRepository;
 import com.linkdin.app.repositories.PostRepository;
 import com.linkdin.app.services.*;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -122,6 +119,13 @@ public class GetRecommendedPostsController {
             for (UserActivityContainer userActivityContainer : users) {
                 userList.add(userActivityContainer.id);
             }
+// todo uncomment auto kai comment tis 2 grammes apo katw otan ftiaxtei to front end na dexetai list, oxi page
+//            List<Post> returnValue = new ArrayList<>();
+//            for (Integer id : userList) {
+//                List<Post> list = postRepository.findTop3ByUserIdOrderByTimestampDesc(id);
+//                returnValue.addAll(list);
+//            }
+//            return new ResponseEntity<>(returnValue, HttpStatus.OK);
 
             // Returns all posts that belongs to multiple users with pagination
             Page page = postRepository.findByUserIdInAndIsPublic(new PageRequest(0, 500), userList, (byte) 1);
