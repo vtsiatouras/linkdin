@@ -46,7 +46,7 @@ const appRoutes: Routes = [
   { path: 'error/:logout', component: ErrorpageComponent },
   // For Logged in users ONLY
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'adverts', component:AdvertspageComponent, canActivate: [AuthGuard] },
+  { path: 'adverts', component: AdvertspageComponent, canActivate: [AuthGuard] },
   {
     path: 'users/:user_id',
     children: [

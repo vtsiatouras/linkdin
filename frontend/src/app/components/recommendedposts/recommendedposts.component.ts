@@ -18,9 +18,9 @@ export class RecommendedpostsComponent implements OnInit {
   totalPosts = 0;
   showedPosts = 0;
   loadMoreButton = false;
-  page = 0;
   limitPosts = 5;
   posts = [];
+  renderPostsArray = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +32,6 @@ export class RecommendedpostsComponent implements OnInit {
     this.totalPosts = 0;
     this.showedPosts = 0;
     this.loadMoreButton = false;
-    this.page = 0;
     this.limitPosts = 5;
     this.posts = [];
     this.renderPosts = false;
@@ -41,34 +40,29 @@ export class RecommendedpostsComponent implements OnInit {
 
   getPosts() {
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    this.page++;
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/recommendedposts', {
       userIdentifiers,
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
-      this.totalPosts = obj.totalElements;
-      if (this.totalPosts > 0) {
-        const numberOfPosts = obj.numberOfElements;
-        //   this.showedPosts = this.showedPosts + numberOfPosts;
-        //   if (this.totalPosts > this.showedPosts) {
-        //     this.loadMoreButton = true;
-        //   } else {
-        //     this.loadMoreButton = false;
-        //   }
-        for (let i = 0; i < numberOfPosts; i++) {
-          this.posts.push(obj.content[i]);
-        }
-        // } else {
-        //   this.posts = null;
-      }
-      console.log(this.posts);
+      this.posts = obj;
+      this.totalPosts = this.posts.length;
+      this.showPosts();
       this.renderPosts = true;
     },
       (err: HttpErrorResponse) => {
         console.log(err);
         this.router.navigate(['/error', false], { skipLocationChange: true });
       });
+  }
+
+  showPosts() {
+    this.showedPosts = this.showedPosts + this.limitPosts;
+    if (this.totalPosts > this.showedPosts) {
+      this.loadMoreButton = true;
+    } else {
+      this.loadMoreButton = false;
+    }
   }
 
 }

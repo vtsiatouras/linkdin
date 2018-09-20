@@ -119,18 +119,12 @@ public class GetRecommendedPostsController {
             for (UserActivityContainer userActivityContainer : users) {
                 userList.add(userActivityContainer.id);
             }
-// todo uncomment auto kai comment tis 2 grammes apo katw otan ftiaxtei to front end na dexetai list, oxi page
-//            List<Post> returnValue = new ArrayList<>();
-//            for (Integer id : userList) {
-//                List<Post> list = postRepository.findTop3ByUserIdOrderByTimestampDesc(id);
-//                returnValue.addAll(list);
-//            }
-//            return new ResponseEntity<>(returnValue, HttpStatus.OK);
-
-            // Returns all posts that belongs to multiple users with pagination
-            Page page = postRepository.findByUserIdInAndIsPublic(new PageRequest(0, 500), userList, (byte) 1);
-
-            return new ResponseEntity<>(page, HttpStatus.OK);
+            List<Post> returnValue = new ArrayList<>();
+            for (Integer id : userList) {
+                List<Post> list = postRepository.findTop3ByUserIdAndIsPublicOrderByTimestampDesc(id, (byte) 1);
+                returnValue.addAll(list);
+            }
+            return new ResponseEntity<>(returnValue, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -172,16 +166,3 @@ public class GetRecommendedPostsController {
         return interestsDistance * interestsWeight + commentsDistance * commentsWeight;
     }
 }
-
-
-//            // Posts
-//            List<Post> posts = postService.getAllUserPosts(user.getId());
-//
-//
-//            // Comments
-//            List<PostComment> comments = postCommentRepository.findByUserId(user.getId());
-//            /comments.get(1)
-//
-//
-//            // Interests
-//            List<PostInterest> interests = postInterestRepository.findAllByUserId(user.getId());
