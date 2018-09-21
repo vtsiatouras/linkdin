@@ -22,7 +22,7 @@ export class UserprofileComponent implements OnInit {
   lastName = localStorage.getItem('lastName');
   userId = localStorage.getItem('userID');
 
-  admin = false;
+  hideElements = false;
 
   // Variables for requested user's profile
   profileFirstName: string;
@@ -74,9 +74,9 @@ export class UserprofileComponent implements OnInit {
     }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
       if (obj === true) {
-        this.admin = true;
+        this.hideElements = true;
       } else {
-        this.admin = false;
+        this.hideElements = false;
       }
     },
       (err: HttpErrorResponse) => {

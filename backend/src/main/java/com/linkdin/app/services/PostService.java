@@ -41,6 +41,9 @@ public class PostService {
         post.setUserId(user.getId());
         postRepository.save(post);
         System.err.println("post saved!");
+        //TODO
+        post.setHasImage((byte) 0);
+        post.setImage("");
         return true;
     }
 

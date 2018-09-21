@@ -1,4 +1,4 @@
-<div *ngIf="!admin">
+<div *ngIf="!hideElements">
   <app-navbar></app-navbar>
 </div>
 <div class="profile-content">
@@ -22,7 +22,7 @@
       <app-chatwithuser userToChat="{{profileUserID}}"></app-chatwithuser>
     </div>
   </div>
-  <div *ngIf="!admin">
+  <div *ngIf="!hideElements">
     <div *ngIf="requestConnectButton" class="connect-buttons-container">
       <button class="btn btn-secondary request-connect-button" type="button" (click)="sendConnectRequest()">
         <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
