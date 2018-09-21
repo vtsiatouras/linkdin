@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class AdminGuard {
+export class LightGuard {
 
   authService: AuthenticationService;
 
@@ -18,7 +18,7 @@ export class AdminGuard {
   }
 
   canActivate(): Observable<boolean> {
-    return this.authService.isAdmin();
+    return this.authService.lightAuth();
   }
 
 }

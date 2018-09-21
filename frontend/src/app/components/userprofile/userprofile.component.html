@@ -1,4 +1,6 @@
-<app-navbar></app-navbar>
+<div *ngIf="!admin">
+  <app-navbar></app-navbar>
+</div>
 <div class="profile-content">
   <div class="d-flex flex-row flex-wrap justify-content-center">
     <img class="rounded-circle profile-image" src="{{profileImage}}">
@@ -20,24 +22,25 @@
       <app-chatwithuser userToChat="{{profileUserID}}"></app-chatwithuser>
     </div>
   </div>
-
-  <div *ngIf="requestConnectButton" class="connect-buttons-container">
-    <button class="btn btn-secondary request-connect-button" type="button" (click)="sendConnectRequest()">
-      <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
-      Connect
-    </button>
-  </div>
-  <div *ngIf="connectPendingButton" class="connect-buttons-container">
-    <button class="btn btn-outline-primary disabled-connect-button" type="button" disabled>
-      <fa-icon [icon]="['fas', 'user-clock']"></fa-icon>
-      Connect Request Pending
-    </button>
-  </div>
-  <div *ngIf="connectedButton" class="connect-buttons-container">
-    <button class="btn btn-outline-primary disabled-connect-button" type="button" disabled>
-      <fa-icon [icon]="['fas', 'user-check']"></fa-icon>
-      Connected
-    </button>
+  <div *ngIf="!admin">
+    <div *ngIf="requestConnectButton" class="connect-buttons-container">
+      <button class="btn btn-secondary request-connect-button" type="button" (click)="sendConnectRequest()">
+        <fa-icon [icon]="['fas', 'user-plus']"></fa-icon>
+        Connect
+      </button>
+    </div>
+    <div *ngIf="connectPendingButton" class="connect-buttons-container">
+      <button class="btn btn-outline-primary disabled-connect-button" type="button" disabled>
+        <fa-icon [icon]="['fas', 'user-clock']"></fa-icon>
+        Connect Request Pending
+      </button>
+    </div>
+    <div *ngIf="connectedButton" class="connect-buttons-container">
+      <button class="btn btn-outline-primary disabled-connect-button" type="button" disabled>
+        <fa-icon [icon]="['fas', 'user-check']"></fa-icon>
+        Connected
+      </button>
+    </div>
   </div>
   <div *ngFor="let x of posts">
     <app-post postId="{{x.id}}" userIdPost="{{profileUserID}}" isAd="{{x.isAdvertisment}}" isPublic="{{x.isPublic}}"
