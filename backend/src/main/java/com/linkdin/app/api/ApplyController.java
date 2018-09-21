@@ -1,7 +1,6 @@
 package com.linkdin.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkdin.app.dto.InterestData;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.services.*;
@@ -13,58 +12,51 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @RestController
-public class GetInterestsDataController {
-
+public class ApplyController {
     @Autowired
-    PostInterestService postInterestService;
+    PostApplicationService postApplicationService;
     @Autowired
     UserNetworkService userNetworkService;
     @Autowired
     AuthRequestService authRequestService;
     @Autowired
-    AdminAuthRequestService adminAuthRequestService;
-    @Autowired
     PostService postService;
 
-    @PostMapping(path = "/interestsdata")
-    public ResponseEntity<Object> interestsNumber(@RequestBody String jsonInterestData, HttpSession session) {
+    @PostMapping(path = "/apply")
+    public ResponseEntity<Object> apply(@RequestBody String jsonApplyData, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonInterestData);
+        JSONObject obj = new JSONObject(jsonApplyData);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject interestedUsersObj = obj.getJSONObject("interestedUsers");
+            JSONObject applyObj = obj.getJSONObject("apply");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String postID = interestedUsersObj.getString("postID");
+            String postID = applyObj.getString("postID");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            boolean isAdmin = adminAuthRequestService.authenticateRequest(userIdentifiers, session);
-
             Post post = postService.returnPostByID(Integer.parseInt(postID));
             if (post == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
+
+            // Only ads posts has the apply feature
+            if (post.getIsAdvertisment() != 1) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
             int userIDPostOwner = post.getUserId();
 
+            // Check if the post belongs to the user that clicked interest button OR
             // Check if post belongs to connected user
-            // or if the post belongs to the post owner
-            // or requested by admin
             if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
-                    userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
-                    post.getIsPublic() == 1 ||
-                    isAdmin) {
-                InterestData interestData = new InterestData();
-                interestData.numberOfInterestedUsers = postInterestService.getInterestsNumber(Integer.parseInt(postID));
-                interestData.isUserInterested = postInterestService.checkIfInterested(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
-                return new ResponseEntity<>(interestData, HttpStatus.OK);
+                    post.getIsPublic() == 1) {
+                postApplicationService.addApply(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
+                return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }

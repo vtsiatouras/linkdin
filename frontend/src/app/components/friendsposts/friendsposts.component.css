@@ -1,9 +1,9 @@
 .interested-user {
     margin: 10px 0 10px 0;
     padding: 10px;
-    background-color: rgb(236, 232, 232);
+    background-color: #e0dfdf;
     border-radius: 5px;
-    border: 1px solid #949393;
+    border: none;
 }
 
 .btn.no-background {

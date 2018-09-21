@@ -15,8 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-// TODO remove all prints and use log system
-
 @RestController
 public class RegisterController {
 

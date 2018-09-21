@@ -13,15 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @RestController
-public class GetInterestsDataController {
-
+public class GetApplicationsDataController {
     @Autowired
-    PostInterestService postInterestService;
+    PostApplicationService postApplicationService;
     @Autowired
     UserNetworkService userNetworkService;
     @Autowired
@@ -31,15 +28,15 @@ public class GetInterestsDataController {
     @Autowired
     PostService postService;
 
-    @PostMapping(path = "/interestsdata")
-    public ResponseEntity<Object> interestsNumber(@RequestBody String jsonInterestData, HttpSession session) {
+    @PostMapping(path = "/applicationsdata")
+    public ResponseEntity<Object> applicationsNumber(@RequestBody String jsonApplyData, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonInterestData);
+        JSONObject obj = new JSONObject(jsonApplyData);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject interestedUsersObj = obj.getJSONObject("interestedUsers");
+            JSONObject appliedUsersObj = obj.getJSONObject("appliedUsers");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String postID = interestedUsersObj.getString("postID");
+            String postID = appliedUsersObj.getString("postID");
 
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
@@ -52,18 +49,27 @@ public class GetInterestsDataController {
             if (post == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
+
+            // Only ads posts has the apply feature
+            if (post.getIsAdvertisment() != 1) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
             int userIDPostOwner = post.getUserId();
 
-            // Check if post belongs to connected user
-            // or if the post belongs to the post owner
+            // Check if the post belongs to the user that owns the ad
             // or requested by admin
-            if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
-                    userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
-                    post.getIsPublic() == 1 ||
+            InterestData interestData = new InterestData();
+            if (userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
                     isAdmin) {
-                InterestData interestData = new InterestData();
-                interestData.numberOfInterestedUsers = postInterestService.getInterestsNumber(Integer.parseInt(postID));
-                interestData.isUserInterested = postInterestService.checkIfInterested(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
+                interestData.numberOfInterestedUsers = postApplicationService.getApplicationsNumber(Integer.parseInt(postID));
+                interestData.isUserInterested = postApplicationService.checkIfApplied(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
+                return new ResponseEntity<>(interestData, HttpStatus.OK);
+            }
+            // If is requested by other user return only if this user is already applied
+            else if (userIDPostOwner != Integer.parseInt(userIdentifiers.id)) {
+                interestData.numberOfInterestedUsers = 0;
+                interestData.isUserInterested = postApplicationService.checkIfApplied(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
                 return new ResponseEntity<>(interestData, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

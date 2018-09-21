@@ -61,6 +61,11 @@
     color: #00334d85;
 }
 
+.button-text {
+    display: inline-block;
+    font-size: 14pt;
+}
+
 .post-controls {
     text-align: center;
 }
@@ -179,5 +184,11 @@
 @media screen and (max-width: 700px) {
     .post-comment {
         max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .button-text {
+        display: none;
     }
 }

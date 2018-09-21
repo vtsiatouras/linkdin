@@ -40,11 +40,18 @@ export class PostComponent implements OnInit {
   isInterested: boolean;
   numberOfInterests: any;
 
+  // Applications
+  appliedUsers = [];
+  applied: boolean;
+  numberOfApplications: any;
+
   // Comments
   showComments = false;
   comment: string;
   comments = [];
   numberOfComments: any;
+
+  renderApplyButton: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +63,14 @@ export class PostComponent implements OnInit {
     this.getUserIdentifiers();
     this.getInterests();
     this.getCommentsNumber();
+    if (this.isAd === '1') {
+      this.getApplications();
+      if (this.userId === this.userIdPost) {
+        this.renderApplyButton = false;
+      } else {
+        this.renderApplyButton = true;
+      }
+    }
   }
 
   getUserIdentifiers() {
@@ -122,6 +137,59 @@ export class PostComponent implements OnInit {
       this.interestedUsers = obj.list;
       for (let i = 0; i < numberOfInterests; i++) {
         this.interestedUsers[i].image = 'data:image/jpeg;base64,' + this.interestedUsers[i].image;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  apply() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const apply = { postID: this.postId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/apply', {
+      userIdentifiers,
+      apply
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      this.getApplications();
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  getApplications() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const appliedUsers = { postID: this.postId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/applicationsdata', {
+      userIdentifiers,
+      appliedUsers
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      this.applied = obj.isUserInterested;
+      this.numberOfApplications = obj.numberOfInterestedUsers;
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
+  }
+
+  getAppliedUsers() {
+    this.appliedUsers = [];
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const appliedUsers = { postID: this.postId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/appliedusersinfo', {
+      userIdentifiers,
+      appliedUsers
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      this.numberOfApplications = obj.numberOfResults;
+      this.appliedUsers = obj.list;
+      for (let i = 0; i < this.numberOfApplications; i++) {
+        this.appliedUsers[i].image = 'data:image/jpeg;base64,' + this.appliedUsers[i].image;
       }
     },
       (err: HttpErrorResponse) => {
