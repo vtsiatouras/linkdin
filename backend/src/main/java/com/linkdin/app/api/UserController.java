@@ -3,6 +3,7 @@ package com.linkdin.app.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.User;
+import com.linkdin.app.services.AdminAuthRequestService;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.ImageStorageService;
 import com.linkdin.app.services.UserService;
@@ -22,6 +23,8 @@ public class UserController {
     UserService userService;
     @Autowired
     AuthRequestService authRequestService;
+    @Autowired
+    AdminAuthRequestService adminAuthRequestService;
     @Autowired
     ImageStorageService imageStorageService;
 

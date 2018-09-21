@@ -5,10 +5,7 @@ import com.linkdin.app.dto.InterestData;
 import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
-import com.linkdin.app.services.AuthRequestService;
-import com.linkdin.app.services.PostInterestService;
-import com.linkdin.app.services.PostService;
-import com.linkdin.app.services.UserNetworkService;
+import com.linkdin.app.services.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +25,8 @@ public class GetInterestedUsersController {
     @Autowired
     AuthRequestService authRequestService;
     @Autowired
+    AdminAuthRequestService adminAuthRequestService;
+    @Autowired
     PostService postService;
 
     @PostMapping(path = "/interestedusersinfo")
@@ -45,6 +44,8 @@ public class GetInterestedUsersController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
+            boolean isAdmin = adminAuthRequestService.authenticateRequest(userIdentifiers, session);
+
             Post post = postService.returnPostByID(Integer.parseInt(postID));
             if (post == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -53,9 +54,11 @@ public class GetInterestedUsersController {
 
             // Check if post belongs to connected user
             // or if the post belongs to the user that clicked interest button
+            // or requested by admin
             if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
                     userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
-                    post.getIsPublic() == 1) {
+                    post.getIsPublic() == 1 ||
+                    isAdmin) {
                 ListUsers users = postInterestService.getInterestedUsersInfo(Integer.parseInt(postID));
                 return new ResponseEntity<>(users, HttpStatus.OK);
             } else {

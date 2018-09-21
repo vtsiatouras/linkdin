@@ -17,6 +17,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './guard/auth.guard';
 import { AdminGuard } from './guard/admin.guard';
+import { LightGuard } from './guard/light.guard';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
 import { PostComponent } from './components/post/post.component';
@@ -50,7 +51,7 @@ const appRoutes: Routes = [
   {
     path: 'users/:user_id',
     children: [
-      { path: '', component: UserprofileComponent, canActivate: [AuthGuard] },
+      { path: '', component: UserprofileComponent, canActivate: [LightGuard] },
       { path: 'network', component: UsernetworkComponent, canActivate: [AuthGuard] }
     ]
   },
@@ -103,7 +104,7 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     RouterModule.forRoot(appRoutes, { useHash: true })
   ],
-  providers: [AuthGuard, AdminGuard, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [AuthGuard, AdminGuard, LightGuard, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 

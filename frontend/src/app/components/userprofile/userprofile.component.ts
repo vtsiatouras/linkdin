@@ -22,6 +22,8 @@ export class UserprofileComponent implements OnInit {
   lastName = localStorage.getItem('lastName');
   userId = localStorage.getItem('userID');
 
+  admin = false;
+
   // Variables for requested user's profile
   profileFirstName: string;
   profileSurname: string;
@@ -48,6 +50,7 @@ export class UserprofileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.route.params.subscribe((params) => {
       this.profileUserID = +params['user_id'];
       // Posts variables
@@ -58,8 +61,28 @@ export class UserprofileComponent implements OnInit {
       this.limitPosts = 5;
       this.posts = [];
       window.scrollTo(0, 0);
+      this.checkIfAdmin();
       this.loadProfile();
     });
+  }
+
+  checkIfAdmin() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/isadmin', {
+      userIdentifiers
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      if (obj === true) {
+        this.admin = true;
+      } else {
+        this.admin = false;
+      }
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.router.navigate(['/error', false], { skipLocationChange: true });
+      });
   }
 
   loadProfile() {

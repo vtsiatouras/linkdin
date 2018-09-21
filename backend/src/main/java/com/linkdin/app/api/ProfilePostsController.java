@@ -3,6 +3,7 @@ package com.linkdin.app.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ProfilePostsPageRequest;
 import com.linkdin.app.dto.UserIdentifiers;
+import com.linkdin.app.services.AdminAuthRequestService;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
 import com.linkdin.app.services.UserNetworkService;
@@ -26,6 +27,8 @@ public class ProfilePostsController {
     @Autowired
     AuthRequestService authRequestService;
     @Autowired
+    AdminAuthRequestService adminAuthRequestService;
+    @Autowired
     UserNetworkService userNetworkService;
 
     @PostMapping(path = "/getprofileposts")
@@ -43,18 +46,20 @@ public class ProfilePostsController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
+            boolean isAdmin = adminAuthRequestService.authenticateRequest(userIdentifiers, session);
+
             int userID = Integer.parseInt(profilePostsPageRequest.profileUserID);
             int pageNumber = Integer.parseInt(profilePostsPageRequest.pageNumber);
             int limit = Integer.parseInt(profilePostsPageRequest.limit);
             Page page;
             // If the requested profile belongs to the user that made the request
-            if (profilePostsPageRequest.profileUserID.equals(userIdentifiers.id)) {
+            // If they are connected
+            // If admin requested
+            if (profilePostsPageRequest.profileUserID.equals(userIdentifiers.id) ||
+                    userNetworkService.checkIfConnected(Integer.parseInt(profilePostsPageRequest.profileUserID), Integer.parseInt(userIdentifiers.id)) ||
+                    isAdmin) {
                 page = postService.getUserPosts(userID, pageNumber, limit);
                 return new ResponseEntity<Object>(page, HttpStatus.OK);
-            }
-            // If they are connected
-            if (userNetworkService.checkIfConnected(Integer.parseInt(profilePostsPageRequest.profileUserID), Integer.parseInt(userIdentifiers.id))) {
-                page = postService.getUserPosts(userID, pageNumber, limit);
             }
             // If not return only the public posts
             else {

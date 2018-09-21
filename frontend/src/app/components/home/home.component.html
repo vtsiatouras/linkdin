@@ -3,14 +3,14 @@
   <app-newpost></app-newpost>
 
   <div class="btn-group">
-    <button type="button" class="btn btn-primary">{{ pageType }}</button>
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    <span class="btn btn-primary change-view-button" disabled>{{ pageType }}</span>
+    <button type="button" class="btn btn-primary dropdown-toggle change-view-button-hoverable" data-toggle="dropdown">
       <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu" role="menu">
-      <li><button class="btn" id="selection1" (click)="changeHomeType(1)">Most Recent</button></li>
-      <li><button class="btn" id="selection2" (click)="changeHomeType(2)">Recommended for you</button></li>
-    </ul>
+    <div class="dropdown-menu" role="menu">
+      <li><button class="btn dropdown-elem" id="selection1" (click)="changeHomeType(1)">Most Recent</button></li>
+      <li><button class="btn dropdown-elem" id="selection2" (click)="changeHomeType(2)">Recommended for you</button></li>
+    </div>
   </div>
 
   <div *ngIf="renderMostRecent">

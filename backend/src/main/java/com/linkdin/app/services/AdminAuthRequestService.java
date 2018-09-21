@@ -3,8 +3,6 @@ package com.linkdin.app.services;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.stereotype.Service;
 

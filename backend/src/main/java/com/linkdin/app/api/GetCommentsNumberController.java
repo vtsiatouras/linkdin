@@ -3,10 +3,7 @@ package com.linkdin.app.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
-import com.linkdin.app.services.AuthRequestService;
-import com.linkdin.app.services.PostCommentService;
-import com.linkdin.app.services.PostService;
-import com.linkdin.app.services.UserNetworkService;
+import com.linkdin.app.services.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +24,8 @@ public class GetCommentsNumberController {
     @Autowired
     AuthRequestService authRequestService;
     @Autowired
+    AdminAuthRequestService adminAuthRequestService;
+    @Autowired
     PostService postService;
 
     @PostMapping(path = "/gettotalcomments")
@@ -44,6 +43,8 @@ public class GetCommentsNumberController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
+            boolean isAdmin = adminAuthRequestService.authenticateRequest(userIdentifiers, session);
+
             Post post = postService.returnPostByID(Integer.parseInt(postID));
             if (post == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -52,9 +53,11 @@ public class GetCommentsNumberController {
 
             // Check if post belongs to connected user OR
             // Check if the post belongs to the user that posted the comment
+            // Or requested by admin
             if (userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
                     userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
-                    post.getIsPublic() == 1) {
+                    post.getIsPublic() == 1 ||
+                    isAdmin) {
                 int commentsNumber = postCommentService.getCommentsNumber(Integer.parseInt(postID));
                 return new ResponseEntity<>(commentsNumber, HttpStatus.OK);
             } else {

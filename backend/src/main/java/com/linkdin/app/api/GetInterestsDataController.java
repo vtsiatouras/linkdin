@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.InterestData;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
-import com.linkdin.app.services.AuthRequestService;
-import com.linkdin.app.services.PostInterestService;
-import com.linkdin.app.services.PostService;
-import com.linkdin.app.services.UserNetworkService;
+import com.linkdin.app.services.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +27,8 @@ public class GetInterestsDataController {
     @Autowired
     AuthRequestService authRequestService;
     @Autowired
+    AdminAuthRequestService adminAuthRequestService;
+    @Autowired
     PostService postService;
 
     @PostMapping(path = "/interestsdata")
@@ -47,18 +46,21 @@ public class GetInterestsDataController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
+            boolean isAdmin = adminAuthRequestService.authenticateRequest(userIdentifiers, session);
+
             Post post = postService.returnPostByID(Integer.parseInt(postID));
             if (post == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
             int userIDPostOwner = post.getUserId();
 
-            // TODO MAKE THIS WORK WITH PUBLIC POSTS
             // Check if post belongs to connected user
             // or if the post belongs to the user that clicked interest button
+            // or requested by admin
             if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
                     userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
-                    post.getIsPublic() == 1) {
+                    post.getIsPublic() == 1 ||
+                    isAdmin) {
                 InterestData interestData = new InterestData();
                 interestData.numberOfInterestedUsers = postInterestService.getInterestsNumber(Integer.parseInt(postID));
                 interestData.isUserInterested = postInterestService.checkIfInterested(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));

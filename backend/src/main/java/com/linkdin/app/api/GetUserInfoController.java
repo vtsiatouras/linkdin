@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.dto.UserInfo;
 import com.linkdin.app.model.User;
-import com.linkdin.app.model.UserNetwork;
+import com.linkdin.app.services.AdminAuthRequestService;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.UserNetworkService;
 import com.linkdin.app.services.UserService;
@@ -27,6 +27,8 @@ public class GetUserInfoController {
     UserNetworkService userNetworkService;
     @Autowired
     AuthRequestService authRequestService;
+    @Autowired
+    AdminAuthRequestService adminAuthRequestService;
 
     @PostMapping(path = "/getuserinfo")
     public ResponseEntity<Object> userInfo(@RequestBody String jsonRequestUserInfo, HttpSession session) {
@@ -43,15 +45,19 @@ public class GetUserInfoController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
+            boolean isAdmin = adminAuthRequestService.authenticateRequest(userIdentifiers, session);
+
             User user = userService.returnUserByID(Integer.parseInt(userId));
-            if(user == null) {
+            if (user == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
             // If the requested profile belongs to the user that made the request OR
             // If the requested info belongs to a friend
+            // If admin requested
             if (userId.equals(userIdentifiers.id) ||
-                    userNetworkService.checkIfConnected(Integer.parseInt(userId), Integer.parseInt(userIdentifiers.id))) {
+                    userNetworkService.checkIfConnected(Integer.parseInt(userId), Integer.parseInt(userIdentifiers.id)) ||
+                    isAdmin) {
                 UserInfo userInfo = userService.getUserInfo(userId);
                 return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
             }

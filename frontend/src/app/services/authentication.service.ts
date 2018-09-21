@@ -41,6 +41,29 @@ export class AuthenticationService {
     }
   }
 
+  lightAuth(): Observable<boolean> {
+    const userToken = localStorage.getItem('userToken');
+    const id = localStorage.getItem('userID');
+    // If there is a user token
+    if (userToken) {
+      // Check the server if the session belongs to online user
+      // If not the server will send UNAUTHORIZED
+      const API_URL = environment.API_URL;
+      return this.http.post(API_URL + '/api/authlightcheck', {
+        userToken: userToken,
+        id: id
+      }, { responseType: 'text', withCredentials: true }).mapTo(true)
+        .catch(err => {
+          this.router.navigate(['/error', true], { skipLocationChange: true });
+          return Observable.of(false);
+        });
+      // Else cannot be exist a valid session
+    } else {
+      this.router.navigate(['/error', true], { skipLocationChange: true });
+      return Observable.of(false);
+    }
+  }
+
   isAdmin(): Observable<boolean> {
     const userToken = localStorage.getItem('userToken');
     const id = localStorage.getItem('userID');
