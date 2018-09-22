@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --ssl 1 --ssl-key key.pem --ssl-cert cert.pem --host linkdin.dyndns.org",
+    "start": "ng serve --ssl 1 --ssl-key ../key.pem --ssl-cert ../cert.pem --host linkdin.dyndns.org",
     "build": "ng build -prod --output-path ui-src/META-INF/resources",
     "test": "ng test --watch false",
     "test-watch": "ng test",
