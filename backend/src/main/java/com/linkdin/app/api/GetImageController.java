@@ -5,8 +5,7 @@ import com.linkdin.app.dto.NewPostData;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.User;
 import com.linkdin.app.services.AuthRequestService;
-import com.linkdin.app.services.PostService;
-import com.linkdin.app.services.UserService;
+import com.linkdin.app.services.ImageStorageService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,33 +17,31 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class NewPostController {
+public class GetImageController {
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    PostService postService;
     @Autowired
     AuthRequestService authRequestService;
+    @Autowired
+    ImageStorageService imageStorageService;
 
-    @PostMapping(path = "/newpost")
-    public ResponseEntity<Object> newPost(@RequestBody String jsonNewPost, HttpSession session) {
+    @PostMapping(path = "/getimage")
+    public ResponseEntity<Object> gendImage(@RequestBody String jsonImage, HttpSession session) {
         ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonNewPost);
+        JSONObject obj = new JSONObject(jsonImage);
         try {
             JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject postObj = obj.getJSONObject("postData");
+            JSONObject imageObj = obj.getJSONObject("image");
             UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            NewPostData newPostData = objectMapper.readValue(postObj.toString(), NewPostData.class);
-
+            String imageName = imageObj.getString("imageName");
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            User user = userService.returnUserByID(Integer.parseInt(userIdentifiers.id));
-            postService.createPost(newPostData, user, "");
-            return new ResponseEntity<>(HttpStatus.OK);
+            String imageBytes =  imageStorageService.getImage(imageName);
+            String returnJsonImage = new JSONObject()
+                    .put("image", imageBytes).toString();
+            return new ResponseEntity<>(returnJsonImage, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

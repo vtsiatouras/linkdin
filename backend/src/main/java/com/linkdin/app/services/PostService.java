@@ -22,7 +22,7 @@ public class PostService {
     @Autowired
     UserNetworkService userNetworkService;
 
-    public boolean createPost(NewPostData newPostData, User user) {
+    public void createPost(NewPostData newPostData, User user, String imageName) {
         Post post = new Post();
         post.setContent(newPostData.postContent);
         if (newPostData.isAd) {
@@ -39,12 +39,14 @@ public class PostService {
         Timestamp sqlDate = new java.sql.Timestamp(date.getTime());
         post.setTimestamp(sqlDate);
         post.setUserId(user.getId());
+        if (!imageName.equals("")) {
+            post.setHasImage((byte) 1);
+            post.setImage(imageName);
+        } else {
+            post.setHasImage((byte) 0);
+            post.setImage("");
+        }
         postRepository.save(post);
-        System.err.println("post saved!");
-        //TODO
-        post.setHasImage((byte) 0);
-        post.setImage("");
-        return true;
     }
 
     public Post returnPostByID(int postID) {
@@ -100,10 +102,10 @@ public class PostService {
         cal.setTime(twoMonthsAgo);
         cal.add(Calendar.MONTH, -2);
         twoMonthsAgo.setTime(cal.getTime().getTime());
-        List<Post> list =  postRepository.findAllByIsAdvertismentAndTimestampGreaterThan(new PageRequest(0, 500), (byte) 1, twoMonthsAgo);
+        List<Post> list = postRepository.findAllByIsAdvertismentAndTimestampGreaterThan(new PageRequest(0, 500), (byte) 1, twoMonthsAgo);
         for (Post element : list) {
             Integer postOwnerID = element.getUserId();
-            if( element.getIsPublic() == 0 && !userNetworkService.checkIfConnected(userID, postOwnerID)) {
+            if (element.getIsPublic() == 0 && !userNetworkService.checkIfConnected(userID, postOwnerID)) {
                 list.remove(element);
             }
         }

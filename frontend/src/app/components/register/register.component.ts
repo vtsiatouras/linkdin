@@ -3,8 +3,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,8 +10,6 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 })
 
 export class RegisterComponent implements OnInit {
-
-  faUpload = faUpload;
 
   email: string;
   password_1: string;
@@ -23,7 +19,6 @@ export class RegisterComponent implements OnInit {
   phoneNumber: string;
   fileToUpload: File;
 
-  image: string;
   imageUploaded: boolean;
 
   hasError = false;
@@ -74,12 +69,7 @@ export class RegisterComponent implements OnInit {
         'phoneNumber': this.phoneNumber
       };
 
-      const image = {
-        'imageFile': this.fileToUpload
-      };
-
       formData.append('user', JSON.stringify(user));
-      const imageToString = (this.fileToUpload);
       formData.append('profileImage', this.fileToUpload);
 
       const API_URL = environment.API_URL;

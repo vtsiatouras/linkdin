@@ -18,6 +18,9 @@
     </div>
   </div>
   <div class="post-content"> {{ content }} </div>
+  <div *ngIf="renderImage" class="d-flex justify-content-center">
+    <img class="image-post" src="{{imageBytes}}">
+  </div>
   <hr>
   <div class="post-controls">
     <button *ngIf="!isInterested" class="btn btn-info btn-lg interact-button" type="button" (click)="interested()">
@@ -32,7 +35,7 @@
       <fa-icon [icon]="['far', 'comment-alt']"></fa-icon>
       <div class="button-text">Comment</div>
     </button>
-    <button *ngIf="renderApplyButton && applied === false" class="btn btn-info btn-lg interact-button" type="button"
+    <button *ngIf="renderApplyButton && applied == false" class="btn btn-info btn-lg interact-button" type="button"
       (click)="apply()">
       <fa-icon [icon]="['far', 'file-alt']"></fa-icon>
       <div class="button-text">Apply</div>

@@ -1,7 +1,7 @@
 .new-post-box {
     margin: 15px auto;
     background-color: rgb(235, 235, 235);
-    border:none;
+    border: none;
     border-radius: 5px;
 }
 
@@ -73,4 +73,35 @@
 
 .btn.new-post-button:disabled {
     background-color: #006394;
+}
+
+.input-group.upload-image {
+    text-align: center;
+    margin: auto;
+    width: 200px;
+}
+
+.upload-button {
+    height: 40px;
+    background-color: rgb(104, 145, 162);
+}
+
+.upload-button:hover,
+.upload-button:active,
+.upload-button:focus {
+    background-color: #006394;
+}
+
+.form-control.upload-image-info {
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+}
+
+.alert {
+    position: fixed;
+    z-index: 9999;
+    width: 260px;
+    bottom: 60px;
+    left: 50%;
+    margin-left: -130px;
 }
