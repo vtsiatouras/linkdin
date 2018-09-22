@@ -19,7 +19,9 @@
   </div>
   <div class="post-content"> {{ content }} </div>
   <div *ngIf="renderImage" class="d-flex justify-content-center">
-    <img class="image-post" src="{{imageBytes}}">
+    <div class="image-container">
+      <img class="image-post" src="{{imageBytes}}">
+    </div>
   </div>
   <hr>
   <div class="post-controls">

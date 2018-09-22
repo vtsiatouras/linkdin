@@ -14,6 +14,7 @@
     box-shadow: none;
     border: none;
     font-size: 12pt;
+    cursor: default;
 }
 
 .btn.change-view-button-hoverable {
@@ -26,7 +27,11 @@
 }
 
 .btn.change-view-button-hoverable:hover,
-.btn.change-view-button-hoverable:active {
+.btn.change-view-button-hoverable:active,
+.btn.change-view-button-hoverable:focus {
+    outline: none !important;
+    box-shadow: none;
+    border: none;
     background-color: #006394;
 }
 

@@ -30,8 +30,8 @@
               <div class="inline">
                 <app-userbasicinfo userIDInfo="{{x.notifiedByUser}}"></app-userbasicinfo>
               </div>
-              <div *ngIf="x.interest === 1" class="inline"> is interested to your </div>
-              <div *ngIf="x.comment === 1" class="inline"> commented your </div>
+              <label *ngIf="x.interest === 1" class="inline"> is interested to your </label>
+              <label *ngIf="x.comment === 1" class="inline"> commented your </label>
               <a [routerLink]="['/posts', x.postId]" class="inline">post</a>
             </div>
             <div class="notification-time">

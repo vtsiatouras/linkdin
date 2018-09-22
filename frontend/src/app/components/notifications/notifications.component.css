@@ -118,6 +118,7 @@
 .inline {
     display: inline-block;
     cursor: default;
+    margin: 0 2px 0 2px;
 }
 
 .notification-time {
