@@ -19,6 +19,8 @@ export class ShowpostComponent implements OnInit {
   isPublic: string;
   timestamp: string;
   content: string;
+  hasImage;
+  image;
   postID;
 
   constructor(
@@ -48,6 +50,8 @@ export class ShowpostComponent implements OnInit {
       this.isPublic = obj.isPublic;
       this.timestamp = obj.timestamp;
       this.content = obj.content;
+      this.hasImage = obj.hasImage;
+      this.image = obj.image;
       this.renderPostComponent = true;
     },
       (err: HttpErrorResponse) => {
