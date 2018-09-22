@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -103,12 +104,14 @@ public class PostService {
         cal.add(Calendar.MONTH, -2);
         twoMonthsAgo.setTime(cal.getTime().getTime());
         List<Post> list = postRepository.findAllByIsAdvertismentAndTimestampGreaterThan(new PageRequest(0, 500), (byte) 1, twoMonthsAgo);
+        List<Post> returnList = new ArrayList<>();
         for (Post element : list) {
             Integer postOwnerID = element.getUserId();
             if (element.getIsPublic() == 0 && !userNetworkService.checkIfConnected(userID, postOwnerID)) {
-                list.remove(element);
+                continue;
             }
+            returnList.add(element);
         }
-        return list;
+        return returnList;
     }
 }
