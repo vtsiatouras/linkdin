@@ -14,11 +14,11 @@
         <span>commented this post</span>
       </div>
       <app-post postId="{{x.id}}" userIdPost="{{x.userId}}" isAd="{{x.isAdvertisment}}" isPublic="{{x.isPublic}}" date="{{x.timestamp| date:'d MMMM y, h:mm a'}}"
-        content="{{x.content}}"></app-post>
+        content="{{x.content}}" hasImage="{{x.hasImage}}" image="{{x.image}}"></app-post>
     </div>
     <div *ngIf="friendsInterestsPostsIDs.indexOf(x.id) === -1 && friendsCommentsPostsIDs.indexOf(x.id) === -1">
       <app-post postId="{{x.id}}" userIdPost="{{x.userId}}" isAd="{{x.isAdvertisment}}" isPublic="{{x.isPublic}}" date="{{x.timestamp| date:'d MMMM y, h:mm a'}}"
-        content="{{x.content}}"></app-post>
+        content="{{x.content}}" hasImage="{{x.hasImage}}" image="{{x.image}}"></app-post>
     </div>
   </div>
 </div>

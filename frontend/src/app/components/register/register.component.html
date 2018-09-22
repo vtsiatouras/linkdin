@@ -28,13 +28,13 @@
         <div class="input-group upload-image">
           <label class="input-group-btn">
             <span class="btn btn-primary upload-button">
-              <fa-icon [icon]="faUpload"></fa-icon>
+              <fa-icon [icon]="['fas', 'upload']"></fa-icon>
               <input class="form-control image-up" id="my-file-selector" name="image" type="file" accept="image/*" style="display:none;"
-                onchange="$('#upload-file-info').val($(this).val());" (change)="handleFileInput($event.target.files)" required
+                onchange="$('#upload-file-info').val($(this).val().replace(/C:\\fakepath\\/i, ''));" (change)="handleFileInput($event.target.files)" required
                 ng-model="filepath">
             </span>
           </label>
-          <input type="text" class="form-control upload-image-info" id="upload-file-info" placeholder="Upload Profile Image" readonly>
+          <input type="text" class="form-control upload-image-info" id="upload-file-info" placeholder="Upload Profile Image" disabled>
         </div>
         <div *ngIf="!imageUploaded" class="text-center alert-error image-upload-alert">Image required</div>
         <div class="text-req text-center">

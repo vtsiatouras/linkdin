@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.web.WebMvcRegistrationsAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -27,7 +29,7 @@ public class Application {
     }
 
     @Bean
-    public DefaultCookieSerializer defaultCookieSerializer(){
+    public DefaultCookieSerializer defaultCookieSerializer() {
         DefaultCookieSerializer defaultCookieSerializer = new DefaultCookieSerializer();
         defaultCookieSerializer.setCookieName("linkDIn_session");
         defaultCookieSerializer.setCookieMaxAge(86400 * 30);

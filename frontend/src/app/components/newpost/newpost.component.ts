@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
@@ -17,6 +17,15 @@ export class NewpostComponent implements OnInit {
   postContent: string;
   isAd: boolean;
   isPublic: boolean;
+  fileToUpload: File;
+  image: string;
+  fileName;
+
+  postShared = false;
+  alerts: string;
+  type: 'success';
+
+  postID;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,12 +37,19 @@ export class NewpostComponent implements OnInit {
     this.isPublic = false;
   }
 
-  sharePost() {
-    if (this.postContent) {
+  share() {
+    this.postShared = false;
+    if (!this.fileToUpload) {
+      this.shareTextPost();
+    } else {
+      this.shareImagePost();
+    }
+  }
 
+  shareTextPost() {
+    if (this.postContent) {
       const userIdentifiers = { userToken: this.userToken, id: this.userId };
       const postData = { postContent: this.postContent, isAd: this.isAd, isPublic: this.isPublic };
-
       const API_URL = environment.API_URL;
       const req = this.http.post(API_URL + '/api/newpost', {
         userIdentifiers,
@@ -43,6 +59,7 @@ export class NewpostComponent implements OnInit {
         this.postContent = '';
         this.isAd = false;
         this.isPublic = false;
+        this.showAlert();
       },
         (err: HttpErrorResponse) => {
           console.log(err);
@@ -50,4 +67,40 @@ export class NewpostComponent implements OnInit {
         });
     }
   }
+
+  shareImagePost() {
+    const formData: FormData = new FormData();
+    const userIdentifiers = { 'userToken': this.userToken, 'id': this.userId };
+    const postData = { 'postContent': this.postContent, 'isAd': this.isAd, 'isPublic': this.isPublic };
+    formData.append('userIdentifiers', JSON.stringify(userIdentifiers));
+    formData.append('postData', JSON.stringify(postData));
+    formData.append('image', this.fileToUpload);
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/postimage',
+      formData
+      , { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+        this.fileToUpload = null;
+        // Reset fields
+        this.postContent = '';
+        this.isAd = false;
+        this.isPublic = false;
+        this.fileName = '';
+        this.showAlert();
+      },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+        });
+  }
+
+  handleFileInput(files: FileList) {
+    if (files.item(0) !== null) {
+      this.fileToUpload = files.item(0);
+    }
+  }
+
+  showAlert() {
+    this.postShared = true;
+    this.alerts = 'Post Uploaded!';
+  }
+
 }

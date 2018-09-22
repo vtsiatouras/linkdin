@@ -112,6 +112,7 @@
 }
 
 .upload-button {
+    height: 40px;
     background-color: rgb(104, 145, 162);
 }
 
@@ -122,6 +123,7 @@
 }
 
 .form-control.upload-image-info {
+    height: 40px;
     background-color: rgb(255, 255, 255);
 }
 

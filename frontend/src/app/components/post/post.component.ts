@@ -34,6 +34,11 @@ export class PostComponent implements OnInit {
   @Input() isAd: any;
   @Input() isPublic: any;
   @Input() content: string;
+  @Input() hasImage: any;
+  @Input() image: string;
+
+  imageBytes;
+  renderImage = false;
 
   // Interests
   interestedUsers = [];
@@ -60,6 +65,10 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (this.hasImage === '1') {
+      this.getImage();
+      this.renderImage = true;
+    }
     this.getUserIdentifiers();
     this.getInterests();
     this.getCommentsNumber();
@@ -71,6 +80,22 @@ export class PostComponent implements OnInit {
         this.renderApplyButton = true;
       }
     }
+  }
+
+  getImage() {
+    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const image = { imageName: this.image };
+    const API_URL = environment.API_URL;
+    const req = this.http.post(API_URL + '/api/getimage', {
+      userIdentifiers,
+      image
+    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+      const obj = JSON.parse(data);
+      this.imageBytes = 'data:image/jpeg;base64,' + obj.image;
+    },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      });
   }
 
   getUserIdentifiers() {
