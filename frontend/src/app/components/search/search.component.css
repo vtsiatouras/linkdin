@@ -11,6 +11,7 @@
 }
 
 .form-control.search {
+    height: 50px;
     outline: none !important;
     box-shadow: none;
 }
@@ -20,6 +21,7 @@
 }
 
 .search-button {
+    height: 50px;
     background-color: #006394;
     outline: none !important;
     box-shadow: none;

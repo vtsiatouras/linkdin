@@ -12,12 +12,14 @@
     </label>
     <div class="input-group upload-image">
       <label class="input-group-btn">
-        <span class="btn btn-primary upload-button">
-          <fa-icon [icon]="['fas', 'image']"></fa-icon>
-          <input class="form-control image-up" id="my-file-selector" name="image" type="file" accept="image/*" style="display:none;"
-            onchange="$('#upload-file-info').val($(this).val().replace(/C:\\fakepath\\/i, ''));" (change)="handleFileInput($event.target.files)"
-            ng-model="filepath">
-        </span>
+        <div class="input-group-prepend">
+          <span class="btn btn-primary upload-button">
+            <fa-icon [icon]="['fas', 'image']"></fa-icon>
+            <input class="form-control image-up" id="my-file-selector" name="image" type="file" accept="image/*" style="display:none;"
+              onchange="$('#upload-file-info').val($(this).val().replace(/C:\\fakepath\\/i, ''));" (change)="handleFileInput($event.target.files)"
+              ng-model="filepath">
+          </span>
+        </div>
       </label>
       <input type="text" class="form-control upload-image-info" id="upload-file-info" placeholder="Upload an Image"
         [(ngModel)]="fileName" disabled>

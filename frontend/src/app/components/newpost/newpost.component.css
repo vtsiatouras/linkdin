@@ -83,12 +83,14 @@
 
 .upload-button {
     height: 40px;
+    border: none;
     background-color: rgb(104, 145, 162);
 }
 
 .upload-button:hover,
 .upload-button:active,
 .upload-button:focus {
+    border: none;
     background-color: #006394;
 }
 
