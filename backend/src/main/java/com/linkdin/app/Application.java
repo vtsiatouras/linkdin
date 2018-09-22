@@ -34,7 +34,7 @@ public class Application {
         defaultCookieSerializer.setCookieName("linkDIn_session");
         defaultCookieSerializer.setCookieMaxAge(86400 * 30);
         defaultCookieSerializer.setUseHttpOnlyCookie(true);
-//        defaultCookieSerializer.setUseSecureCookie(true);
+        defaultCookieSerializer.setUseSecureCookie(true);
         return defaultCookieSerializer;
     }
 
