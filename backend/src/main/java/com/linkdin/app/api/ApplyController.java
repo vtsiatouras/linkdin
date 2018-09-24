@@ -21,6 +21,8 @@ public class ApplyController {
     @Autowired
     UserNetworkService userNetworkService;
     @Autowired
+    NotificationsService notificationsService;
+    @Autowired
     AuthRequestService authRequestService;
     @Autowired
     PostService postService;
@@ -56,6 +58,10 @@ public class ApplyController {
             if (userNetworkService.checkIfConnected(userIDPostOwner, Integer.parseInt(userIdentifiers.id)) ||
                     post.getIsPublic() == 1) {
                 postApplicationService.addApply(Integer.parseInt(postID), Integer.parseInt(userIdentifiers.id));
+                // Don't push notification with comments/interests from the user that owns the post
+                if(userIDPostOwner != Integer.parseInt(userIdentifiers.id)) {
+                    notificationsService.createNewNotification(Integer.parseInt(userIdentifiers.id), userIDPostOwner, Integer.parseInt(postID), 3);
+                }
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
