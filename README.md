@@ -16,7 +16,7 @@ This is a web application that implements a social media service similar to Link
 * [Bootstrap 4](http://getbootstrap.com/): The user interface is styled with the help of Bootstrap framework. Also responsive view is supported.
 * HTML 5/CSS (nothing to say here...)
 
----
+##
 
 ### Post Recommendation Algorithm
 
