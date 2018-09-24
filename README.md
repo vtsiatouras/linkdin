@@ -16,6 +16,8 @@ This is a web application that implements a social media service similar to Link
 * [Bootstrap 4](http://getbootstrap.com/): The user interface is styled with the help of Bootstrap framework. Also responsive view is supported.
 * HTML 5/CSS (nothing to say here...)
 
+---
+
 ### Post Recommendation Algorithm
 
 The post recommendation service executes an algorithm that is based in k-NN classification. More specific, the algorithm fetches the 3 most recent public posts per user based on similar user activity(interests & comments).
