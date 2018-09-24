@@ -26,11 +26,19 @@ public class NotificationsService {
         if (notificationType == 1) {
             notification.setInterest((byte) 1);
             notification.setComment((byte) 0);
+            notification.setJobapply((byte) 0);
         }
         // Notification type == 2 => COMMENT
         else if (notificationType == 2) {
             notification.setInterest((byte) 0);
             notification.setComment((byte) 1);
+            notification.setJobapply((byte) 0);
+        }
+        // Notification type == 3 => JOB APPLY
+        else if (notificationType == 3) {
+            notification.setInterest((byte) 0);
+            notification.setComment((byte) 0);
+            notification.setJobapply((byte) 1);
         }
         Date date = new java.util.Date();
         Timestamp sqlDate = new java.sql.Timestamp(date.getTime());

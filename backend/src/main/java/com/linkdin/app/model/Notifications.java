@@ -13,6 +13,7 @@ public class Notifications {
     private int postId;
     private Byte interest;
     private Byte comment;
+    private Byte jobapply;
     private Timestamp timestamp;
 
     @Id
@@ -76,6 +77,16 @@ public class Notifications {
     }
 
     @Basic
+    @Column(name = "jobapply")
+    public Byte getJobapply() {
+        return jobapply;
+    }
+
+    public void setJobapply(Byte jobapply) {
+        this.jobapply = jobapply;
+    }
+
+    @Basic
     @Column(name = "timestamp")
     public Timestamp getTimestamp() {
         return timestamp;
@@ -96,11 +107,12 @@ public class Notifications {
                 postId == that.postId &&
                 Objects.equals(interest, that.interest) &&
                 Objects.equals(comment, that.comment) &&
+                Objects.equals(jobapply, that.jobapply) &&
                 Objects.equals(timestamp, that.timestamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, notifiedByUser, postId, interest, comment, timestamp);
+        return Objects.hash(id, userId, notifiedByUser, postId, interest, comment, jobapply, timestamp);
     }
 }
