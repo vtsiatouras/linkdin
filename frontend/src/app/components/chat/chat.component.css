@@ -41,6 +41,10 @@
     padding-left: 20px;
 }
 
+.message-form{
+    margin-right: 15px
+}
+
 .send-message {
     margin: 15px 10px 10px 10px;
     position: relative;
@@ -57,7 +61,7 @@
     border-color: inherit;
     outline: none !important;
     box-shadow: none;
-    border: 2px solid #ccc;
+    border: 1px solid #ccc;
     height: 45px;
 }
 
@@ -66,8 +70,9 @@
     outline: none !important;
     box-shadow: none;
     border: none;
+    border-radius: 3px;
     font-size: 13pt;
-    height: auto;
+    height: 45px;
 }
 
 .btn.send-message-button:hover,

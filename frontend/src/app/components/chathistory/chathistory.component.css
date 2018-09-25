@@ -1,5 +1,5 @@
 .user-info {
-    margin: 10px;
+    margin: 20px 0 15px 0;
 }
 
 .chathistory-content {
@@ -10,7 +10,7 @@
     margin: 0 10px 0 10px;
     height: 200px;
     overflow-y: scroll;
-    height: calc(100vh - 250px);
+    height: calc(100vh - 270px);
     flex-direction: column;
 }
 
