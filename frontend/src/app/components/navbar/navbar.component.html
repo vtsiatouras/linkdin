@@ -8,8 +8,8 @@
     <div class="navbar-nav nav-item mr-4 ml-5">
       <app-search></app-search>
     </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="navbarSupportedContent">
@@ -32,6 +32,8 @@
         <li class="divider"></li>
         <li class="nav-item text-center">
           <app-notifications></app-notifications>
+        </li>
+        <li class="nav-item text-center">
           <a role="button" class="btn btn-secondary icon-button navbar-btn" [routerLink]="['/chat']">
             <fa-icon [icon]="['fas', 'envelope']"></fa-icon>
           </a>
@@ -40,8 +42,11 @@
           <a class="btn btn-secondary navbar-btn no-background-button" role="button" [routerLink]="['/users', userID]">
             {{ firstName }} {{ lastName }}
           </a>
+        </li>
+        <li class="nav-item text-center">
           <div class="nav-item dropdown">
-            <button type="button" class="btn btn-secondary icon-button navbar-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-secondary icon-button navbar-btn" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
               <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
