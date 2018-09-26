@@ -101,6 +101,7 @@ export class NewpostComponent implements OnInit {
   showAlert() {
     this.postShared = true;
     this.alerts = 'Post Uploaded!';
+    setTimeout(function () { document.getElementById('close-alert').click(); }, 5000);
   }
 
 }
