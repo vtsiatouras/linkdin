@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { trigger, transition, animate, style } from '@angular/animations';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -58,11 +58,22 @@ export class PostComponent implements OnInit {
 
   renderApplyButton: boolean;
 
+  screenHeight;
+  screenWidth;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
+  }
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {
+    this.onResize();
+  }
 
   ngOnInit() {
     if (this.hasImage === '1') {
@@ -281,6 +292,38 @@ export class PostComponent implements OnInit {
       (err: HttpErrorResponse) => {
         console.log(err);
       });
+  }
+
+  // Open the Modal
+  openModal() {
+    document.getElementById('my-modal-' + this.postId).style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    const image = document.getElementById('image-modal-' + this.postId);
+    const width = image.clientWidth;
+    const height = image.clientHeight;
+    const ratio = width / height;
+    if (ratio <= 1) {
+      const targetHeight = this.screenHeight - 200;
+      if (height > targetHeight) {
+        const targetWidth = targetHeight * ratio;
+        document.getElementById('modal-content-' + this.postId).style.height = targetHeight + 'px';
+        document.getElementById('modal-content-' + this.postId).style.width = targetWidth + 'px';
+      }
+    }
+    else {
+      const targetWidth = this.screenWidth - 100;
+      if (width > this.screenWidth) {
+        const targetHeight = targetWidth / ratio;
+        document.getElementById('modal-content-' + this.postId).style.height = targetHeight + 'px';
+        document.getElementById('modal-content-' + this.postId).style.width = targetWidth + 'px';
+      }
+    }
+  }
+
+  // Close the Modal
+  closeModal() {
+    document.getElementById('my-modal-' + this.postId).style.display = 'none';
+    document.body.style.overflow = 'visible';
   }
 
 }

@@ -20,7 +20,13 @@
   <div class="post-content"> {{ content }} </div>
   <div *ngIf="renderImage" class="d-flex justify-content-center">
     <div class="image-container">
-      <img class="image-post" src="{{imageBytes}}">
+      <img class="image-post" src="{{imageBytes}}" (click)="openModal()">
+      <div id="my-modal-{{postId}}" class="modal">
+        <span class="close cursor" (click)="closeModal()">&times;</span>
+        <div id="modal-content-{{postId}}" class="modal-content">
+          <img id="image-modal-{{postId}}" src="{{imageBytes}}" style="width:100%">
+        </div>
+      </div>
     </div>
   </div>
   <hr>
