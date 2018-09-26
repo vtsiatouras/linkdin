@@ -110,6 +110,17 @@
     }
 }
 
+@media screen and (max-width: 1080px) {
+    .search-bar {
+        /* margin-left: -60px; */
+        width: 200px;
+    }
+    .dropdown-menu-center {
+        left: -150px;
+        width: 200px;
+    }
+}
+
 @media screen and (max-width: 980px) {
     .search-bar {
         margin-left: -60px;
