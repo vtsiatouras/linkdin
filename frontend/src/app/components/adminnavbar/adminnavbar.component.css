@@ -44,11 +44,17 @@
     overflow: hidden;
     color: #ffffff;
     cursor: default;
+    text-align: center;
+    padding-top: 5px;
 }
 
-.logo {
+.full-logo {
     width: 110px;
     display: inline-block;
+}
+
+.small-logo {
+    display: none;
 }
 
 .logo-link {
@@ -169,5 +175,15 @@
     }
     .btn.top-button {
         right: 10px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .logo .full-logo {
+        display: none;
+    }
+    .small-logo {
+        width: 35px;
+        display: inline-block;
     }
 }
