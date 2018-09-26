@@ -2,19 +2,19 @@
   <div class="container-fluid">
     <div class="logo">
       <a class="logo-link" [routerLink]="['/admin']">
-        <img id="logo-img" class="navbar-brand logo" src="../../../assets/images/linkDIn_light.png"/>
+        <img id="logo-img" class="navbar-brand full-logo" src="../../../assets/images/linkDIn_light.png" />
+        <img id="logo-img" class="navbar-brand small-logo" src="../../../assets/images/linkDIn_small.png" />
       </a>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <ul class="navbar-nav text-center">
           <li class="nav-item">
-            <button class="btn no-background-button" (click)="checkAll()"  type="button">
+            <button class="btn no-background-button" (click)="checkAll()" type="button">
               Select All Users
             </button>
           </li>
@@ -25,13 +25,17 @@
           </li>
         </ul>
         <li class="divider"></li>
+        <ul class="navbar-nav text-center">
+          <li class="nav-item">
+            <div class="disabled-button">
+              {{ firstName }} {{ lastName }}
+            </div>
+          </li>
+        </ul>
         <li class="nav-item text-center">
-          <tr class="disabled-button">
-            {{ firstName }} {{ lastName }}
-          </tr>
           <div class="nav-item dropdown">
-            <button type="button" class="btn btn-secondary icon-button navbar-btn" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-secondary icon-button navbar-btn" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
               <fa-icon [icon]="['fas', 'caret-down']"></fa-icon>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
