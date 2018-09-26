@@ -174,6 +174,10 @@ export class PostComponent implements OnInit {
       for (let i = 0; i < numberOfInterests; i++) {
         this.interestedUsers[i].image = 'data:image/jpeg;base64,' + this.interestedUsers[i].image;
       }
+      const modalButton = 'interest-modal-button-' + this.postId;
+      const modal = '#interest-modal-' + this.postId;
+      document.getElementById(modalButton).setAttribute('data-target', modal);
+      document.getElementById(modalButton).click();
     },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -227,6 +231,10 @@ export class PostComponent implements OnInit {
       for (let i = 0; i < this.numberOfApplications; i++) {
         this.appliedUsers[i].image = 'data:image/jpeg;base64,' + this.appliedUsers[i].image;
       }
+      const modalButton = 'applications-modal-button-' + this.postId;
+      const modal = '#applications-modal-' + this.postId;
+      document.getElementById(modalButton).setAttribute('data-target', modal);
+      document.getElementById(modalButton).click();
     },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -294,35 +302,30 @@ export class PostComponent implements OnInit {
       });
   }
 
-  // Open the Modal
+  // Open Image Modal
   openModal() {
-    document.getElementById('my-modal-' + this.postId).style.display = 'block';
+    document.getElementById('image-modal-' + this.postId).style.display = 'block';
     document.body.style.overflow = 'hidden';
-    const image = document.getElementById('image-modal-' + this.postId);
+    const image = document.getElementById('content-image-' + this.postId);
     const width = image.clientWidth;
     const height = image.clientHeight;
     const ratio = width / height;
-    if (ratio <= 1) {
-      const targetHeight = this.screenHeight - 200;
-      if (height > targetHeight) {
-        const targetWidth = targetHeight * ratio;
-        document.getElementById('modal-content-' + this.postId).style.height = targetHeight + 'px';
-        document.getElementById('modal-content-' + this.postId).style.width = targetWidth + 'px';
-      }
-    }
-    else {
-      const targetWidth = this.screenWidth - 100;
-      if (width > this.screenWidth) {
-        const targetHeight = targetWidth / ratio;
-        document.getElementById('modal-content-' + this.postId).style.height = targetHeight + 'px';
-        document.getElementById('modal-content-' + this.postId).style.width = targetWidth + 'px';
-      }
+    const screenHeight = this.screenHeight - 150;
+    const screenWidth = this.screenWidth - 50;
+    if (height > screenHeight) {
+      const targetWidth = screenHeight * ratio;
+      document.getElementById('image-modal-content-' + this.postId).style.height = screenHeight + 'px';
+      document.getElementById('image-modal-content-' + this.postId).style.width = targetWidth + 'px';
+    } else if (width > screenWidth) {
+      const targetHeight = screenWidth / ratio;
+      document.getElementById('image-modal-content-' + this.postId).style.height = targetHeight + 'px';
+      document.getElementById('image-modal-content-' + this.postId).style.width = screenWidth + 'px';
     }
   }
 
-  // Close the Modal
+  // Close Image Modal
   closeModal() {
-    document.getElementById('my-modal-' + this.postId).style.display = 'none';
+    document.getElementById('image-modal-' + this.postId).style.display = 'none';
     document.body.style.overflow = 'visible';
   }
 

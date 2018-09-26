@@ -1,7 +1,7 @@
 # LinkDIn
 
 ## About
-This is a web application that implements a social media service similar to LinkedIn. This project is an assignment for the course "Web Technologies" of the dept. Informatics & Telecommunications of National Kapodistrian University of Athens.
+This is a single page web application that implements a social media service similar to LinkedIn. This project is an assignment for the course "Web Technologies" of the dept. Informatics & Telecommunications of the National Kapodistrian University of Athens.
 
 ## Build & Execution
 
@@ -57,7 +57,7 @@ To set up the database of this web application is pretty straight forward. All y
 * [MySQL](https://www.mysql.com/): The RDBMS of this web application is MySQL.
 
 ### Frontend
-* [TypeScript](https://www.typescriptlang.org/)/[Angular  5](https://angular.io/): We have implemented the user interface in Angular, split in components (i.e. navbar.component, post.component etc.) 
+* [TypeScript](https://www.typescriptlang.org/)/[Angular  5](https://angular.io/): We have implemented the user interface in Angular, split in components (i.e. navbar.component, post.component etc.).
 * [Bootstrap 4](http://getbootstrap.com/): The user interface is styled with the help of Bootstrap framework. Also responsive view is supported.
 * HTML 5/CSS: (nothing to say here...)
 
