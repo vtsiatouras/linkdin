@@ -21,10 +21,12 @@
   <div *ngIf="renderImage" class="d-flex justify-content-center">
     <div class="image-container">
       <img class="image-post" src="{{imageBytes}}" (click)="openModal()">
-      <div id="my-modal-{{postId}}" class="modal">
-        <span class="close cursor" (click)="closeModal()">&times;</span>
-        <div id="modal-content-{{postId}}" class="modal-content">
-          <img id="image-modal-{{postId}}" src="{{imageBytes}}" style="width:100%">
+      <div id="image-modal-{{postId}}" class="modal image-modal">
+        <span class="image-close cursor" (click)="closeModal()">
+          <fa-icon [icon]="['fas', 'times']"></fa-icon>
+        </span>
+        <div id="image-modal-content-{{postId}}" class="modal-content image-modal-content">
+          <img id="content-image-{{postId}}" src="{{imageBytes}}" style="width:100%">
         </div>
       </div>
     </div>
@@ -53,24 +55,33 @@
       <div class="button-text">Applied</div>
     </button>
   </div>
-
-  <div class="dropdown">
-    <div class="d-flex justify-content-center">
-      <button *ngIf="numberOfInterests == 1" type="button" class="btn btn-primary interested-people-button" id="dropdownMenuButton"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="getInterestedUsers()">
-        {{ numberOfInterests }} person found that post interesting
-      </button>
-      <button *ngIf="numberOfInterests > 1" type="button" class="btn btn-primary interested-people-button" id="dropdownMenuButton"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="getInterestedUsers()">
-        {{ numberOfInterests }} people found that post interesting
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <label class="dropdown-item d-flex justify-content-center">Interested Users</label>
-        <div class="border"></div>
-        <div *ngFor="let x of interestedUsers">
-          <a class="dropdown-item" [routerLink]="['/users', x.id]">
-            <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }}
-          </a>
+  <div class="d-flex justify-content-center">
+    <button *ngIf="numberOfInterests == 1" type="button" class="btn btn-primary interested-people-button" (click)="getInterestedUsers()">
+      {{ numberOfInterests }} person found that post interesting
+    </button>
+    <button *ngIf="numberOfInterests > 1" type="button" class="btn btn-primary interested-people-button" (click)="getInterestedUsers()">
+      {{ numberOfInterests }} people found that post interesting
+    </button>
+  </div>
+  <button type="button" id="interest-modal-button-{{postId}}" class="btn btn-primary" data-toggle="modal" hidden>
+  </button>
+  <div class="modal fade modal-users" id="interest-modal-{{postId}}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Interested Users</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngFor="let x of interestedUsers">
+            <div class="modal-element">
+              <a [routerLink]="['/users', x.id]">
+                <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }}
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -85,13 +96,27 @@
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="getAppliedUsers()">
         {{ numberOfApplications }} people applied for this job
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <label class="dropdown-item d-flex justify-content-center">Applied Users</label>
-        <div class="border"></div>
-        <div *ngFor="let x of appliedUsers">
-          <a class="dropdown-item" [routerLink]="['/users', x.id]">
-            <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }}
-          </a>
+    </div>
+    <button type="button" id="applications-modal-button-{{postId}}" class="btn btn-primary" data-toggle="modal" hidden>
+    </button>
+    <div class="modal fade modal-users" id="applications-modal-{{postId}}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Applied Users</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div *ngFor="let x of appliedUsers">
+              <div class="modal-element">
+                <a [routerLink]="['/users', x.id]">
+                  <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }}
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
