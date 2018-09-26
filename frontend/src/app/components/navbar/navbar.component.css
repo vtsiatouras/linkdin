@@ -1,6 +1,6 @@
 .navbar {
   width: 100%;
-  min-height: 70px;
+  height: 70px;
   background-color: #263238;
 }
 
@@ -169,11 +169,5 @@
   }
   .btn.top-button {
     right: 10px;
-  }
-}
-
-@media screen and (max-width: 390px) {
-  .navbar {
-    height: 110px;
   }
 }
