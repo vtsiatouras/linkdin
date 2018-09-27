@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
 
   chatID;
 
@@ -23,6 +23,7 @@ export class ChatComponent implements OnInit {
   chatHistory = [];
 
   message: string;
+  interval;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,11 +35,16 @@ export class ChatComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.chatID = +params['chat_id'];
       this.getActiveChats();
-      console.log(this.chatID);
       if (this.chatID) {
         this.loadChatRoom();
+        // Get new content after 30 seconds
+        this.interval = setInterval(() => { this.loadChatRoom(); }, 30000);
       }
     });
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
   }
 
   getActiveChats() {
@@ -60,8 +66,6 @@ export class ChatComponent implements OnInit {
           this.chatIDs.push(obj[i].id);
         }
       }
-      console.log(this.activeChats);
-      console.log(this.userIDsChats);
     },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -74,7 +78,6 @@ export class ChatComponent implements OnInit {
       this.chatID = +params['chat_id'];
       const userIdentifiers = { userToken: this.userToken, id: this.userId };
       const chatMessageContent = { chatID: this.chatID };
-      console.log(chatMessageContent);
       const API_URL = environment.API_URL;
       const req = this.http.post(API_URL + '/api/getchatmessages', {
         userIdentifiers,

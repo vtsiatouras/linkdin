@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="home-content">
-  <app-newpost></app-newpost>
+  <app-newpost (messageEvent)="recieveRefreshCommand($event)"></app-newpost>
 
   <div class="btn-group">
     <span class="btn btn-primary change-view-button" disabled>{{ pageType }}</span>
