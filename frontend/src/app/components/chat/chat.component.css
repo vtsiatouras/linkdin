@@ -42,11 +42,10 @@
 }
 
 .message-form{
-    margin-right: 15px
+    margin: 20px 10px 10px 10px;
 }
 
 .send-message {
-    margin: 15px 10px 10px 10px;
     position: relative;
     border-radius: 3px;
     border-color: inherit;
