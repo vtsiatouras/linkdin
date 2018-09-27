@@ -324,7 +324,7 @@ export class PostComponent implements OnInit {
   }
 
   // Close Image Modal
-  closeModal() {
+  closeImageModal() {
     document.getElementById('image-modal-' + this.postId).style.display = 'none';
     document.body.style.overflow = 'visible';
   }

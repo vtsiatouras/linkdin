@@ -41,9 +41,11 @@
 
 #li {
     display: inline;
+    background-color: #ffffff;
 }
 
 .dropdown-elem {
+    background-color: #ffffff;
     width: 100%;
     cursor: pointer;
     text-align: left;
