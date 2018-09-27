@@ -8,4 +8,11 @@
     text-align: center;
     font-size: 10pt;
     overflow: hidden;
+    z-index: 2;
+}
+
+@media screen and (max-height: 450px) {
+    .footer {
+        display: none;
+    }
 }

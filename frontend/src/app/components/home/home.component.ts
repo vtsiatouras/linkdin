@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { FriendspostsComponent } from '../friendsposts/friendsposts.component';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,9 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild(FriendspostsComponent) child;
+  message: string;
 
   userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');
@@ -42,5 +46,17 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  async recieveRefreshCommand($event) {
+    this.message = $event;
+    // this.constructor();
+    // console.log(this.message);
+    await this.delay(1500);
+    if (this.message === '1') {
+      this.child.ngOnInit();
+    }
+  }
 
+  async delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 }

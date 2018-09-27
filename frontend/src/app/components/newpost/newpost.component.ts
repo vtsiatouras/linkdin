@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
@@ -10,6 +10,8 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./newpost.component.css']
 })
 export class NewpostComponent implements OnInit {
+
+  @Output() messageEvent = new EventEmitter<string>();
 
   userId = localStorage.getItem('userID');
   userToken = localStorage.getItem('userToken');
@@ -44,6 +46,7 @@ export class NewpostComponent implements OnInit {
     } else {
       this.shareImagePost();
     }
+    this.sendRefreshMessage();
   }
 
   shareTextPost() {
@@ -104,4 +107,7 @@ export class NewpostComponent implements OnInit {
     setTimeout(function () { document.getElementById('close-alert').click(); }, 5000);
   }
 
+  sendRefreshMessage() {
+    this.messageEvent.emit('1');
+  }
 }

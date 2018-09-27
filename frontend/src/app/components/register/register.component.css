@@ -103,12 +103,13 @@
 
 .upload-image {
     margin-top: 10px;
+    padding-right: 40px;
     text-align: center;
-    max-width: 228px;
+    width: 100%;
 }
 
 .upload-button {
-    position: fixed;
+    position: absolute;
     height: 40px;
     background-color: rgb(104, 145, 162);
 }
@@ -120,7 +121,7 @@
 }
 
 .form-control.upload-image-info {
-    position: fixed;
+    position: absolute;
     height: 40px;
     left: 40px;
     background-color: rgb(255, 255, 255);
