@@ -18,6 +18,7 @@
 --
 -- Table structure for table `chat`
 --
+USE web_dev_db;
 
 DROP TABLE IF EXISTS `chat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
