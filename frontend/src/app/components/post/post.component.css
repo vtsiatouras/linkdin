@@ -52,6 +52,7 @@
 .post-content {
     margin: 40px 0 0 10px;
     padding: 5px;
+    white-space: pre;
 }
 
 .post-attributes {
@@ -185,8 +186,13 @@
     margin: 0 0 15px 0;
 }
 
+.comment-content {
+    display: inline-block;
+    margin: 0 0 15px 20px;
+}
+
 .comment-time {
-    margin: 0 0 10px 50px;
+    margin: 5px 0 10px 0;
     font-size: 9pt;
     color: #6d6b6b;
 }

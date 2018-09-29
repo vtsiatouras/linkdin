@@ -17,7 +17,7 @@
       </span>
     </div>
   </div>
-  <div class="post-content"> {{ content }} </div>
+  <div class="post-content">{{ content }}</div>
   <div *ngIf="renderImage" class="d-flex justify-content-center">
     <div class="image-container">
       <img class="image-post" src="{{imageBytes}}" (click)="openModal()">
@@ -138,7 +138,9 @@
         <a [routerLink]="['/users', x.id]">
           <img class="rounded-circle profile-image" src="{{x.image}}"> {{ x.name }} {{ x.surname }}
         </a>
-        {{ x.comment }}
+        <div class="comment-content">
+          {{ x.comment }}
+        </div>
         <div class="comment-time">
           <label>{{ x.timestamp | date:'d MMMM y, h:mm a' }}</label>
         </div>
