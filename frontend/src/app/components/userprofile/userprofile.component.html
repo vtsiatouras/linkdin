@@ -10,9 +10,10 @@
       </div>
       <div class="user-personal-info row-fluid">
         <div>Phone Number: {{ profilePhoneNumber }}</div>
-        <div>City: {{ profileCity }}</div>
-        <div>Profession: {{ profileProfession }}</div>
-        <div>Education: {{ profileEducation }}</div>
+        <div *ngIf="profileCity">City: {{ profileCity }}</div>
+        <div *ngIf="profileProfession">Profession: {{ profileProfession }}</div>
+        <div *ngIf="profileEducation">Education: {{ profileEducation }}</div>
+        <div *ngIf="profileCompany">Company: {{ profileCompany }}</div>
       </div>
     </div>
   </div>
