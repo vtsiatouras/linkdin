@@ -31,6 +31,11 @@ public class UserRegister {
         user.setPublicEducation((byte) 0);
         user.setPublicProfession((byte) 0);
         user.setIsAdmin((byte) 0);
+        // So that the db doesn't contain null values
+        user.setCity("");
+        user.setProfession("");
+        user.setEducation("");
+        user.setCompany("");
         return user;
     }
 

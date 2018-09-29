@@ -56,15 +56,18 @@ public class UserService {
     }
 
     public void storeUser(User user) {
-        user.setCity("");
-        user.setProfession("");
-        user.setEducation("");
-        user.setCompany("");
         userRepository.save(user);
     }
 
     public ListUsers searchUsers(String queryName) {
-        List<User> list = userRepository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(queryName, queryName);
+        queryName = queryName.trim();
+        String words[] = queryName.split("\\s+");
+        List<User> list;
+        if (words.length == 2) {
+            list = userRepository.findByNameContainingIgnoreCaseAndSurnameContainingIgnoreCase(words[0], words[1]);
+        } else {
+            list = userRepository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(queryName, queryName);
+        }
         ArrayList<UserBasicInfo> resultList = new ArrayList<UserBasicInfo>();
         for (User element : list) {
             UserBasicInfo userSearchResult = new UserBasicInfo();

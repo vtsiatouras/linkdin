@@ -9,7 +9,7 @@
         {{ profileFirstName }} {{ profileSurname }}
       </div>
       <div class="user-personal-info row-fluid">
-        <div>Phone Number: {{ profilePhoneNumber }}</div>
+        <div *ngIf="profilePhoneNumber">Phone Number: {{ profilePhoneNumber }}</div>
         <div *ngIf="profileCity">City: {{ profileCity }}</div>
         <div *ngIf="profileProfession">Profession: {{ profileProfession }}</div>
         <div *ngIf="profileEducation">Education: {{ profileEducation }}</div>
