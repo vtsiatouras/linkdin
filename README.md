@@ -3,6 +3,8 @@
 ## About
 This is a single page web application that implements a social media service similar to LinkedIn. This project is an assignment for the course "Web Technologies" of the dept. Informatics & Telecommunications of the National Kapodistrian University of Athens.
 
+![gif](https://github.com/VangelisTsiatouras/linkdin/blob/MasterBranch/readme_assets/Peek%202018-10-04%2003-57.gif)
+
 ## Build & Execution
 
 To build & run this application make sure that you have installed Java 8 & MySQL Server. Also you must edit your hosts file by adding the following:
