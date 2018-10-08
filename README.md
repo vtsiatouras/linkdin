@@ -2,8 +2,8 @@
 
 Copyright (C) 2018 Vangelis Tsiatouras & Nick Sofras
 
-## Disclaimer / License
-This project is school assignment and NO ONE has the licence to use its code for commercial use. The only right you have is only to test this application on your machine and observe its functionality. We are not responsible for potential problems that maybe exist.
+## Personal Use License
+This project is school assignment and NO ONE has the right to use its code for commercial use. Also, this project has been implemented for academic reasons and the only right that is permitted is only to test and observe its functionality. We are not responsible for potential problems that maybe exist.
 
 ## About
 This is a single page web application that implements a social media service similar to LinkedIn. This project is an assignment for the course "Web Technologies" of the dept. Informatics & Telecommunications of the National Kapodistrian University of Athens.
