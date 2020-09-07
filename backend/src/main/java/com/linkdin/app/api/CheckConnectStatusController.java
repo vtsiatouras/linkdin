@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,27 +29,22 @@ public class CheckConnectStatusController {
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/connectstatus")
-    public ResponseEntity<Object> connectStatus(@RequestBody String jsonConnectStatus, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonConnectStatus);
+    @GetMapping(path = "/connectstatus")
+    public ResponseEntity<Object> connectStatus(UserIdentifiers userIdentifiers, Integer profileUserID,
+                                                HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject targetProfileObj = obj.getJSONObject("targetProfile");
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userTargetProfileID = targetProfileObj.getString("profileUserID");
-
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            User user = userService.returnUserByID(Integer.parseInt(userTargetProfileID));
-            if(user == null) {
+            User user = userService.returnUserByID(profileUserID);
+            if (user == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            UserNetwork userNetwork = userNetworkService.returnConnection(Integer.parseInt(userIdentifiers.id), Integer.parseInt(userTargetProfileID));
+            UserNetwork userNetwork = userNetworkService.returnConnection(Integer.parseInt(userIdentifiers.id),
+                    profileUserID);
             ConnectionAttributes connectionAttributes = new ConnectionAttributes();
 
             // If they are not friends
