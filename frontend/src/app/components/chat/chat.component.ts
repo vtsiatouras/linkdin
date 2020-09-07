@@ -50,9 +50,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   getActiveChats() {
     const userIdentifiers = { userToken: this.userToken, id: this.userId };
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getactivechats', {
-      userIdentifiers
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/getactivechats', {
+      params: userIdentifiers, responseType: 'text', withCredentials: true }).subscribe((data: any) => {
       const obj = JSON.parse(data);
       this.activeChats = obj;
 
