@@ -29,18 +29,15 @@ export class AdminpageComponent implements OnInit {
 
   listAllUsers() {
     const adminIdentifiers = {userToken: this.userToken, id: this.userId};
-    // const profileNetwork = { profileUserID: this.profileUserID.toString() };
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/adminlistusers', {
-      adminIdentifiers,
-      // profileNetwork
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/adminlistusers', {
+      params: adminIdentifiers, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         this.users = obj;
         for (let i = 0; i < this.users.length; i++) {
           this.users[i].image = 'data:image/jpeg;base64,' + this.users[i].image;
         }
-
       },
       (err: HttpErrorResponse) => {
         console.log(err);

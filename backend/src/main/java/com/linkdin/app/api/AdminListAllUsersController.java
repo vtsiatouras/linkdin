@@ -1,14 +1,12 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkdin.app.services.AuthRequestService;
+import com.linkdin.app.dto.UserIdentifiers;
+import com.linkdin.app.services.AdminAuthRequestService;
 import com.linkdin.app.services.UserService;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -19,15 +17,15 @@ public class AdminListAllUsersController {
     @Autowired
     UserService userService;
     @Autowired
-    AuthRequestService authRequestService;
+    AdminAuthRequestService adminAuthRequestService;
 
-    @PostMapping(path = "/adminlistusers")
-    public ResponseEntity<Object> listAllUsers(@RequestBody String jsonListUsers, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonListUsers);
+    @GetMapping(path = "/adminlistusers")
+    public ResponseEntity<Object> listAllUsers(UserIdentifiers adminIdentifiers, HttpSession session) {
         try {
-            // TODO create admin auth service
-            JSONObject userObj = obj.getJSONObject("adminIdentifiers");
+            // Authenticate request
+            if (!adminAuthRequestService.authenticateRequest(adminIdentifiers, session)) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
 
             List list = userService.listAllUsers();
             return new ResponseEntity<>(list, HttpStatus.OK);
