@@ -84,12 +84,12 @@ export class AdminnavbarComponent implements OnInit {
     }
 
     const userIdentifiers = {userToken: this.userToken, id: this.userID};
-    const userListRequest = {usersToExport: userList};
+    const api_params = {...userIdentifiers, usersToExport: userList.join(', ')}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/exportusers', {
-      userIdentifiers,
-      userListRequest
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/exportusers', {
+      params: api_params,
+      responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
         this.saveToFileSystem(data);
       },
       (err: HttpErrorResponse) => {
