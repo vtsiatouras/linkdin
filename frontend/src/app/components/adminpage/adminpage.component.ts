@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
-import { saveAs } from 'file-saver/FileSaver';
+import {saveAs} from 'file-saver/FileSaver';
 
 
 @Component({
@@ -20,20 +20,21 @@ export class AdminpageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient) { }
+    private http: HttpClient) {
+  }
 
   ngOnInit() {
     this.listAllUsers();
   }
 
   listAllUsers() {
-    const adminIdentifiers = { userToken: this.userToken, id: this.userId };
+    const adminIdentifiers = {userToken: this.userToken, id: this.userId};
     // const profileNetwork = { profileUserID: this.profileUserID.toString() };
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/adminlistusers', {
       adminIdentifiers,
       // profileNetwork
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
         const obj = JSON.parse(data);
         this.users = obj;
         for (let i = 0; i < this.users.length; i++) {
@@ -43,7 +44,7 @@ export class AdminpageComponent implements OnInit {
       },
       (err: HttpErrorResponse) => {
         console.log(err);
-        this.router.navigate(['/error', false], { skipLocationChange: true });
+        this.router.navigate(['/error', false], {skipLocationChange: true});
       });
   }
 
@@ -52,14 +53,15 @@ export class AdminpageComponent implements OnInit {
     userList.push(id);
     console.log(userList);
 
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const userListRequest = { usersToExport: userList };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const api_params = {...userIdentifiers, usersToExport: userList.join(', ')}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/exportusers', {
-      userIdentifiers,
-      userListRequest
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      this.saveToFileSystem(data);
+    const req = this.http.get(API_URL + '/api/exportusers', {
+      params: api_params,
+      responseType: 'text',
+      withCredentials: true
+    }).subscribe((data: any) => {
+        this.saveToFileSystem(data);
       },
       (err: HttpErrorResponse) => {
         console.log(err);
@@ -68,7 +70,7 @@ export class AdminpageComponent implements OnInit {
 
 
   private saveToFileSystem(response) {
-    const data = new Blob([response], { type: 'text/plain;charset=utf-8' });
+    const data = new Blob([response], {type: 'text/plain;charset=utf-8'});
     saveAs(data, 'users.xml');
   }
 

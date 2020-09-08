@@ -1,6 +1,5 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.model.PostComment;
@@ -10,14 +9,10 @@ import com.linkdin.app.repositories.PostCommentRepository;
 import com.linkdin.app.repositories.PostInterestRepository;
 import com.linkdin.app.services.*;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.StringWriter;
@@ -54,26 +49,17 @@ public class ExportUsersToXMLController {
     @Autowired
     AdminAuthRequestService adminAuthRequestService;
 
-    @PostMapping(path = "/exportusers")
-    public ResponseEntity<Object> exportUsers(@RequestBody String jsonUsers, HttpSession session) {
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonUsers);
+    @GetMapping(path = "/exportusers")
+    public ResponseEntity<Object> exportUsers(UserIdentifiers userIdentifiers, @RequestParam String[] usersToExport,
+                                              HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject listObj = obj.getJSONObject("userListRequest");
-
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-
             //Authenticate request
             if (!adminAuthRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
-
-            JSONArray userList = listObj.getJSONArray("usersToExport");
             ArrayList<User> users = new ArrayList<User>(); // an arraylist to store the users to be exported
-            for (int i = 0; i < userList.length(); i++) {
-                String userID = userList.get(i).toString();
+            for (int i = 0; i < usersToExport.length; i++) {
+                String userID = usersToExport[i];
                 User user = userService.returnUserByID(Integer.parseInt(userID));
                 users.add(user);
             }
@@ -96,7 +82,7 @@ public class ExportUsersToXMLController {
             Element mainRootElement = doc.createElement("users");
             doc.appendChild(mainRootElement);
 
-            for (User user: users) {
+            for (User user : users) {
                 Element userElement = doc.createElement("user");
                 userElement.setAttribute("id", Integer.toString(user.getId()));
                 // Name
@@ -136,7 +122,7 @@ public class ExportUsersToXMLController {
                 List<Post> posts = postService.getAllUserPosts(user.getId());
                 Element postsElement = doc.createElement("posts");
                 userElement.appendChild(postsElement);
-                for (Post post: posts) {
+                for (Post post : posts) {
                     // Post
                     Element postElement = doc.createElement("post");
                     postsElement.appendChild(postElement);
@@ -160,7 +146,7 @@ public class ExportUsersToXMLController {
                 Element commentsElement = doc.createElement("comments");
                 userElement.appendChild(commentsElement);
 
-                for (PostComment comment: comments) {
+                for (PostComment comment : comments) {
                     // Comment
                     Element commentElement = doc.createElement("comment");
                     commentsElement.appendChild(commentElement);
@@ -183,7 +169,7 @@ public class ExportUsersToXMLController {
                 Element interestsElement = doc.createElement("interests");
                 userElement.appendChild(interestsElement);
 
-                for (PostInterest interest: interests) {
+                for (PostInterest interest : interests) {
                     // Interest
                     Element interestElement = doc.createElement("interest");
                     interestsElement.appendChild(interestElement);
@@ -210,7 +196,7 @@ public class ExportUsersToXMLController {
             StreamResult sr = new StreamResult(new File(finalPath));
             StringWriter outWriter = new StringWriter();
 
-            StreamResult resultString = new StreamResult( outWriter );
+            StreamResult resultString = new StreamResult(outWriter);
 
             transformer.transform(source, sr); // to filesystem
             transformer.transform(source, resultString); // to string
