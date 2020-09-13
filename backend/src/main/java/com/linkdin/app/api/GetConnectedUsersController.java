@@ -1,19 +1,16 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.User;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.UserNetworkService;
 import com.linkdin.app.services.UserService;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,31 +23,25 @@ public class GetConnectedUsersController {
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/getconnectedusers")
-    public ResponseEntity<Object> connectedUsers(@RequestBody String jsonGetRequests, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonGetRequests);
+    @GetMapping(path = "/getconnectedusers")
+    public ResponseEntity<Object> connectedUsers(UserIdentifiers userIdentifiers, @RequestParam String profileUserID,
+                                                 HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject profileNetworkObj = obj.getJSONObject("profileNetwork");
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userTargetProfileID = profileNetworkObj.getString("profileUserID");
-
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            User user = userService.returnUserByID(Integer.parseInt(userTargetProfileID));
+            User user = userService.returnUserByID(Integer.parseInt(profileUserID));
             if (user == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
             // If the requested network belongs to the user that made the request OR
             // If the network belongs to a friend
-            if (userTargetProfileID.equals(userIdentifiers.id) ||
-                    userNetworkService.checkIfConnected(Integer.parseInt(userTargetProfileID), Integer.parseInt(userIdentifiers.id))) {
-                ListUsers connectedUsers = userNetworkService.getConnectedUsers(Integer.parseInt(userTargetProfileID));
+            if (profileUserID.equals(userIdentifiers.id) ||
+                    userNetworkService.checkIfConnected(Integer.parseInt(profileUserID), Integer.parseInt(userIdentifiers.id))) {
+                ListUsers connectedUsers = userNetworkService.getConnectedUsers(Integer.parseInt(profileUserID));
                 return new ResponseEntity<Object>(connectedUsers, HttpStatus.OK);
             }
             // If not return error

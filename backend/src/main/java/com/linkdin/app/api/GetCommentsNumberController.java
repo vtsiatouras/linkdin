@@ -25,8 +25,8 @@ public class GetCommentsNumberController {
     PostService postService;
 
     @GetMapping(path = "/gettotalcomments")
-    public ResponseEntity<Object> getTotalComments(UserIdentifiers userIdentifiers,
-                                                   @RequestParam String postID, HttpSession session) {
+    public ResponseEntity<Object> getTotalComments(UserIdentifiers userIdentifiers, @RequestParam String postID,
+                                                   HttpSession session) {
         try {
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
