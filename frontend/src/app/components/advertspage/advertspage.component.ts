@@ -28,11 +28,12 @@ export class AdvertspageComponent implements OnInit {
   getAds() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/adverts', {
-      userIdentifiers
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.adverts = obj;
+    const req = this.http.get(API_URL + '/api/adverts', {
+      params: userIdentifiers,
+      responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.adverts = obj;
 
       },
       (err: HttpErrorResponse) => {
