@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -27,7 +28,7 @@ public class CheckConnectStatusController {
     AuthRequestService authRequestService;
 
     @GetMapping(path = "/connectstatus")
-    public ResponseEntity<Object> connectStatus(UserIdentifiers userIdentifiers, Integer profileUserID,
+    public ResponseEntity<Object> connectStatus(UserIdentifiers userIdentifiers, @RequestParam String profileUserID,
                                                 HttpSession session) {
         try {
             // Authenticate user
@@ -35,13 +36,13 @@ public class CheckConnectStatusController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            User user = userService.returnUserByID(profileUserID);
+            User user = userService.returnUserByID(Integer.parseInt(profileUserID));
             if (user == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
             UserNetwork userNetwork = userNetworkService.returnConnection(Integer.parseInt(userIdentifiers.id),
-                    profileUserID);
+                    Integer.parseInt(profileUserID));
             ConnectionAttributes connectionAttributes = new ConnectionAttributes();
 
             // If they are not friends

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -28,7 +29,8 @@ public class GetAppliedUsersController {
     PostService postService;
 
     @GetMapping(path = "/appliedusersinfo")
-    public ResponseEntity<Object> appliedUsers(UserIdentifiers userIdentifiers, String postID, HttpSession session) {
+    public ResponseEntity<Object> appliedUsers(UserIdentifiers userIdentifiers, @RequestParam String postID,
+                                               HttpSession session) {
         try {
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {

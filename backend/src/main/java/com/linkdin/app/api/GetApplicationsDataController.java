@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -27,7 +28,7 @@ public class GetApplicationsDataController {
     PostService postService;
 
     @GetMapping(path = "/applicationsdata")
-    public ResponseEntity<Object> applicationsNumber(UserIdentifiers userIdentifiers, String postID,
+    public ResponseEntity<Object> applicationsNumber(UserIdentifiers userIdentifiers, @RequestParam String postID,
                                                      HttpSession session) {
         try {
             // Authenticate user

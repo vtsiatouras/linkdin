@@ -3,10 +3,12 @@ package com.linkdin.app.api;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.ChatService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -20,7 +22,8 @@ public class ChatGetMessagesController {
     AuthRequestService authRequestService;
 
     @GetMapping(path = "/getchatmessages")
-    public ResponseEntity<Object> getChatMessages(UserIdentifiers userIdentifiers, Integer chatID, HttpSession session) {
+    public ResponseEntity<Object> getChatMessages(UserIdentifiers userIdentifiers, @RequestParam String chatID,
+                                                  HttpSession session) {
 
         try {
             // Authenticate user
@@ -28,11 +31,11 @@ public class ChatGetMessagesController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            if (!chatService.checkChatWithUserID(chatID, Integer.parseInt(userIdentifiers.id))) {
+            if (!chatService.checkChatWithUserID(Integer.parseInt(chatID), Integer.parseInt(userIdentifiers.id))) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            List list = chatService.getMessagesFromChat(chatID);
+            List list = chatService.getMessagesFromChat(Integer.parseInt(chatID));
             System.out.print(list);
             return new ResponseEntity<Object>(list, HttpStatus.OK);
         } catch (Exception ex) {
