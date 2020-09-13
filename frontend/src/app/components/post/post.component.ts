@@ -243,12 +243,12 @@ export class PostComponent implements OnInit {
 
   getCommentsNumber() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
-    const commentData = {postID: this.postId};
+    const post = {postID: this.postId};
+    const params = {...userIdentifiers, ...post}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/gettotalcomments', {
-      userIdentifiers,
-      commentData
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/gettotalcomments', {
+      params: params, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         this.numberOfComments = obj;
       },
