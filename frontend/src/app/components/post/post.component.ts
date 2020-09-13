@@ -219,12 +219,12 @@ export class PostComponent implements OnInit {
   getAppliedUsers() {
     this.appliedUsers = [];
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
-    const appliedUsers = {postID: this.postId};
+    const post = {postID: this.postId};
+    const params = {...userIdentifiers, ...post}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/appliedusersinfo', {
-      userIdentifiers,
-      appliedUsers
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/appliedusersinfo', {
+      params: params, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         this.numberOfApplications = obj.numberOfResults;
         this.appliedUsers = obj.list;

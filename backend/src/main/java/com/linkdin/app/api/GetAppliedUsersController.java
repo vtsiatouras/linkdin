@@ -1,16 +1,14 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.services.*;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -29,16 +27,9 @@ public class GetAppliedUsersController {
     @Autowired
     PostService postService;
 
-    @PostMapping(path = "/appliedusersinfo")
-    public ResponseEntity<Object> appliedUsers(@RequestBody String jsonApplyData, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonApplyData);
+    @GetMapping(path = "/appliedusersinfo")
+    public ResponseEntity<Object> appliedUsers(UserIdentifiers userIdentifiers, String postID, HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject appliedUsersObj = obj.getJSONObject("appliedUsers");
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String postID = appliedUsersObj.getString("postID");
-
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -60,9 +51,7 @@ public class GetAppliedUsersController {
 
             // Check if the post belongs to the post owner
             // or requested by admin
-            if (userIDPostOwner == Integer.parseInt(userIdentifiers.id) ||
-                    post.getIsPublic() == 1 ||
-                    isAdmin) {
+            if (userIDPostOwner == Integer.parseInt(userIdentifiers.id) || post.getIsPublic() == 1 || isAdmin) {
                 ListUsers users = postApplicationService.getAppliedUsersInfo(Integer.parseInt(postID));
                 return new ResponseEntity<>(users, HttpStatus.OK);
             } else {
