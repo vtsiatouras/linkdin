@@ -1,19 +1,15 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.services.*;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @RestController
 public class GetCommentsNumberController {
@@ -28,16 +24,10 @@ public class GetCommentsNumberController {
     @Autowired
     PostService postService;
 
-    @PostMapping(path = "/gettotalcomments")
-    public ResponseEntity<Object> getTotalComments(@RequestBody String jsonCommentData, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonCommentData);
+    @GetMapping(path = "/gettotalcomments")
+    public ResponseEntity<Object> getTotalComments(UserIdentifiers userIdentifiers,
+                                                   @RequestParam String postID, HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject commentDataObj = obj.getJSONObject("commentData");
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String postID = commentDataObj.getString("postID");
-
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
