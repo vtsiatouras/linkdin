@@ -267,12 +267,14 @@ export class PostComponent implements OnInit {
 
   loadComments() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
-    const commentData = {postID: this.postId};
+    const post = {postID: this.postId};
+    const params = {...userIdentifiers, ...post}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getcomments', {
-      userIdentifiers,
-      commentData
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/getcomments', {
+      params: params,
+      responseType: 'text',
+      withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         this.comments = obj;
         for (let i = 0; i < this.comments.length; i++) {
