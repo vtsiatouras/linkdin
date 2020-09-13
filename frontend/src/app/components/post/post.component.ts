@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { trigger, transition, animate, style } from '@angular/animations';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
+import {Component, OnInit, Input, HostListener} from '@angular/core';
+import {trigger, transition, animate, style} from '@angular/animations';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-post',
@@ -11,11 +11,11 @@ import { environment } from '../../../environments/environment';
   animations: [
     trigger('fadeInOut', [
       transition(':enter', [   // :enter is alias to 'void => *'
-        style({ opacity: 0 }),
-        animate(300, style({ opacity: 1 }))
+        style({opacity: 0}),
+        animate(300, style({opacity: 1}))
       ]),
       transition(':leave', [   // :leave is alias to '* => void'
-        animate(300, style({ opacity: 0 }))
+        animate(300, style({opacity: 0}))
       ])
     ])
   ]
@@ -94,66 +94,66 @@ export class PostComponent implements OnInit {
   }
 
   getImage() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const image = { imageName: this.image };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const image = {imageName: this.image};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/getimage', {
       userIdentifiers,
       image
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.imageBytes = 'data:image/jpeg;base64,' + obj.image;
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.imageBytes = 'data:image/jpeg;base64,' + obj.image;
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
   }
 
   getUserIdentifiers() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const userInfoRequest = { userIdInfo: this.userIdPost };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const userInfoRequest = {userIdInfo: this.userIdPost};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/getuserbasicinfo', {
       userIdentifiers,
       userInfoRequest
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.userName = obj.name;
-      this.userSurname = obj.surname;
-      this.userImage = 'data:image/jpeg;base64,' + obj.image;
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.userName = obj.name;
+        this.userSurname = obj.surname;
+        this.userImage = 'data:image/jpeg;base64,' + obj.image;
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
   }
 
   interested() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const interest = { postID: this.postId, isInterested: '1' };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const interest = {postID: this.postId, isInterested: '1'};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/interest', {
       userIdentifiers,
       interest
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      this.getInterests();
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        this.getInterests();
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
   }
 
   getInterests() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const interestedUsers = { postID: this.postId };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const interestedUsers = {postID: this.postId};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/interestsdata', {
       userIdentifiers,
       interestedUsers
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.isInterested = obj.isUserInterested;
-      this.numberOfInterests = obj.numberOfInterestedUsers;
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.isInterested = obj.isUserInterested;
+        this.numberOfInterests = obj.numberOfInterestedUsers;
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
@@ -161,56 +161,56 @@ export class PostComponent implements OnInit {
 
   getInterestedUsers() {
     this.interestedUsers = [];
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const interestedUsers = { postID: this.postId };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const interestedUsers = {postID: this.postId};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/interestedusersinfo', {
       userIdentifiers,
       interestedUsers
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      const numberOfInterests = obj.numberOfResults;
-      this.interestedUsers = obj.list;
-      for (let i = 0; i < numberOfInterests; i++) {
-        this.interestedUsers[i].image = 'data:image/jpeg;base64,' + this.interestedUsers[i].image;
-      }
-      const modalButton = 'interest-modal-button-' + this.postId;
-      const modal = '#interest-modal-' + this.postId;
-      document.getElementById(modalButton).setAttribute('data-target', modal);
-      document.getElementById(modalButton).click();
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        const numberOfInterests = obj.numberOfResults;
+        this.interestedUsers = obj.list;
+        for (let i = 0; i < numberOfInterests; i++) {
+          this.interestedUsers[i].image = 'data:image/jpeg;base64,' + this.interestedUsers[i].image;
+        }
+        const modalButton = 'interest-modal-button-' + this.postId;
+        const modal = '#interest-modal-' + this.postId;
+        document.getElementById(modalButton).setAttribute('data-target', modal);
+        document.getElementById(modalButton).click();
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
   }
 
   apply() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const apply = { postID: this.postId };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const apply = {postID: this.postId};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/apply', {
       userIdentifiers,
       apply
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      this.getApplications();
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        this.getApplications();
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
   }
 
   getApplications() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const appliedUsers = { postID: this.postId };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const post = {postID: this.postId};
+    const params = {...userIdentifiers, ...post}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/applicationsdata', {
-      userIdentifiers,
-      appliedUsers
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.applied = obj.isUserInterested;
-      this.numberOfApplications = obj.numberOfInterestedUsers;
-    },
+    const req = this.http.get(API_URL + '/api/applicationsdata', {
+      params: params, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.applied = obj.isUserInterested;
+        this.numberOfApplications = obj.numberOfInterestedUsers;
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
@@ -218,40 +218,40 @@ export class PostComponent implements OnInit {
 
   getAppliedUsers() {
     this.appliedUsers = [];
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const appliedUsers = { postID: this.postId };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const appliedUsers = {postID: this.postId};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/appliedusersinfo', {
       userIdentifiers,
       appliedUsers
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.numberOfApplications = obj.numberOfResults;
-      this.appliedUsers = obj.list;
-      for (let i = 0; i < this.numberOfApplications; i++) {
-        this.appliedUsers[i].image = 'data:image/jpeg;base64,' + this.appliedUsers[i].image;
-      }
-      const modalButton = 'applications-modal-button-' + this.postId;
-      const modal = '#applications-modal-' + this.postId;
-      document.getElementById(modalButton).setAttribute('data-target', modal);
-      document.getElementById(modalButton).click();
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.numberOfApplications = obj.numberOfResults;
+        this.appliedUsers = obj.list;
+        for (let i = 0; i < this.numberOfApplications; i++) {
+          this.appliedUsers[i].image = 'data:image/jpeg;base64,' + this.appliedUsers[i].image;
+        }
+        const modalButton = 'applications-modal-button-' + this.postId;
+        const modal = '#applications-modal-' + this.postId;
+        document.getElementById(modalButton).setAttribute('data-target', modal);
+        document.getElementById(modalButton).click();
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
   }
 
   getCommentsNumber() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const commentData = { postID: this.postId };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const commentData = {postID: this.postId};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/gettotalcomments', {
       userIdentifiers,
       commentData
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.numberOfComments = obj;
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.numberOfComments = obj;
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
@@ -266,37 +266,37 @@ export class PostComponent implements OnInit {
   }
 
   loadComments() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const commentData = { postID: this.postId };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const commentData = {postID: this.postId};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/getcomments', {
       userIdentifiers,
       commentData
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.comments = obj;
-      for (let i = 0; i < this.comments.length; i++) {
-        this.comments[i].image = 'data:image/jpeg;base64,' + this.comments[i].image;
-      }
-      this.showComments = true;
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.comments = obj;
+        for (let i = 0; i < this.comments.length; i++) {
+          this.comments[i].image = 'data:image/jpeg;base64,' + this.comments[i].image;
+        }
+        this.showComments = true;
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
   }
 
   postComment() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const commentData = { postID: this.postId, comment: this.comment };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const commentData = {postID: this.postId, comment: this.comment};
     const API_URL = environment.API_URL;
     const req = this.http.post(API_URL + '/api/postcomment', {
       userIdentifiers,
       commentData
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      this.comment = '';
-      this.ngOnInit();
-      this.loadComments();
-    },
+    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+        this.comment = '';
+        this.ngOnInit();
+        this.loadComments();
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
       });
