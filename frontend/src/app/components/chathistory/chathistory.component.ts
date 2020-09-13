@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
+import {Component, OnInit, Input, AfterViewChecked, ElementRef, ViewChild} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
+import {c} from "@angular/core/src/render3";
 
 
 @Component({
@@ -29,7 +30,8 @@ export class ChathistoryComponent implements OnInit, AfterViewChecked {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient) { }
+    private http: HttpClient) {
+  }
 
   ngOnInit() {
     this.getChatInfo();
@@ -43,29 +45,32 @@ export class ChathistoryComponent implements OnInit, AfterViewChecked {
   scrollToBottom(): void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch (err) { }
+    } catch (err) {
+    }
   }
 
   getChatInfo() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const chat = { chatID: this.chatID };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const chat = {chatID: this.chatID};
+    const params = {...userIdentifiers, ...chat}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getchatbyid', {
-      userIdentifiers,
-      chat
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      const uIDString: any = obj.user1.toString();
-      if (uIDString === this.userId) {
-        this.chatUserId = obj.user2;
-      } else {
-        this.chatUserId = obj.user1;
-      }
-      this.render = true;
-    },
+    const req = this.http.get(API_URL + '/api/getchatbyid', {
+      params: params,
+      responseType: 'text',
+      withCredentials: true
+    }).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        const uIDString: any = obj.user1.toString();
+        if (uIDString === this.userId) {
+          this.chatUserId = obj.user2;
+        } else {
+          this.chatUserId = obj.user1;
+        }
+        this.render = true;
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
-        this.router.navigate(['/error', false], { skipLocationChange: true });
+        this.router.navigate(['/error', false], {skipLocationChange: true});
       });
   }
 
