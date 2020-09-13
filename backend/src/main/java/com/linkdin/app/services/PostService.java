@@ -3,7 +3,6 @@ package com.linkdin.app.services;
 import com.linkdin.app.dto.NewPostData;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.model.User;
-import com.linkdin.app.model.UserNetwork;
 import com.linkdin.app.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

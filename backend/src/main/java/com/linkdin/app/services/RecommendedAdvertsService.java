@@ -32,7 +32,6 @@ public class RecommendedAdvertsService {
     private Set<String> stopwordsSet;
 
     RecommendedAdvertsService() {
-        //System.err.println("****************************************************************** init");
         stopwordsSet = new HashSet<>();
         Collections.addAll(stopwordsSet, stopwords);
     }
@@ -103,21 +102,17 @@ public class RecommendedAdvertsService {
 
         // Add the words to a dictionary
         Map<String, Integer> userInfoDict = new HashMap<String, Integer>();
-        //System.err.println("#### info words ####");
         // For every word in users info
         for (String word : words) {
             word = word.toLowerCase().trim();
             if (!word.isEmpty()) {
                 // If the word is not a stopword
                 if (!stopwordsSet.contains(word)) {
-                    //System.err.println(word);
                     // We don't care about duplicate words, they will get overwritten with 0
                     userInfoDict.put(word, 0);
                 }
             }
         }
-
-        //System.err.println("################");
 
         List<Post> adverts = postService.getAllPublicAds(userID);
         if (adverts.size() == 0) {
@@ -137,9 +132,6 @@ public class RecommendedAdvertsService {
             advertContainer[counter].contentWords = content.split(splitTokens);
             advertContainer[counter].score = 0;
 
-
-            //System.err.println("# # # # Advert # # # # ");
-
             // Add the words to a hash set
             for (String cWord : advertContainer[counter].contentWords) {
                 cWord = cWord.toLowerCase().trim();
@@ -149,35 +141,20 @@ public class RecommendedAdvertsService {
                     }
                 }
             }
-            //System.err.println(content);
-            //System.err.println("$$$$$$$$ Advert words");
-            for (String s : advertContainer[counter].set) {
-                //System.err.println(s);
-            }
             counter++;
         }
-
-        //System.err.println("&&&&&&&&&&&&&& Metrhma");
         // Count how many words of the users info appear in each advert
         // For every word in the user info
         for (Map.Entry<String, Integer> entry : userInfoDict.entrySet()) {
             String key = entry.getKey();
-            //System.err.println("KEY: " + key);
             // For every advert
             for (int i = 0; i < adverts.size(); i++) {
-                //System.err.println("  ADVERT: [" + advertContainer[i].advert.getContent().substring(0, 10) + "...]");
-
                 if (advertContainer[i].set.contains(key)) {
                     advertContainer[i].score++;
-
-                    //System.err.println("    SCORE INC:" + key + advertContainer[i].score);
                 }
-                //System.err.println("  ADVERT SCORE:" + advertContainer[i].score);
-
             }
             Integer value = entry.getValue();
             entry.setValue(value);
-            //System.err.println(key + value.toString());
         }
 
         Arrays.sort(advertContainer, Collections.reverseOrder());
@@ -186,7 +163,6 @@ public class RecommendedAdvertsService {
 
         for (AdvertContainer ac : advertContainer) {
             returnValue.add(ac.advert);
-            //System.err.println(ac.score);
         }
 
         return returnValue;
