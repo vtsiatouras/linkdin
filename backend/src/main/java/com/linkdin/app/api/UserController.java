@@ -1,13 +1,14 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.User;
 import com.linkdin.app.services.AdminAuthRequestService;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.ImageStorageService;
 import com.linkdin.app.services.UserService;
+
 import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -29,15 +30,7 @@ public class UserController {
     @GetMapping(path = "/user")
     public ResponseEntity<Object> user(UserIdentifiers userIdentifiers, @RequestParam String profileUserID,
                                        HttpSession session) {
-
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        JSONObject obj = new JSONObject(jsonProfileRequest);
         try {
-//            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-//            JSONObject profileObj = obj.getJSONObject("requestProfile");
-//            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-//            int profileUserID = profileObj.getInt("profileUserID");
-
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

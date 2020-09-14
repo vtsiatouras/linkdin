@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-showpost',
@@ -27,7 +27,8 @@ export class ShowpostComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -37,26 +38,28 @@ export class ShowpostComponent implements OnInit {
   }
 
   getPost() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
-    const postRequest = { postID: this.postID.toString() };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
+    const postRequest = {postID: this.postID.toString()};
+    const params = {...userIdentifiers, ...postRequest}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getpost', {
-      userIdentifiers,
-      postRequest
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.userIDPost = obj.userId;
-      this.isAd = obj.isAdvertisment;
-      this.isPublic = obj.isPublic;
-      this.timestamp = obj.timestamp;
-      this.content = obj.content;
-      this.hasImage = obj.hasImage;
-      this.image = obj.image;
-      this.renderPostComponent = true;
-    },
+    const req = this.http.get(API_URL + '/api/getpost', {
+      params: params,
+      responseType: 'text',
+      withCredentials: true
+    }).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.userIDPost = obj.userId;
+        this.isAd = obj.isAdvertisment;
+        this.isPublic = obj.isPublic;
+        this.timestamp = obj.timestamp;
+        this.content = obj.content;
+        this.hasImage = obj.hasImage;
+        this.image = obj.image;
+        this.renderPostComponent = true;
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
-        this.router.navigate(['/error', false], { skipLocationChange: true });
+        this.router.navigate(['/error', false], {skipLocationChange: true});
       });
   }
 
