@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-public class ChatGetActiveChatsController {
+public class ChatController {
     @Autowired
     ChatService chatService;
     @Autowired
