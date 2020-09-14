@@ -30,7 +30,7 @@ export class ChatwithuserComponent implements OnInit {
   getChatsIDs() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const chat = {userID1: this.userId, userID2: this.userToChat};
-    const params = {...userIdentifiers, ...chat}
+    const params = {...userIdentifiers, ...chat};
     const API_URL = environment.API_URL;
 
     const req = this.http.get(API_URL + '/api/getchatbyusersids', {

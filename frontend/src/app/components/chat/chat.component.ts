@@ -80,7 +80,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.chatID = +params['chat_id'];
       const userIdentifiers = {userToken: this.userToken, id: this.userId};
       const chatMessageContent = {chatID: this.chatID};
-      const api_params = {...userIdentifiers, ...chatMessageContent}
+      const api_params = {...userIdentifiers, ...chatMessageContent};
       const API_URL = environment.API_URL;
       const req = this.http.get(API_URL + '/api/getchatmessages', {
         params: api_params, responseType: 'text', withCredentials: true
