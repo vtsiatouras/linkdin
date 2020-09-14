@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @RestController
-public class GetRecommendedPostsController {
+public class RecommendedPostsController {
     @Autowired
     UserService userService;
     @Autowired
