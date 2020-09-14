@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class GetImageController {
+public class ImageController {
 
     @Autowired
     AuthRequestService authRequestService;
