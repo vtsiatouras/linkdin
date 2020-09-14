@@ -1,6 +1,5 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.model.PostComment;
@@ -9,14 +8,11 @@ import com.linkdin.app.repositories.PostCommentRepository;
 import com.linkdin.app.repositories.PostInterestRepository;
 import com.linkdin.app.repositories.PostRepository;
 import com.linkdin.app.services.*;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -62,16 +58,9 @@ public class GetRecommendedPostsController {
         }
     }
 
-    @PostMapping(path = "/recommendedposts")
-    public ResponseEntity<Object> exportUsers(@RequestBody String jsonUsers, HttpSession session) {
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonUsers);
+    @GetMapping(path = "/recommendedposts")
+    public ResponseEntity<Object> exportUsers(UserIdentifiers userIdentifiers, HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-
             //Authenticate request
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-recommendedposts',
@@ -26,7 +26,8 @@ export class RecommendedpostsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.totalPosts = 0;
@@ -39,20 +40,20 @@ export class RecommendedpostsComponent implements OnInit {
   }
 
   getPosts() {
-    const userIdentifiers = { userToken: this.userToken, id: this.userId };
+    const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/recommendedposts', {
-      userIdentifiers,
-    }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-      const obj = JSON.parse(data);
-      this.posts = obj;
-      this.totalPosts = this.posts.length;
-      this.showPosts();
-      this.renderPosts = true;
-    },
+    const req = this.http.get(API_URL + '/api/recommendedposts', {
+      params: userIdentifiers, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
+        const obj = JSON.parse(data);
+        this.posts = obj;
+        this.totalPosts = this.posts.length;
+        this.showPosts();
+        this.renderPosts = true;
+      },
       (err: HttpErrorResponse) => {
         console.log(err);
-        this.router.navigate(['/error', false], { skipLocationChange: true });
+        this.router.navigate(['/error', false], {skipLocationChange: true});
       });
   }
 
