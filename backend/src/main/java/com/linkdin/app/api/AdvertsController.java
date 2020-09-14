@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-public class GetAdvertsController {
+public class AdvertsController {
     @Autowired
     RecommendedAdvertsService recommendedAdvertsService;
     @Autowired
