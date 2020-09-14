@@ -51,7 +51,7 @@ export class AdminpageComponent implements OnInit {
     console.log(userList);
 
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
-    const api_params = {...userIdentifiers, usersToExport: userList.join(', ')}
+    const api_params = {...userIdentifiers, usersToExport: userList.join(', ')};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/exportusers', {
       params: api_params,

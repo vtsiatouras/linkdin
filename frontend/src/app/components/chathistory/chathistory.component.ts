@@ -52,7 +52,7 @@ export class ChathistoryComponent implements OnInit, AfterViewChecked {
   getChatInfo() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const chat = {chatID: this.chatID};
-    const params = {...userIdentifiers, ...chat}
+    const params = {...userIdentifiers, ...chat};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/getchatbyid', {
       params: params,

@@ -37,7 +37,7 @@ export class UsernetworkComponent implements OnInit {
   getConnectedUsers() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const profile = {profileUserID: this.profileUserID.toString()};
-    const params = {...userIdentifiers, ...profile}
+    const params = {...userIdentifiers, ...profile};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/getconnectedusers', {
       params: params,

@@ -172,7 +172,7 @@ export class UserprofileComponent implements OnInit {
   checkConnectStatus() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const targetProfile = {profileUserID: this.profileUserID.toString()};
-    const api_params = {...userIdentifiers, ...targetProfile}
+    const api_params = {...userIdentifiers, ...targetProfile};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/connectstatus', {
       params: api_params, responseType: 'text', withCredentials: true
