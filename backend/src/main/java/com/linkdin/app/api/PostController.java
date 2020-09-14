@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class NewPostController {
+public class PostController {
 
     @Autowired
     UserService userService;
