@@ -139,13 +139,17 @@ export class UserprofileComponent implements OnInit {
 
   getPosts() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
-    const pageRequest = {profileUserID: this.profileUserID, pageNumber: this.page, limit: this.limitPosts};
-    this.page++;
+    const pageRequest = {
+      profileUserID: this.profileUserID.toString(),
+      pageNumber: this.page.toString(),
+      limit: this.limitPosts.toString()
+    };
+    const params = {...userIdentifiers, ...pageRequest}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getprofileposts', {
-      userIdentifiers,
-      pageRequest
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    this.page++;
+    const req = this.http.get(API_URL + '/api/getprofileposts', {
+      params: params, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         this.totalPosts = obj.totalElements;
         if (this.totalPosts > 0) {
