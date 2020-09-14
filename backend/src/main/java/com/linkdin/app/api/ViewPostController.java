@@ -1,18 +1,15 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
 import com.linkdin.app.services.UserNetworkService;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,17 +23,10 @@ public class ViewPostController {
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/getpost")
-    public ResponseEntity<Object> viewPost(@RequestBody String jsonRequestPost, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonRequestPost);
-        System.err.println(obj);
+    @GetMapping(path = "/getpost")
+    public ResponseEntity<Object> viewPost(UserIdentifiers userIdentifiers, @RequestParam String postID,
+                                           HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject postRequestObj = obj.getJSONObject("postRequest");
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String postID = postRequestObj.getString("postID");
-
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
