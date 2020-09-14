@@ -1,22 +1,17 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkdin.app.dto.ProfilePostsPageRequest;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.services.AdminAuthRequestService;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
 import com.linkdin.app.services.UserNetworkService;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.jws.Oneway;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -31,16 +26,11 @@ public class ProfilePostsController {
     @Autowired
     UserNetworkService userNetworkService;
 
-    @PostMapping(path = "/getprofileposts")
-    public ResponseEntity<Object> profilePosts(@RequestBody String jsonPostsRequest, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonPostsRequest);
+    @GetMapping(path = "/getprofileposts")
+    public ResponseEntity<Object> profilePosts(UserIdentifiers userIdentifiers, @RequestParam String profileUserID,
+                                               @RequestParam String pageNumber, @RequestParam String limit,
+                                               HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject pageRequestObj = obj.getJSONObject("pageRequest");
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            ProfilePostsPageRequest profilePostsPageRequest = objectMapper.readValue(pageRequestObj.toString(), ProfilePostsPageRequest.class);
-
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -48,22 +38,23 @@ public class ProfilePostsController {
 
             boolean isAdmin = adminAuthRequestService.authenticateRequest(userIdentifiers, session);
 
-            int userID = Integer.parseInt(profilePostsPageRequest.profileUserID);
-            int pageNumber = Integer.parseInt(profilePostsPageRequest.pageNumber);
-            int limit = Integer.parseInt(profilePostsPageRequest.limit);
+            int userID = Integer.parseInt(profileUserID);
+            int _pageNumber_ = Integer.parseInt(pageNumber);
+            int _limit_ = Integer.parseInt(limit);
             Page page;
             // If the requested profile belongs to the user that made the request
             // If they are connected
             // If admin requested
-            if (profilePostsPageRequest.profileUserID.equals(userIdentifiers.id) ||
-                    userNetworkService.checkIfConnected(Integer.parseInt(profilePostsPageRequest.profileUserID), Integer.parseInt(userIdentifiers.id)) ||
+            if (profileUserID.equals(userIdentifiers.id) ||
+                    userNetworkService
+                            .checkIfConnected(Integer.parseInt(profileUserID), Integer.parseInt(userIdentifiers.id)) ||
                     isAdmin) {
-                page = postService.getUserPosts(userID, pageNumber, limit);
+                page = postService.getUserPosts(userID, _pageNumber_, _limit_);
                 return new ResponseEntity<Object>(page, HttpStatus.OK);
             }
             // If not return only the public posts
             else {
-                page = postService.getUsersPublicPosts(userID, pageNumber, limit);
+                page = postService.getUsersPublicPosts(userID, _pageNumber_, _limit_);
             }
             return new ResponseEntity<Object>(page, HttpStatus.OK);
         } catch (Exception ex) {
