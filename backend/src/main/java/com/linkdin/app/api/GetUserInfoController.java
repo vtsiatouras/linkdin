@@ -1,6 +1,5 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.dto.UserInfo;
 import com.linkdin.app.model.User;
@@ -8,13 +7,11 @@ import com.linkdin.app.services.AdminAuthRequestService;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.UserNetworkService;
 import com.linkdin.app.services.UserService;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -30,16 +27,10 @@ public class GetUserInfoController {
     @Autowired
     AdminAuthRequestService adminAuthRequestService;
 
-    @PostMapping(path = "/getuserinfo")
-    public ResponseEntity<Object> userInfo(@RequestBody String jsonRequestUserInfo, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonRequestUserInfo);
+    @GetMapping(path = "/getuserinfo")
+    public ResponseEntity<Object> userInfo(UserIdentifiers userIdentifiers, @RequestParam String userIdInfo,
+                                           HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject userInfoRequestObj = obj.getJSONObject("userInfoRequest");
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String userId = userInfoRequestObj.getString("userIdInfo");
-
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -47,7 +38,7 @@ public class GetUserInfoController {
 
             boolean isAdmin = adminAuthRequestService.authenticateRequest(userIdentifiers, session);
 
-            User user = userService.returnUserByID(Integer.parseInt(userId));
+            User user = userService.returnUserByID(Integer.parseInt(userIdInfo));
             if (user == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
@@ -55,15 +46,14 @@ public class GetUserInfoController {
             // If the requested profile belongs to the user that made the request OR
             // If the requested info belongs to a friend
             // If admin requested
-            if (userId.equals(userIdentifiers.id) ||
-                    userNetworkService.checkIfConnected(Integer.parseInt(userId), Integer.parseInt(userIdentifiers.id)) ||
-                    isAdmin) {
-                UserInfo userInfo = userService.getUserInfo(userId);
+            if (userIdInfo.equals(userIdentifiers.id) || userNetworkService
+                    .checkIfConnected(Integer.parseInt(userIdInfo), Integer.parseInt(userIdentifiers.id)) || isAdmin) {
+                UserInfo userInfo = userService.getUserInfo(userIdInfo);
                 return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
             }
             // If not return public info
             else {
-                UserInfo userInfo = userService.getPublicUserInfo(userId);
+                UserInfo userInfo = userService.getPublicUserInfo(userIdInfo);
                 return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
             }
         } catch (Exception ex) {

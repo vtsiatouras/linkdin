@@ -119,11 +119,11 @@ export class UserprofileComponent implements OnInit {
   getUserInfo() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const userInfoRequest = {userIdInfo: this.profileUserID.toString()};
+    const params = {...userIdentifiers, ...userInfoRequest};
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getuserinfo', {
-      userIdentifiers,
-      userInfoRequest
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/getuserinfo', {
+      params: params, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         this.profilePhoneNumber = obj.phoneNumber;
         this.profileCity = obj.city;
