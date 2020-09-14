@@ -113,12 +113,12 @@ export class PostComponent implements OnInit {
 
   getUserIdentifiers() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
-    const userInfoRequest = {userIdInfo: this.userIdPost};
+    const userInfoRequest = {userId: this.userIdPost};
+    const params = {...userIdentifiers, ...userInfoRequest};
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getuserbasicinfo', {
-      userIdentifiers,
-      userInfoRequest
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/getuserbasicinfo', {
+      params: params, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         this.userName = obj.name;
         this.userSurname = obj.surname;
