@@ -1,12 +1,11 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkdin.app.dto.NewPostData;
 import com.linkdin.app.dto.UserIdentifiers;
-import com.linkdin.app.model.User;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.ImageStorageService;
+
 import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,21 +24,14 @@ public class GetImageController {
     @GetMapping(path = "/getimage")
     public ResponseEntity<Object> gendImage(UserIdentifiers userIdentifiers, @RequestParam String imageName,
                                             HttpSession session) {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        JSONObject obj = new JSONObject(jsonImage);
         try {
-//            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-//            JSONObject imageObj = obj.getJSONObject("image");
-//            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-//            String imageName = imageObj.getString("imageName");
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
             String imageBytes = imageStorageService.getImage(imageName);
-            String returnJsonImage = new JSONObject()
-                    .put("image", imageBytes).toString();
+            String returnJsonImage = new JSONObject().put("image", imageBytes).toString();
             return new ResponseEntity<>(returnJsonImage, HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();

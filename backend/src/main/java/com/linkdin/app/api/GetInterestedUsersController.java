@@ -1,18 +1,14 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linkdin.app.dto.InterestData;
 import com.linkdin.app.dto.ListUsers;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.model.Post;
 import com.linkdin.app.services.*;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,16 +25,10 @@ public class GetInterestedUsersController {
     @Autowired
     PostService postService;
 
-    @PostMapping(path = "/interestedusersinfo")
-    public ResponseEntity<Object> interestedUsers(@RequestBody String jsonInterestData, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonInterestData);
+    @GetMapping(path = "/interestedusersinfo")
+    public ResponseEntity<Object> interestedUsers(UserIdentifiers userIdentifiers, @RequestParam String postID,
+                                                  HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject interestedUsersObj = obj.getJSONObject("interestedUsers");
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            String postID = interestedUsersObj.getString("postID");
-
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
