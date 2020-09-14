@@ -1,18 +1,15 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
 import com.linkdin.app.services.UserNetworkService;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -27,16 +24,10 @@ public class GetPostsFromFriendsController {
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/getpostsfromfriends")
-    public ResponseEntity<Object> postsFromFriends(@RequestBody String jsonPostsRequest, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonPostsRequest);
+    @GetMapping(path = "/getpostsfromfriends")
+    public ResponseEntity<Object> postsFromFriends(UserIdentifiers userIdentifiers, @RequestParam String pageNumber,
+                                                   @RequestParam String limit, HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            JSONObject pageRequestObj = obj.getJSONObject("pageRequest");
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
-            int pageNumber = pageRequestObj.getInt("pageNumber");
-            int limit = pageRequestObj.getInt("limit");
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -47,12 +38,16 @@ public class GetPostsFromFriendsController {
 
             // If user has friends send all friendly posts
             if (friendList.size() > 0) {
-                Page list = postService.getNetworkPostsAndFriendInterestPosts(friendList, Integer.parseInt(userIdentifiers.id), pageNumber, limit);
+                Page list = postService.getNetworkPostsAndFriendInterestPosts(friendList,
+                                                                              Integer.parseInt(userIdentifiers.id),
+                                                                              Integer.parseInt(pageNumber),
+                                                                              Integer.parseInt(limit));
                 return new ResponseEntity<Object>(list, HttpStatus.OK);
             }
             // Else send only his own posts
             else {
-                Page list = postService.getUserPosts(Integer.parseInt(userIdentifiers.id), pageNumber, limit);
+                Page list = postService.getUserPosts(Integer.parseInt(userIdentifiers.id),
+                                                     Integer.parseInt(pageNumber), Integer.parseInt(limit));
                 return new ResponseEntity<Object>(list, HttpStatus.OK);
             }
 
