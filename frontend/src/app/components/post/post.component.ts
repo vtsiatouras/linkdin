@@ -96,11 +96,13 @@ export class PostComponent implements OnInit {
   getImage() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const image = {imageName: this.image};
+    const params = {...userIdentifiers, ...image}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/getimage', {
-      userIdentifiers,
-      image
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/getimage', {
+      params: params,
+      responseType: 'text',
+      withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         this.imageBytes = 'data:image/jpeg;base64,' + obj.image;
       },
