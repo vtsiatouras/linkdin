@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-public class AdminListAllUsersController {
+public class AdminController {
     @Autowired
     UserService userService;
     @Autowired
