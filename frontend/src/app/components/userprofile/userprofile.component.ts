@@ -97,11 +97,11 @@ export class UserprofileComponent implements OnInit {
     }
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const requestProfile = {profileUserID: this.profileUserID};
+    const params = {...userIdentifiers, ...requestProfile}
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/user', {
-      userIdentifiers,
-      requestProfile
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/user', {
+      params: params, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         this.profileImage = 'data:image/jpeg;base64,' + obj.profileImage;
         const userObj = JSON.parse(obj.user);
