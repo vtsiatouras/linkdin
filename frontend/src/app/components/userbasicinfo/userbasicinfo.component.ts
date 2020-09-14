@@ -33,7 +33,7 @@ export class UserbasicinfoComponent implements OnInit {
 
   getUserIdentifiers() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
-    const userInfoRequest = {userId: this.userIDInfo};
+    const userInfoRequest = {userIdInfo: this.userIDInfo};
     const params = {...userIdentifiers, ...userInfoRequest};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/getuserbasicinfo', {

@@ -25,7 +25,7 @@ public class GetUserBasicInfoController {
     AuthRequestService authRequestService;
 
     @GetMapping(path = "/getuserbasicinfo")
-    public ResponseEntity<Object> userBasicInfo(UserIdentifiers userIdentifiers, @RequestParam String userId,
+    public ResponseEntity<Object> userBasicInfo(UserIdentifiers userIdentifiers, @RequestParam String userIdInfo,
                                                 HttpSession session) {
         try {
             // Authenticate user
@@ -33,7 +33,7 @@ public class GetUserBasicInfoController {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
 
-            User user = userService.returnUserByID(Integer.parseInt(userId));
+            User user = userService.returnUserByID(Integer.parseInt(userIdInfo));
             if (user == null) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }

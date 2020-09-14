@@ -113,7 +113,7 @@ export class PostComponent implements OnInit {
 
   getUserIdentifiers() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
-    const userInfoRequest = {userId: this.userIdPost};
+    const userInfoRequest = {userIdInfo: this.userIdPost};
     const params = {...userIdentifiers, ...userInfoRequest};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/getuserbasicinfo', {
