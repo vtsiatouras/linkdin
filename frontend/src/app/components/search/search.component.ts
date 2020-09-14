@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-search',
@@ -24,7 +24,8 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }
@@ -34,30 +35,30 @@ export class SearchComponent implements OnInit {
     this.totalResults = 0;
     this.showedResults = 0;
     if (this.userQuery) {
-      const userIdentifiers = { userToken: this.userToken, id: this.userId };
-      const searchData = { searchQuery: this.userQuery };
+      const userIdentifiers = {userToken: this.userToken, id: this.userId};
+      const searchData = {searchQuery: this.userQuery};
+      const params = {...userIdentifiers, ...searchData};
       const API_URL = environment.API_URL;
-      const req = this.http.post(API_URL + '/api/searchusers', {
-        userIdentifiers,
-        searchData
-      }, { responseType: 'text', withCredentials: true }).subscribe((data: any) => {
-        const obj = JSON.parse(data);
-        this.totalResults = obj.numberOfResults;
-        if (this.totalResults > 0) {
-          if (this.totalResults > this.limitResults) {
-            this.showedResults = this.limitResults;
-          } else {
-            this.showedResults = this.totalResults;
+      const req = this.http.get(API_URL + '/api/searchusers', {
+        params: params, responseType: 'text', withCredentials: true
+      }).subscribe((data: any) => {
+          const obj = JSON.parse(data);
+          this.totalResults = obj.numberOfResults;
+          if (this.totalResults > 0) {
+            if (this.totalResults > this.limitResults) {
+              this.showedResults = this.limitResults;
+            } else {
+              this.showedResults = this.totalResults;
+            }
+            for (let i = 0; i < this.totalResults; i++) {
+              this.results.push(obj.list[i]);
+              this.results[i].image = 'data:image/jpeg;base64,' + this.results[i].image;
+            }
           }
-          for (let i = 0; i < this.totalResults; i++) {
-            this.results.push(obj.list[i]);
-            this.results[i].image = 'data:image/jpeg;base64,' + this.results[i].image;
-          }
-        }
-      },
+        },
         (err: HttpErrorResponse) => {
           console.log(err);
-          this.router.navigate(['/error', false], { skipLocationChange: true });
+          this.router.navigate(['/error', false], {skipLocationChange: true});
         });
     }
   }
