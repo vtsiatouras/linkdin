@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-public class GetNotificationsController {
+public class NotificationsController {
 
     @Autowired
     AuthRequestService authRequestService;
