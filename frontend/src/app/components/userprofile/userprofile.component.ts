@@ -70,9 +70,9 @@ export class UserprofileComponent implements OnInit {
   checkIfAdmin() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/isadmin', {
-      userIdentifiers
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/isadmin', {
+      params: userIdentifiers, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         if (obj === true) {
           this.hideElements = true;
