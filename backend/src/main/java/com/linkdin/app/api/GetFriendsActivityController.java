@@ -1,20 +1,17 @@
 package com.linkdin.app.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linkdin.app.dto.UserIdentifiers;
 import com.linkdin.app.services.AuthRequestService;
 import com.linkdin.app.services.PostService;
 import com.linkdin.app.services.UserNetworkService;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,13 +23,9 @@ public class GetFriendsActivityController {
     @Autowired
     AuthRequestService authRequestService;
 
-    @PostMapping(path = "/getfriendsactivity")
-    public ResponseEntity<Object> postsFromFriends(@RequestBody String jsonPostsRequest, HttpSession session) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(jsonPostsRequest);
+    @GetMapping(path = "/getfriendsactivity")
+    public ResponseEntity<Object> postsFromFriends(UserIdentifiers userIdentifiers, HttpSession session) {
         try {
-            JSONObject userObj = obj.getJSONObject("userIdentifiers");
-            UserIdentifiers userIdentifiers = objectMapper.readValue(userObj.toString(), UserIdentifiers.class);
             // Authenticate user
             if (!authRequestService.authenticateRequest(userIdentifiers, session)) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -42,12 +35,13 @@ public class GetFriendsActivityController {
 
             // Return results if only the user has friends
             if (friendList.size() > 0) {
-                List interestsList = postService.getInterestingPostsAndFriendsIDs(friendList, Integer.parseInt(userIdentifiers.id));
-                List commentsList = postService.getCommentedPostsAndFriendsIDs(friendList, Integer.parseInt(userIdentifiers.id));
+                List interestsList =
+                        postService.getInterestingPostsAndFriendsIDs(friendList, Integer.parseInt(userIdentifiers.id));
+                List commentsList =
+                        postService.getCommentedPostsAndFriendsIDs(friendList, Integer.parseInt(userIdentifiers.id));
                 List result[] = {interestsList, commentsList};
                 return new ResponseEntity<Object>(result, HttpStatus.OK);
-            }
-            else {
+            } else {
                 return new ResponseEntity<Object>("null", HttpStatus.OK);
             }
         } catch (Exception ex) {
