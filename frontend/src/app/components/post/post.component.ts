@@ -96,7 +96,7 @@ export class PostComponent implements OnInit {
   getImage() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const image = {imageName: this.image};
-    const params = {...userIdentifiers, ...image}
+    const params = {...userIdentifiers, ...image};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/getimage', {
       params: params,
@@ -164,12 +164,12 @@ export class PostComponent implements OnInit {
   getInterestedUsers() {
     this.interestedUsers = [];
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
-    const interestedUsers = {postID: this.postId};
+    const post = {postID: this.postId};
+    const params = {...userIdentifiers, ...post};
     const API_URL = environment.API_URL;
-    const req = this.http.post(API_URL + '/api/interestedusersinfo', {
-      userIdentifiers,
-      interestedUsers
-    }, {responseType: 'text', withCredentials: true}).subscribe((data: any) => {
+    const req = this.http.get(API_URL + '/api/interestedusersinfo', {
+      params: params, responseType: 'text', withCredentials: true
+    }).subscribe((data: any) => {
         const obj = JSON.parse(data);
         const numberOfInterests = obj.numberOfResults;
         this.interestedUsers = obj.list;
@@ -204,7 +204,7 @@ export class PostComponent implements OnInit {
   getApplications() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const post = {postID: this.postId};
-    const params = {...userIdentifiers, ...post}
+    const params = {...userIdentifiers, ...post};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/applicationsdata', {
       params: params, responseType: 'text', withCredentials: true
@@ -222,7 +222,7 @@ export class PostComponent implements OnInit {
     this.appliedUsers = [];
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const post = {postID: this.postId};
-    const params = {...userIdentifiers, ...post}
+    const params = {...userIdentifiers, ...post};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/appliedusersinfo', {
       params: params, responseType: 'text', withCredentials: true
@@ -246,7 +246,7 @@ export class PostComponent implements OnInit {
   getCommentsNumber() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const post = {postID: this.postId};
-    const params = {...userIdentifiers, ...post}
+    const params = {...userIdentifiers, ...post};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/gettotalcomments', {
       params: params, responseType: 'text', withCredentials: true
@@ -270,7 +270,7 @@ export class PostComponent implements OnInit {
   loadComments() {
     const userIdentifiers = {userToken: this.userToken, id: this.userId};
     const post = {postID: this.postId};
-    const params = {...userIdentifiers, ...post}
+    const params = {...userIdentifiers, ...post};
     const API_URL = environment.API_URL;
     const req = this.http.get(API_URL + '/api/getcomments', {
       params: params,
