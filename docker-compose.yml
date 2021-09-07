@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: web_dev_db
+    ports:
+      - "3306:3306"
+    networks:
+      - app-mysql
+    volumes:
+      - $HOME/Desktop/MySQL/linkdin.sql:/linkdin.sql
+
+  app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    depends_on:
+      - db
+    command: bash -c " java -jar target/app.jar"
+    networks:
+      - app-mysql
+    ports:
+      - "8080:8080"
+
+networks:
+  app-mysql:
