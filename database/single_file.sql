@@ -67,7 +67,7 @@ CREATE TABLE `chat_history` (
 
 LOCK TABLES `chat_history` WRITE;
 /*!40000 ALTER TABLE `chat_history` DISABLE KEYS */;
-INSERT INTO `chat_history` VALUES (1,1,2,'Hi there','2018-09-29 17:24:16'),(2,1,3,'Hi','2018-09-29 17:25:06');
+INSERT INTO `chat_history` VALUES (1,1,2,'Hi there','2021-09-29 17:24:16'),(2,1,3,'Hi','2021-09-29 17:25:06');
 /*!40000 ALTER TABLE `chat_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +99,7 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-INSERT INTO `notifications` VALUES (1,2,3,2,0,1,0,'2018-09-29 15:57:01'),(2,2,3,2,0,0,1,'2018-09-29 15:59:06'),(3,2,4,4,0,0,1,'2018-09-29 16:13:12'),(4,3,6,7,1,0,0,'2018-09-29 16:27:38'),(5,3,6,7,0,1,0,'2018-09-29 16:27:45'),(6,3,4,7,1,0,0,'2018-09-29 16:28:03'),(7,3,4,7,0,1,0,'2018-09-29 16:44:42'),(8,3,6,9,1,0,0,'2018-09-29 16:50:34'),(9,3,4,9,1,0,0,'2018-09-29 16:51:31');
+INSERT INTO `notifications` VALUES (1,2,3,2,0,1,0,'2021-09-29 15:57:01'),(2,2,3,2,0,0,1,'2021-09-29 15:59:06'),(3,2,4,4,0,0,1,'2021-09-29 16:13:12'),(4,3,6,7,1,0,0,'2021-09-29 16:27:38'),(5,3,6,7,0,1,0,'2021-09-29 16:27:45'),(6,3,4,7,1,0,0,'2021-09-29 16:28:03'),(7,3,4,7,0,1,0,'2021-09-29 16:44:42'),(8,3,6,9,1,0,0,'2021-09-29 16:50:34'),(9,3,4,9,1,0,0,'2021-09-29 16:51:31');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +131,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'Just created an account in this awesome website.','2018-09-29 14:42:50',0,0,2,'dPY3BrAuy7Ypq9M4k1HO',1),(2,'Looking for lawyer\nLocation: New York\nNice to have: Harvard B.Sc.','2018-09-29 15:45:32',1,1,2,'',0),(3,'Looking for software developer\nLocation: Silicon Valley, California\nNice to have: Experience (5yr) as system administrator or IT infrastracture manager','2018-09-29 16:07:19',1,1,2,'',0),(4,'Looking for web developer (full stack)\nLocation: Silicon Valley, California\nNice to have: Experience with REST-ful APIs','2018-09-29 16:08:28',1,1,2,'',0),(5,'Good morning linkdin users!','2018-09-29 16:16:40',0,1,4,'LmeQ8yn3t3J8MRcSM1Nl',1),(6,'How is everyone doing?','2018-09-29 16:17:03',0,1,4,'',0),(7,'Got my hair done today!','2018-09-29 16:22:03',0,1,3,'HDsNNf8MqoX5uxWZtdW4',1),(8,'Hello everyone','2018-09-29 16:29:47',0,1,6,'',0),(9,'New photoshoot','2018-09-29 16:50:06',0,1,3,'MyXiGBjFyLLba6TZcd2Z',1),(10,'We are looking for software engineer & software developer.\n\nLocation: \nSan Francisco Microsoft Technology Center\n\nRequirements:\n* At least 3 years experience in similar position\n* C/C++','2018-09-29 17:07:23',1,1,8,'',0),(11,'hello world','2018-09-29 17:32:44',0,0,9,'',0),(12,'HACKERMAN','2018-09-29 18:25:18',0,1,9,'AUy7cMZwX5AClZjpQAkA',1);
+INSERT INTO `post` VALUES (1,'Just created an account in this awesome website.','2021-09-29 14:42:50',0,0,2,'dPY3BrAuy7Ypq9M4k1HO',1),(2,'Looking for lawyer\nLocation: New York\nNice to have: Harvard B.Sc.','2021-09-29 15:45:32',1,1,2,'',0),(3,'Looking for software developer\nLocation: Silicon Valley, California\nNice to have: Experience (5yr) as system administrator or IT infrastracture manager','2021-09-29 16:07:19',1,1,2,'',0),(4,'Looking for web developer (full stack)\nLocation: Silicon Valley, California\nNice to have: Experience with REST-ful APIs','2021-09-29 16:08:28',1,1,2,'',0),(5,'Good morning linkdin users!','2021-09-29 16:16:40',0,1,4,'LmeQ8yn3t3J8MRcSM1Nl',1),(6,'How is everyone doing?','2021-09-29 16:17:03',0,1,4,'',0),(7,'Got my hair done today!','2021-09-29 16:22:03',0,1,3,'HDsNNf8MqoX5uxWZtdW4',1),(8,'Hello everyone','2021-09-29 16:29:47',0,1,6,'',0),(9,'New photoshoot','2021-09-29 16:50:06',0,1,3,'MyXiGBjFyLLba6TZcd2Z',1),(10,'We are looking for software engineer & software developer.\n\nLocation: \nSan Francisco Microsoft Technology Center\n\nRequirements:\n* At least 3 years experience in similar position\n* C/C++','2021-09-29 17:07:23',1,1,8,'',0),(11,'hello world','2021-09-29 17:32:44',0,0,9,'',0),(12,'HACKERMAN','2021-09-29 18:25:18',0,1,9,'AUy7cMZwX5AClZjpQAkA',1);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +187,7 @@ CREATE TABLE `post_comment` (
 
 LOCK TABLES `post_comment` WRITE;
 /*!40000 ALTER TABLE `post_comment` DISABLE KEYS */;
-INSERT INTO `post_comment` VALUES (1,'Question: How much is the salary?','2018-09-29 15:57:01',2,3),(2,'Looking good!','2018-09-29 16:27:45',7,6),(3,'Love the natural look','2018-09-29 16:44:42',7,4);
+INSERT INTO `post_comment` VALUES (1,'Question: How much is the salary?','2021-09-29 15:57:01',2,3),(2,'Looking good!','2021-09-29 16:27:45',7,6),(3,'Love the natural look','2021-09-29 16:44:42',7,4);
 /*!40000 ALTER TABLE `post_comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,4 +292,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-29 18:41:29
+-- Dump completed on 2021-09-29 18:41:29
