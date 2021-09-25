@@ -1,5 +1,18 @@
-version: '3.1'
+version: '2.1'
 services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    command: bash -c " java -jar target/app.jar"
+    networks:
+      - app-mysql
+    ports:
+      - "8080:8080"
+
   db:
     image: mysql:5.7
     restart: always
@@ -12,18 +25,10 @@ services:
       - app-mysql
     volumes:
       - $HOME/Desktop/MySQL/linkdin.sql:/linkdin.sql
-
-  app:
-    build:
-      context: ./
-      dockerfile: ./Dockerfile
-    depends_on:
-      - db
-    command: bash -c " java -jar target/app.jar"
-    networks:
-      - app-mysql
-    ports:
-      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
 networks:
   app-mysql:
